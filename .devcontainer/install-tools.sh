@@ -2,7 +2,7 @@
 set -e
 
 # PulseAudio client (for voice input from macOS host)
-echo "[0/7] Installing PulseAudio client..."
+echo "[0/8] Installing PulseAudio client..."
 sudo apt-get update -qq && sudo apt-get install -y -qq pulseaudio-utils libsox-fmt-pulse libasound2-plugins
 # Route ALSA through PulseAudio so sox uses PulseAudio by default
 cat <<'ASOUNDRC' > "$HOME/.asoundrc"
@@ -13,25 +13,30 @@ ctl.!default {
     type pulse
 }
 ASOUNDRC
-echo "[0/7] PulseAudio client installed."
+echo "[0/8] PulseAudio client installed."
 
 # Claude Code
-echo "[1/7] Installing Claude Code..."
+echo "[1/8] Installing Claude Code..."
 curl -fsSL https://claude.ai/install.sh | bash
-echo "[1/7] Claude Code installed."
+echo "[1/8] Claude Code installed."
+
+# bubblewrap (required for Codex sandbox)
+echo "[2/8] Installing bubblewrap (Codex sandbox dependency)..."
+sudo apt-get install -y -qq bubblewrap
+echo "[2/8] bubblewrap installed."
 
 # codex (OpenAI Codex CLI)
-echo "[2/7] Installing OpenAI Codex CLI..."
+echo "[3/8] Installing OpenAI Codex CLI..."
 npm i -g @openai/codex
-echo "[2/7] OpenAI Codex CLI installed."
+echo "[3/8] OpenAI Codex CLI installed."
 
 # uv (Python package manager)
-echo "[3/7] Installing uv (Python package manager)..."
+echo "[4/8] Installing uv (Python package manager)..."
 curl -LsSf https://astral.sh/uv/install.sh | sh
 # Make uv available system-wide
 sudo ln -sf "$HOME/.local/bin/uv" /usr/local/bin/uv
 sudo ln -sf "$HOME/.local/bin/uvx" /usr/local/bin/uvx
-echo "[3/7] uv installed."
+echo "[4/8] uv installed."
 
 # Detect architecture
 ARCH=$(dpkg --print-architecture)
@@ -44,30 +49,30 @@ else
 fi
 
 # aws-vault
-echo "[4/7] Installing aws-vault..."
+echo "[5/8] Installing aws-vault..."
 sudo curl -L -o /usr/local/bin/aws-vault \
   "https://github.com/99designs/aws-vault/releases/latest/download/aws-vault-${VAULT_ARCH}"
 sudo chmod +x /usr/local/bin/aws-vault
-echo "[4/7] aws-vault installed."
+echo "[5/8] aws-vault installed."
 
 # AWS SSM Session Manager Plugin
-echo "[5/7] Installing AWS SSM Session Manager Plugin..."
+echo "[6/8] Installing AWS SSM Session Manager Plugin..."
 curl -fsSL "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/${SSM_ARCH}/session-manager-plugin.deb" \
   -o /tmp/session-manager-plugin.deb
 sudo dpkg -i /tmp/session-manager-plugin.deb
 rm /tmp/session-manager-plugin.deb
-echo "[5/7] AWS SSM Session Manager Plugin installed."
+echo "[6/8] AWS SSM Session Manager Plugin installed."
 
 # Draw.io MCP
-echo "[6/7] Installing Draw.io MCP..."
+echo "[7/8] Installing Draw.io MCP..."
 npm i -g @drawio/mcp
-echo "[6/7] Draw.io MCP installed."
+echo "[7/8] Draw.io MCP installed."
 
 # Serena config
-echo "[7/7] Setting up Serena config..."
+echo "[8/8] Setting up Serena config..."
 mkdir -p "$HOME/.serena"
 cp .devcontainer/serena_config.yml "$HOME/.serena/serena_config.yml"
-echo "[6/6] Serena config created."
+echo "[8/8] Serena config created."
 
 # Shell aliases
 echo "alias c='claude --allow-dangerously-skip-permissions'" >> "$HOME/.bashrc"
