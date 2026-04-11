@@ -34,7 +34,7 @@ ls zenn/articles/*.md
 ### 3. &lt;your-zenn-repo&gt;の最新化
 
 ```bash
-cd {ZENN_SATOKEN_PATH}
+cd {ZENN_REPO_PATH}
 git pull origin main
 ```
 
@@ -42,10 +42,10 @@ git pull origin main
 
 ```bash
 # 全記事コピー
-cp {PROJECT_ROOT}/zenn/articles/*.md {ZENN_SATOKEN_PATH}/articles/
+cp {PROJECT_ROOT}/zenn/articles/*.md {ZENN_REPO_PATH}/articles/
 
 # または特定の記事のみ
-cp {PROJECT_ROOT}/zenn/articles/{slug}.md {ZENN_SATOKEN_PATH}/articles/
+cp {PROJECT_ROOT}/zenn/articles/{slug}.md {ZENN_REPO_PATH}/articles/
 ```
 
 ### 5. published: false の確認
@@ -53,7 +53,7 @@ cp {PROJECT_ROOT}/zenn/articles/{slug}.md {ZENN_SATOKEN_PATH}/articles/
 下書き公開の場合、コピーした記事が `published: false` であることを確認する。
 
 ```bash
-grep "published:" {ZENN_SATOKEN_PATH}/articles/{対象ファイル}
+grep "published:" {ZENN_REPO_PATH}/articles/{対象ファイル}
 ```
 
 ユーザーが「公開して」と明示した場合のみ `published: true` に変更する。
@@ -61,7 +61,7 @@ grep "published:" {ZENN_SATOKEN_PATH}/articles/{対象ファイル}
 ### 6. コミット & push
 
 ```bash
-cd {ZENN_SATOKEN_PATH}
+cd {ZENN_REPO_PATH}
 git add articles/
 git status
 git commit -m "add: {記事の簡潔な説明}"
