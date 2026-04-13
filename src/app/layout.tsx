@@ -1,12 +1,14 @@
-import { GeistMono } from 'geist/font/mono';
-import { GeistSans } from 'geist/font/sans';
 import type { Metadata } from 'next';
+import { Geist, Geist_Mono } from 'next/font/google';
 import { Footer } from '@/components/layout/Footer';
 import { Header } from '@/components/layout/Header';
 import { siteMetadata } from '@/data/metadata';
 import { NAV_LINKS } from '@/data/navigation';
 import { socialLinks } from '@/data/social';
 import './globals.css';
+
+const geistSans = Geist({ subsets: ['latin'], variable: '--font-geist-sans-face' });
+const geistMono = Geist_Mono({ subsets: ['latin'], variable: '--font-geist-mono-face' });
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteMetadata.url),
@@ -34,7 +36,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ja" className={`${GeistSans.variable} ${GeistMono.variable}`}>
+    <html lang="ja" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body className="min-h-screen bg-pure-white font-geist-sans text-vercel-black antialiased">
         <Header siteName={siteMetadata.name} navLinks={NAV_LINKS} />
         <main>{children}</main>
