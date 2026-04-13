@@ -5,8 +5,16 @@ export const projects: Project[] = [
     id: 'portfolio-site',
     title: 'Portfolio Site (Next.js)',
     description:
-      'Next.js 14 App Router + Static Export で構築したポートフォリオサイト。Tailwind CSS によるデザインシステム実装、Jest + React Testing Library によるコンポーネントテスト、GitHub Actions CI/CD を含む。',
-    technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Jest', 'GitHub Actions'],
+      'Next.js 16 App Router + Static Export で構築したポートフォリオサイト。Tailwind CSS v4 + shadcn/ui によるデザインシステム実装、Vitest + React Testing Library によるコンポーネントテスト、Biome によるフォーマット・リント、GitHub Actions CI/CD を含む。',
+    technologies: [
+      'Next.js 16',
+      'TypeScript',
+      'Tailwind CSS v4',
+      'shadcn/ui',
+      'Vitest',
+      'Biome',
+      'GitHub Actions',
+    ],
     githubUrl: 'https://github.com/OumeiSatoKenta/cc_nextjs_portfolio',
     highlights: [
       'DESIGN.md 駆動のデザインシステム（Vercel 風）',
