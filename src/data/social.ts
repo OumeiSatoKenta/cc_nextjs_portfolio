@@ -3,17 +3,17 @@ import type { SocialLink } from '@/types';
 export const socialLinks: SocialLink[] = [
   {
     platform: 'GitHub',
-    url: 'https://github.com/username',
+    url: 'https://github.com/OumeiSatoKenta',
     icon: 'github',
   },
   {
-    platform: 'X',
-    url: 'https://x.com/username',
-    icon: 'twitter',
+    platform: 'connpass',
+    url: 'https://connpass.com/user/satoken722/',
+    icon: 'calendar',
   },
   {
     platform: 'Mail',
-    url: 'mailto:your@email.com',
+    url: 'mailto:satoken.sk.722@gmail.com',
     icon: 'mail',
   },
 ];

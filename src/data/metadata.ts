@@ -8,7 +8,7 @@ export const siteMetadata: SiteMetadata = {
   url: 'https://example.com',
   ogImage: '/images/og-image.png',
   author: {
-    name: 'Your Name',
+    name: '佐藤健太',
     tagline: 'SRE Engineer — Multi-Cloud · IaC · AI-Driven Development',
     strengths: [
       {
