@@ -1,4 +1,4 @@
-import { DynamicIcon, type IconName } from 'lucide-react/dynamic';
+import { SocialIcon } from '@/components/icons/SocialIcon';
 import { isExternalHttpUrl } from '@/lib/url';
 import type { SocialLink } from '@/types';
 
@@ -28,7 +28,7 @@ export function Footer({ authorName, socialLinks }: FooterProps) {
                   className="inline-flex items-center justify-center rounded-circle p-8 text-gray-500 transition-colors hover:text-vercel-black focus-visible:shadow-focus focus-visible:outline-none"
                   aria-label={link.label ?? link.platform}
                 >
-                  <DynamicIcon name={link.icon as IconName} size={20} />
+                  <SocialIcon name={link.icon} size={20} />
                 </a>
               </li>
             );

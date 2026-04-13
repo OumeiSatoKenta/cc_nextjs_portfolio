@@ -1,4 +1,4 @@
-import { DynamicIcon, type IconName } from 'lucide-react/dynamic';
+import { SocialIcon } from '@/components/icons/SocialIcon';
 import { isExternalHttpUrl } from '@/lib/url';
 
 interface SocialLinkCardProps {
@@ -14,7 +14,7 @@ export function SocialLinkCard({ platform, url, icon, label }: SocialLinkCardPro
 
   return (
     <article className="flex flex-col gap-16 rounded-comfortable bg-pure-white p-32 shadow-subtle-card transition-shadow hover:shadow-full-card">
-      <DynamicIcon name={icon as IconName} size={32} className="text-gray-600" aria-hidden="true" />
+      <SocialIcon name={icon} size={32} className="text-gray-600" />
       <h3 className="text-body-medium text-vercel-black">{displayName}</h3>
       <a
         href={url}
