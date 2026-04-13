@@ -35,3 +35,33 @@ export interface NavLink {
   href: string;
   label: string;
 }
+
+export interface Career {
+  company: string;
+  role: string;
+  period: {
+    start: string;
+    end?: string;
+  };
+  description: string;
+  achievements: string[];
+  technologies?: string[];
+}
+
+export type SkillCategory = 'cloud' | 'language' | 'database' | 'tool';
+
+export type SkillLevel = 'expert' | 'advanced' | 'intermediate' | 'beginner';
+
+export interface Skill {
+  name: string;
+  category: SkillCategory;
+  level?: SkillLevel;
+}
+
+export interface Education {
+  type: 'certification' | 'degree';
+  title: string;
+  institution?: string;
+  date: string;
+  description?: string;
+}
