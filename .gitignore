@@ -41,9 +41,7 @@ Thumbs.db
 coverage/
 .nyc_output/
 
-# Steering files (task management - temporary)
-.steering/*
-!.steering/.gitkeep
+# Steering files (task management - tracked for history)
 
 # Lock files (keep package-lock.json for consistency)
 # yarn.lock
