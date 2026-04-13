@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
+import { vi } from 'vitest';
 
-jest.mock('lucide-react/dynamic', () => ({
+vi.mock('lucide-react/dynamic', () => ({
   DynamicIcon: ({ name }: { name: string }) => <svg data-testid={`icon-${name}`} />,
 }));
 
