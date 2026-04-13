@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { Navigation } from '@/components/layout/Navigation';
 import { NAV_LINKS } from '@/data/navigation';
 

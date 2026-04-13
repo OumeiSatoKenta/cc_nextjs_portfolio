@@ -1,4 +1,4 @@
-import { Career } from '@/types';
+import type { Career } from '@/types';
 
 export const careers: Career[] = [
   {
@@ -38,14 +38,7 @@ export const careers: Career[] = [
       'CDN / LB / DNS 導入（Managed SSL / Cloud CDN / Global LB）',
       'シーズン運用連動のインフラライフサイクル管理',
     ],
-    technologies: [
-      'Google Cloud',
-      'Terraform',
-      'Docker',
-      'Python',
-      'GitHub',
-      'Claude Code',
-    ],
+    technologies: ['Google Cloud', 'Terraform', 'Docker', 'Python', 'GitHub', 'Claude Code'],
   },
   {
     company: '大手美容メディア企業 B 社',
@@ -88,8 +81,7 @@ export const careers: Career[] = [
     company: '株式会社シャノン',
     role: 'サーバー / SRE エンジニア',
     period: { start: '2021-04', end: '2023-05' },
-    description:
-      '20 年続く MA SaaS（Shanon Marketing Platform）のサーバー / SRE を新卒から担当。',
+    description: '20 年続く MA SaaS（Shanon Marketing Platform）のサーバー / SRE を新卒から担当。',
     achievements: [
       'DB チューニング（インデックス・ユニークキー）、データ登録処理の分割化',
       'プログレスバー処理の非同期化によるレスポンス改善',
@@ -97,14 +89,6 @@ export const careers: Career[] = [
       'Capybara による E2E 自動化テスト、QA テストケース作成・実施',
       '新人入社研修カリキュラム作成',
     ],
-    technologies: [
-      'AWS',
-      'Docker',
-      'Perl',
-      'Ruby on Rails',
-      'PostgreSQL',
-      'Jenkins',
-      'GitHub',
-    ],
+    technologies: ['AWS', 'Docker', 'Perl', 'Ruby on Rails', 'PostgreSQL', 'Jenkins', 'GitHub'],
   },
 ];

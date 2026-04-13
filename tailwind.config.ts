@@ -45,10 +45,7 @@ const config: Config = {
         ],
       },
       fontSize: {
-        'display-hero': [
-          '3rem',
-          { lineHeight: '1.1', letterSpacing: '-2.4px', fontWeight: '600' },
-        ],
+        'display-hero': ['3rem', { lineHeight: '1.1', letterSpacing: '-2.4px', fontWeight: '600' }],
         'section-heading': [
           '2.5rem',
           { lineHeight: '1.2', letterSpacing: '-2.4px', fontWeight: '600' },
@@ -57,10 +54,7 @@ const config: Config = {
           '2rem',
           { lineHeight: '1.25', letterSpacing: '-1.28px', fontWeight: '600' },
         ],
-        'sub-heading': [
-          '2rem',
-          { lineHeight: '1.5', letterSpacing: '-1.28px', fontWeight: '400' },
-        ],
+        'sub-heading': ['2rem', { lineHeight: '1.5', letterSpacing: '-1.28px', fontWeight: '400' }],
         'card-title': [
           '1.5rem',
           { lineHeight: '1.33', letterSpacing: '-0.96px', fontWeight: '600' },
@@ -69,38 +63,17 @@ const config: Config = {
           '1.5rem',
           { lineHeight: '1.33', letterSpacing: '-0.96px', fontWeight: '500' },
         ],
-        'body-large': [
-          '1.25rem',
-          { lineHeight: '1.8', fontWeight: '400' },
-        ],
-        body: [
-          '1.125rem',
-          { lineHeight: '1.56', fontWeight: '400' },
-        ],
-        'body-small': [
-          '1rem',
-          { lineHeight: '1.5', fontWeight: '400' },
-        ],
-        'body-medium': [
-          '1rem',
-          { lineHeight: '1.5', fontWeight: '500' },
-        ],
+        'body-large': ['1.25rem', { lineHeight: '1.8', fontWeight: '400' }],
+        body: ['1.125rem', { lineHeight: '1.56', fontWeight: '400' }],
+        'body-small': ['1rem', { lineHeight: '1.5', fontWeight: '400' }],
+        'body-medium': ['1rem', { lineHeight: '1.5', fontWeight: '500' }],
         'body-semibold': [
           '1rem',
           { lineHeight: '1.5', letterSpacing: '-0.32px', fontWeight: '600' },
         ],
-        'button-link': [
-          '0.875rem',
-          { lineHeight: '1.43', fontWeight: '500' },
-        ],
-        'button-small': [
-          '0.875rem',
-          { lineHeight: '1.00', fontWeight: '400' },
-        ],
-        caption: [
-          '0.75rem',
-          { lineHeight: '1.33', fontWeight: '400' },
-        ],
+        'button-link': ['0.875rem', { lineHeight: '1.43', fontWeight: '500' }],
+        'button-small': ['0.875rem', { lineHeight: '1.00', fontWeight: '400' }],
+        caption: ['0.75rem', { lineHeight: '1.33', fontWeight: '400' }],
       },
       borderRadius: {
         micro: '2px',
@@ -116,8 +89,7 @@ const config: Config = {
       boxShadow: {
         ring: 'rgba(0, 0, 0, 0.08) 0px 0px 0px 1px',
         'light-ring': 'rgb(235, 235, 235) 0px 0px 0px 1px',
-        'subtle-card':
-          'rgba(0, 0, 0, 0.08) 0px 0px 0px 1px, rgba(0, 0, 0, 0.04) 0px 2px 2px',
+        'subtle-card': 'rgba(0, 0, 0, 0.08) 0px 0px 0px 1px, rgba(0, 0, 0, 0.04) 0px 2px 2px',
         'full-card':
           'rgba(0, 0, 0, 0.08) 0px 0px 0px 1px, rgba(0, 0, 0, 0.04) 0px 2px 2px, rgba(0, 0, 0, 0.04) 0px 8px 8px -8px, #fafafa 0px 0px 0px 1px',
         focus: '0 0 0 2px hsla(212, 100%, 48%, 1)',

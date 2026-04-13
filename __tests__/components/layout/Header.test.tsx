@@ -12,8 +12,7 @@ const mockedUsePathname = usePathname as jest.MockedFunction<typeof usePathname>
 
 const SITE_NAME = 'Test Site';
 
-const renderHeader = () =>
-  render(<Header siteName={SITE_NAME} navLinks={NAV_LINKS} />);
+const renderHeader = () => render(<Header siteName={SITE_NAME} navLinks={NAV_LINKS} />);
 
 describe('Header', () => {
   beforeEach(() => {

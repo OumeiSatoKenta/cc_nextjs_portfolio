@@ -6,8 +6,7 @@ interface FooterProps {
   socialLinks: SocialLink[];
 }
 
-const isExternalHttpUrl = (url: string) =>
-  url.startsWith('http://') || url.startsWith('https://');
+const isExternalHttpUrl = (url: string) => url.startsWith('http://') || url.startsWith('https://');
 
 export function Footer({ authorName, socialLinks }: FooterProps) {
   const currentYear = new Date().getFullYear();
@@ -26,9 +25,7 @@ export function Footer({ authorName, socialLinks }: FooterProps) {
               <li key={link.platform}>
                 <a
                   href={link.url}
-                  {...(external
-                    ? { target: '_blank', rel: 'noopener noreferrer' }
-                    : {})}
+                  {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                   className="inline-flex items-center justify-center rounded-circle p-8 text-gray-500 transition-colors hover:text-vercel-black focus-visible:shadow-focus focus-visible:outline-none"
                   aria-label={link.label ?? link.platform}
                 >

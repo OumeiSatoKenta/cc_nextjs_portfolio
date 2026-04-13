@@ -26,9 +26,7 @@ describe('HomePage', () => {
   it('renders each strength title as an h3 heading', () => {
     render(<HomePage />);
     siteMetadata.author.strengths.forEach((strength) => {
-      expect(
-        screen.getByRole('heading', { level: 3, name: strength.title })
-      ).toBeInTheDocument();
+      expect(screen.getByRole('heading', { level: 3, name: strength.title })).toBeInTheDocument();
     });
   });
 

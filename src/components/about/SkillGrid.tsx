@@ -36,7 +36,7 @@ export function SkillGrid({ skills }: SkillGridProps) {
             {group.items.map((skill) => (
               <span
                 key={skill.name}
-                className={`rounded-pill px-10 py-3 text-caption font-medium ${LEVEL_BADGE_CLASS[skill.level ?? 'intermediate']}`}
+                className={`rounded-pill px-10 py-3 font-medium text-caption ${LEVEL_BADGE_CLASS[skill.level ?? 'intermediate']}`}
               >
                 {skill.name}
               </span>
