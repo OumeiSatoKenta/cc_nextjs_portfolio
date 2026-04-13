@@ -30,9 +30,9 @@ const config: Config = {
         },
       },
       fontFamily: {
-        'geist-sans': ['var(--font-geist-sans)', 'Arial', 'sans-serif'],
+        'geist-sans': ['var(--font-geist-sans-face)', 'Arial', 'sans-serif'],
         'geist-mono': [
-          'var(--font-geist-mono)',
+          'var(--font-geist-mono-face)',
           'ui-monospace',
           'SFMono-Regular',
           'Roboto Mono',
