@@ -168,6 +168,20 @@ const LEVEL_BADGE_CLASS: Record<SkillLevel, string> = {
 
 **初出**: `.steering/20260413-add-about-page/`（page.test.tsx で skill names → category headings に変更）
 
+### hover 状態のシャドウも DESIGN.md トークンを使う
+
+**ルール**: `hover:shadow-md` や `hover:shadow-lg` のような Tailwind デフォルトのシャドウクラスを hover 状態に使わない。`hover:shadow-full-card` のように DESIGN.md で定義されたデザイントークンを使用する。
+
+**根拠**: 静的状態では `shadow-subtle-card` 等の DESIGN.md トークンを使っていても、hover で Tailwind デフォルトに切り替えるとデザインシステムの一貫性が崩れる。
+
+**初出**: `.steering/20260413-add-projects-page/`（ProjectCard）
+
+### 外部リンクのセキュリティ属性はテストで全種別検証する
+
+**ルール**: `target="_blank"` と `rel="noopener noreferrer"` のアサーションは GitHub リンクだけでなく Live リンク等すべての外部リンク種別で検証する。
+
+**初出**: `.steering/20260413-add-projects-page/`（ProjectCard.test.tsx）
+
 ## パス比較
 
 ### prefix-only マッチの境界バグ
