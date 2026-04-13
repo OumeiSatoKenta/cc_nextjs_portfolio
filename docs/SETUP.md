@@ -19,7 +19,7 @@ cd <project-name>
 bash scripts/init-project.sh <project-name>
 ```
 
-このスクリプトは以下のファイル内の `cc_base` を指定した名前に置換する:
+このスクリプトは以下のファイル内の `cc_nextjs_portfolio` を指定した名前に置換する:
 
 | ファイル | 置換箇所 |
 |---------|---------|
@@ -231,6 +231,80 @@ rec -t wav /tmp/test.wav trim 0 1
 ```bash
 npm run dev
 ```
+
+## 7. CI/CD パイプラインの初期設定
+
+`.github/workflows/ci.yml`（PR 品質ゲート）と `.github/workflows/deploy.yml`（main push デプロイ）が本リポジトリに含まれる。初回デプロイ前に以下のセットアップが必要。
+
+### 7-1. インフラ側（`cc_aws_portfolio`）の前提条件
+
+本リポジトリのデプロイは、別リポジトリ `cc_aws_portfolio` で Terraform によって作成される以下のリソースに依存する:
+
+| リソース | Terraform output |
+|---------|-----------------|
+| GitHub Actions 用 IAM ロール（OIDC） | `iam_role_arn` |
+| 静的サイトホスティング S3 バケット | `s3_bucket_name` |
+| CloudFront Distribution | `cloudfront_distribution_id` |
+
+**重要**: `cc_aws_portfolio/terraform/terraform.tfvars` の `github_repo` を本リポジトリ名（`cc_nextjs_portfolio`）に修正してから `terraform apply` する必要がある。
+
+```hcl
+# cc_aws_portfolio/terraform/terraform.tfvars
+github_repo = "cc_nextjs_portfolio"   # デプロイ元リポジトリ名
+```
+
+この値は IAM Trust Policy の `sub` 条件（`repo:${org}/${repo}:ref:refs/heads/main`）に使われるため、一致していないと GitHub Actions からの AssumeRoleWithWebIdentity が `AccessDenied` で失敗する。
+
+### 7-2. Terraform output の確認
+
+インフラ側で値を取得する:
+
+```bash
+cd /workspaces/cc_aws_portfolio/terraform
+terraform output iam_role_arn
+terraform output s3_bucket_name
+terraform output cloudfront_distribution_id
+```
+
+### 7-3. GitHub Secrets の登録
+
+リポジトリ Settings → **Secrets and variables → Actions → Secrets** タブで、以下 3 つを登録する（機密値）:
+
+| Secret 名 | 値の例 |
+|----------|--------|
+| `AWS_ROLE_ARN` | `arn:aws:iam::123456789012:role/portfolio-github-actions` |
+| `S3_BUCKET_NAME` | `portfolio-site-123456789012` |
+| `CLOUDFRONT_DISTRIBUTION_ID` | `E1234ABCDEF` |
+
+CLI で登録する場合:
+
+```bash
+gh secret set AWS_ROLE_ARN --body "arn:aws:iam::123456789012:role/portfolio-github-actions"
+gh secret set S3_BUCKET_NAME --body "portfolio-site-123456789012"
+gh secret set CLOUDFRONT_DISTRIBUTION_ID --body "E1234ABCDEF"
+```
+
+### 7-4. GitHub Variables の登録
+
+同じ画面の **Variables** タブで、以下 1 つを登録する（非機密値。ログでマスクされない）:
+
+| Variable 名 | 値 |
+|------------|-----|
+| `AWS_REGION` | `ap-northeast-1` |
+
+CLI で登録する場合:
+
+```bash
+gh variable set AWS_REGION --body "ap-northeast-1"
+```
+
+### 7-5. 動作確認
+
+1. 適当なブランチから main 宛の PR を開く → `ci.yml` が自動実行されることを確認
+2. PR をマージ（main に push）→ `deploy.yml` が自動実行され、S3 への sync と CloudFront invalidation が成功することを確認
+3. 本番 URL にアクセスして変更が反映されていることを確認（invalidation 完了まで 1〜2 分）
+
+失敗時のトラブルシューティングは `.steering/20260412-add-cicd-pipeline/design.md` § エラーハンドリング方針を参照。
 
 ## トラブルシューティング
 
