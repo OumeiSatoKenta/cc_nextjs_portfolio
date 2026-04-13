@@ -64,6 +64,10 @@
     }
   },
   "css": {
+    "parser": {
+      "cssModules": false,
+      "tailwindDirectives": true
+    },
     "formatter": {
       "indentStyle": "space",
       "indentWidth": 2
