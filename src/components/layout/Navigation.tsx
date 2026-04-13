@@ -76,7 +76,7 @@ export function Navigation({ isOpen, onClose, navLinks }: NavigationProps) {
         isOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
       }`}
       aria-hidden={!isOpen}
-      {...(!isOpen ? { inert: '' as unknown as boolean } : {})}
+      inert={!isOpen}
     >
       {/* Overlay */}
       <div className="absolute inset-0 bg-[rgba(0,0,0,0.4)]" onClick={onClose} aria-hidden="true" />
