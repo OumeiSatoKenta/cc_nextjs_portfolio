@@ -69,6 +69,17 @@ export interface Project {
   featured: boolean;
 }
 
+export type BlogPlatform = 'zenn' | 'qiita' | 'note' | 'amazon' | 'other';
+
+export interface BlogPost {
+  title: string;
+  url: string;
+  publishedAt: string;
+  platform: BlogPlatform;
+  description?: string;
+  tags?: string[];
+}
+
 export interface Education {
   type: 'certification' | 'degree';
   title: string;
