@@ -56,3 +56,6 @@ coverage/
 
 # Large installer binaries
 *.pkg
+
+# Personal resume (local reference only; do not commit)
+docs/20260411_resume.pdf
