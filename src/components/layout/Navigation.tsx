@@ -78,9 +78,7 @@ export function Navigation({ isOpen, onClose, navLinks }: NavigationProps) {
         isOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
       }`}
       aria-hidden={!isOpen}
-      // `inert` when closed prevents focus and AT from reaching the hidden dialog
-      // content even though it stays in the DOM for the exit transition.
-      inert={!isOpen}
+      {...(!isOpen ? { inert: '' as unknown as boolean } : {})}
     >
       {/* Overlay */}
       <div
