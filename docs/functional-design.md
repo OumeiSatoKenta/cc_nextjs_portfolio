@@ -487,14 +487,18 @@ interface BlogCardProps {
 
 ```typescript
 interface SocialLinkCardProps {
-  link: SocialLink;
+  platform: string;
+  url: string;
+  icon: string;
+  label?: string;
 }
 ```
 
 **表示要素**:
-- プラットフォームアイコン
+- プラットフォームアイコン: DynamicIcon（lucide-react/dynamic）size 32
 - プラットフォーム名: Body Medium（Geist 16px weight 500）
-- リンク（`target="_blank"`, `rel="noopener noreferrer"`）
+- リンク: `「{label ?? platform} →」`（外部 URL は `target="_blank"` + `rel="noopener noreferrer"`、`mailto:` は target/rel なし）
+- ルート要素は `<article>`（ProjectCard / BlogCard と同一パターン）
 
 ### 汎用UIコンポーネント
 
