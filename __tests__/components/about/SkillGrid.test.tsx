@@ -55,9 +55,7 @@ describe('SkillGrid', () => {
   });
 
   it('omits categories with no skills', () => {
-    const cloudOnly: Skill[] = [
-      { name: 'AWS', category: 'cloud', level: 'expert', years: 3 },
-    ];
+    const cloudOnly: Skill[] = [{ name: 'AWS', category: 'cloud', level: 'expert', years: 3 }];
     render(<SkillGrid skills={cloudOnly} />);
     expect(screen.getByText('Cloud / IaC')).toBeInTheDocument();
     expect(screen.queryByText('Languages')).not.toBeInTheDocument();
