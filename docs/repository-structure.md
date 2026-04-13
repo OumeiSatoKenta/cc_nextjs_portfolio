@@ -54,8 +54,7 @@ cc_nextjs_portfolio/
 │   ├── components/             # 再利用可能なUIコンポーネント
 │   │   ├── layout/             # レイアウト系コンポーネント
 │   │   │   ├── Header.tsx
-│   │   │   ├── Footer.tsx
-│   │   │   └── Navigation.tsx
+│   │   │   └── Footer.tsx
 │   │   ├── home/               # トップページ専用コンポーネント
 │   │   │   ├── HeroSection.tsx
 │   │   │   └── StrengthCard.tsx
@@ -69,7 +68,11 @@ cc_nextjs_portfolio/
 │   │   │   └── BlogCard.tsx
 │   │   ├── contact/            # Contactページ専用コンポーネント
 │   │   │   └── SocialLinkCard.tsx
-│   │   └── ui/                 # 汎用UIパーツ
+│   │   ├── icons/              # カスタムアイコンコンポーネント
+│   │   │   ├── GithubIcon.tsx   # GitHub SVGアイコン（lucide-react非搭載のため独自実装）
+│   │   │   └── SocialIcon.tsx   # アイコン名→コンポーネントの静的マッピング
+│   │   └── ui/                 # 汎用UIパーツ（shadcn/ui含む）
+│   │       ├── sheet.tsx        # shadcn/ui Sheet（Radix Dialogベース、モバイルナビ用）
 │   │       ├── SectionHeading.tsx
 │   │       ├── Badge.tsx
 │   │       └── ExternalLink.tsx
@@ -83,12 +86,15 @@ cc_nextjs_portfolio/
 │   │   └── social.ts           # SNS・外部リンク
 │   ├── hooks/                  # 再利用可能なカスタムフック
 │   │   └── useActiveNav.ts     # パス境界バグフリーなアクティブ判定
+│   ├── lib/                    # ユーティリティ関数
+│   │   ├── url.ts              # URL判定ヘルパー（isExternalHttpUrl等）
+│   │   └── utils.ts            # cn()ヘルパー（clsx + tailwind-merge）
 │   └── types/                  # 型定義
 │       └── index.ts            # 共有型定義（データモデルインターフェース）
 ├── __tests__/                  # テストファイル
 │   ├── components/             # コンポーネントテスト
 │   │   ├── layout/
-│   │   │   ├── Header.test.tsx
+│   │   │   ├── Header.test.tsx  # Sheet統合テスト含む
 │   │   │   └── Footer.test.tsx
 │   │   ├── home/
 │   │   │   └── StrengthCard.test.tsx
@@ -103,14 +109,15 @@ cc_nextjs_portfolio/
 │       └── static-export.test.ts
 ├── CLAUDE.md                   # Claude Code プロジェクト設定
 ├── DESIGN.md                   # デザインシステム定義（Vercel Inspired）
-├── next.config.js              # Next.js設定
-├── tailwind.config.ts          # Tailwind CSS設定（DESIGN.mdトークン反映）
+├── next.config.ts              # Next.js設定（TypeScript）
 ├── tsconfig.json               # TypeScript設定
-├── postcss.config.js           # PostCSS設定（Tailwind用）
+├── postcss.config.js           # PostCSS設定（@tailwindcss/postcss）
+├── biome.json                  # Biome設定（フォーマッター + 汎用リンター）
+├── eslint.config.mjs           # ESLint Flat Config（Next.js固有ルールのみ）
+├── vitest.config.ts            # Vitest設定（テストランナー）
+├── components.json             # shadcn/ui設定（コンポーネントパス・エイリアス）
 ├── package.json                # 依存関係・スクリプト定義
 ├── package-lock.json           # 依存関係ロックファイル
-├── .eslintrc.json              # ESLint設定
-├── .prettierrc                 # Prettier設定
 └── .gitignore                  # Git除外設定
 ```
 
@@ -144,13 +151,14 @@ cc_nextjs_portfolio/
 
 | ディレクトリ | 用途 | 配置基準 |
 |------------|------|---------|
-| `layout/` | 全ページ共通のレイアウト部品 | Header, Footer, Navigation |
+| `layout/` | 全ページ共通のレイアウト部品 | Header（Sheet統合済み）, Footer |
 | `home/` | トップページ（/）専用 | HeroSection, StrengthCard |
 | `about/` | Aboutページ（/about）専用 | Timeline, SkillGrid |
 | `projects/` | Projectsページ（/projects）専用 | ProjectCard |
 | `blog/` | Blogページ（/blog）専用 | BlogCard |
 | `contact/` | Contactページ（/contact）専用 | SocialLinkCard |
-| `ui/` | ページ横断の汎用UIパーツ | Badge, ExternalLink, SectionHeading |
+| `icons/` | カスタムアイコン | GithubIcon, SocialIcon |
+| `ui/` | ページ横断の汎用UIパーツ（shadcn/ui含む） | Sheet, Badge, ExternalLink, SectionHeading |
 
 **配置判断基準**:
 - 2ページ以上で使われる → `ui/`
@@ -266,7 +274,7 @@ cc_nextjs_portfolio/
 | データファイル | camelCase + `.ts` | `skills.ts`, `projects.ts` |
 | カスタムフック | `use` プレフィックス + camelCase + `.ts` | `useActiveNav.ts` |
 | 型定義 | camelCase + `.ts` | `index.ts` |
-| 設定ファイル | プロジェクト規約に準拠 | `next.config.js`, `tailwind.config.ts` |
+| 設定ファイル | プロジェクト規約に準拠 | `next.config.ts`, `vitest.config.ts`, `biome.json` |
 | テスト | 対象名 + `.test.tsx`/`.test.ts` | `Header.test.tsx` |
 | ドキュメント | kebab-case + `.md` | `product-requirements.md` |
 
@@ -396,35 +404,19 @@ Thumbs.db
 npm-debug.log*
 ```
 
-### `.prettierignore`
-
-```
-out/
-.next/
-node_modules/
-package-lock.json
-```
-
-### `.eslintignore`
-
-```
-out/
-.next/
-node_modules/
-```
-
 ## ルートレベルファイル一覧
 
 | ファイル | 用途 | 編集頻度 |
 |---------|------|---------|
 | `CLAUDE.md` | Claude Codeプロジェクト設定 | 低（方針変更時のみ） |
 | `DESIGN.md` | デザインシステム定義 | 低（デザイン変更時のみ） |
-| `next.config.js` | Next.js設定（Static Export等） | 低 |
-| `tailwind.config.ts` | Tailwind CSSカスタマイズ | 低（DESIGN.mdトークン反映） |
+| `next.config.ts` | Next.js設定（Static Export等） | 低 |
 | `tsconfig.json` | TypeScript設定 | 低 |
-| `postcss.config.js` | PostCSS設定 | ほぼ変更なし |
+| `postcss.config.js` | PostCSS設定（`@tailwindcss/postcss`） | ほぼ変更なし |
+| `biome.json` | Biome設定（フォーマット + リント） | 低 |
+| `eslint.config.mjs` | ESLint Flat Config（Next.js固有ルール） | 低 |
+| `vitest.config.ts` | Vitest設定（テスト環境・エイリアス） | 低 |
+| `components.json` | shadcn/ui設定（コンポーネントパス） | 低 |
 | `package.json` | 依存関係・スクリプト | 中（依存追加時） |
 | `package-lock.json` | 依存関係ロック | 自動更新 |
-| `.eslintrc.json` | ESLint設定 | 低 |
-| `.prettierrc` | Prettier設定 | 低 |
 | `.gitignore` | Git除外設定 | 低 |
