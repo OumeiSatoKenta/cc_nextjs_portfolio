@@ -124,7 +124,7 @@ interface BlogPost {
   tags?: string[];         // タグ
 }
 
-type BlogPlatform = 'zenn' | 'qiita' | 'note' | 'other';
+type BlogPlatform = 'zenn' | 'qiita' | 'note' | 'amazon' | 'other';
 ```
 
 ### エンティティ: SocialLink（SNS・外部リンク）
@@ -475,7 +475,9 @@ interface BlogCardProps {
 - 投稿日: Caption（Geist 12px weight 400）
 - プラットフォーム: Badge（Pill）
 - 概要: Body Small
-- カード全体がリンク（`target="_blank"`, `rel="noopener noreferrer"`）
+- タグ一覧: Badge（Pill）
+- リンク: `「{プラットフォーム名}で読む →」`（`target="_blank"`, `rel="noopener noreferrer"`）
+- ルート要素は `<article>`（ProjectCard と同一パターン）
 
 ### Contactページコンポーネント（F5）
 
@@ -738,14 +740,20 @@ stateDiagram-v2
 │   SectionHeading: Blog                      │
 │                                             │
 │   ┌─────────────────────────────────────┐   │
-│   │  BlogCard                           │   │
-│   │  記事タイトル    [Zenn] 2025-01-15  │   │
+│   │  BlogCard (article)                 │   │
+│   │  2025年1月15日  [Zenn]              │   │
+│   │  記事タイトル                        │   │
 │   │  記事概要テキスト...                 │   │
+│   │  #tag1 #tag2                        │   │
+│   │  Zennで読む →                       │   │
 │   └─────────────────────────────────────┘   │
 │   ┌─────────────────────────────────────┐   │
-│   │  BlogCard                           │   │
-│   │  記事タイトル    [Qiita] 2025-01-10 │   │
+│   │  BlogCard (article)                 │   │
+│   │  2025年1月10日  [Qiita]             │   │
+│   │  記事タイトル                        │   │
 │   │  記事概要テキスト...                 │   │
+│   │  #tag1 #tag2                        │   │
+│   │  Qiitaで読む →                      │   │
 │   └─────────────────────────────────────┘   │
 │                                             │
 ├─────────────────────────────────────────────┤
@@ -940,7 +948,7 @@ export const metadata: Metadata = {
 | Navigation | 高 | モバイルメニューの開閉、オーバーレイクリックで閉じる、リンク遷移で閉じる |
 | Badge | 中 | ラベルテキストの表示、`default`/`blue`/`accent` バリアント別スタイル |
 | ProjectCard | 中 | タイトル・概要・技術タグの表示、GitHubリンクのExternalLink使用 |
-| BlogCard | 中 | 外部リンクのセキュリティ属性、プラットフォームBadgeの表示 |
+| BlogCard | 中 | article要素、外部リンクのセキュリティ属性、プラットフォームBadge・リンクラベルの表示 |
 | StrengthCard | 中 | アクセントカラー3種の正しい適用 |
 | Timeline | 低 | 経歴データの新しい順表示、最後の項目の線終端処理 |
 
