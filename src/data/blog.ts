@@ -6,6 +6,8 @@ export const blogPosts: BlogPost[] = [
     url: 'https://zenn.dev/satoukenta/articles/devcontainer-aws-team-setup',
     publishedAt: '2026-04-12',
     platform: 'zenn',
+    description:
+      'DevContainerでAWS CLI・Terraform・Session Managerなどのツールバージョンを統一し、チーム開発環境の差分をゼロにする方法を解説。',
     tags: ['DevContainer', 'AWS', 'チーム開発'],
   },
   {
@@ -13,6 +15,8 @@ export const blogPosts: BlogPost[] = [
     url: 'https://zenn.dev/satoukenta/articles/tidb-cloud-zero-intro',
     publishedAt: '2026-03-16',
     platform: 'zenn',
+    description:
+      'TiDB Cloud Zeroをcurlだけでセットアップし、pytidbでベクトル検索を実装するハンズオン形式の入門記事。',
     tags: ['TiDB', 'ベクトル検索', 'Python'],
   },
   {
@@ -20,6 +24,8 @@ export const blogPosts: BlogPost[] = [
     url: 'https://zenn.dev/satoukenta/articles/devcontainer-claude-code-voice',
     publishedAt: '2026-03-16',
     platform: 'zenn',
+    description:
+      'DevContainer内でClaude Codeの音声入力機能を使うため、PulseAudio TCP転送でホストのマイクをコンテナに通す設定方法。',
     tags: ['DevContainer', 'Claude Code', 'PulseAudio'],
   },
   {
@@ -27,6 +33,8 @@ export const blogPosts: BlogPost[] = [
     url: 'https://qiita.com/Sato-Kenta/items/617d24808a163118be9c',
     publishedAt: '2025-12-23',
     platform: 'qiita',
+    description:
+      'Docker ComposeでTiDBクラスタをローカルに構築し、開発・テスト・学習に使えるコンテナ化された開発環境を紹介。',
     tags: ['TiDB', 'Database', '開発環境コンテナ化'],
   },
   {
