@@ -1,4 +1,5 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { type MockedFunction, vi } from 'vitest';
 import { Header } from '@/components/layout/Header';
 import { NAV_LINKS } from '@/data/navigation';
@@ -74,5 +75,61 @@ describe('Header', () => {
   it('renders the mobile menu open button', () => {
     renderHeader();
     expect(screen.getByRole('button', { name: 'メニューを開く' })).toBeInTheDocument();
+  });
+
+  it('opens Sheet with navigation links when menu button is clicked', async () => {
+    const user = userEvent.setup();
+    renderHeader();
+
+    await user.click(screen.getByRole('button', { name: 'メニューを開く' }));
+
+    const dialog = screen.getByRole('dialog');
+    expect(dialog).toBeInTheDocument();
+
+    const mobileNav = screen.getByRole('navigation', { name: 'モバイルナビゲーション' });
+    NAV_LINKS.forEach((link) => {
+      const anchor = Array.from(mobileNav.querySelectorAll('a')).find(
+        (a) => a.textContent === link.label
+      );
+      expect(anchor).toBeInTheDocument();
+    });
+  });
+
+  it('closes Sheet when a mobile nav link is clicked', async () => {
+    const user = userEvent.setup();
+    renderHeader();
+
+    await user.click(screen.getByRole('button', { name: 'メニューを開く' }));
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
+
+    const mobileNav = screen.getByRole('navigation', { name: 'モバイルナビゲーション' });
+    const aboutLink = Array.from(mobileNav.querySelectorAll('a')).find(
+      (a) => a.textContent === 'About'
+    );
+    await user.click(aboutLink!);
+
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+  });
+
+  it('closes Sheet when close button is clicked', async () => {
+    const user = userEvent.setup();
+    renderHeader();
+
+    await user.click(screen.getByRole('button', { name: 'メニューを開く' }));
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: 'メニューを閉じる' }));
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+  });
+
+  it('closes Sheet when Escape key is pressed', async () => {
+    const user = userEvent.setup();
+    renderHeader();
+
+    await user.click(screen.getByRole('button', { name: 'メニューを開く' }));
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
+
+    await user.keyboard('{Escape}');
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });
 });
