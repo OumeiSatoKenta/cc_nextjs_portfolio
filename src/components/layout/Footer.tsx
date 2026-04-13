@@ -1,13 +1,11 @@
 import { DynamicIcon, type IconName } from 'lucide-react/dynamic';
 import type { SocialLink } from '@/types';
+import { isExternalHttpUrl } from '@/lib/url';
 
 interface FooterProps {
   authorName: string;
   socialLinks: SocialLink[];
 }
-
-const isExternalHttpUrl = (url: string) =>
-  url.startsWith('http://') || url.startsWith('https://');
 
 export function Footer({ authorName, socialLinks }: FooterProps) {
   const currentYear = new Date().getFullYear();
