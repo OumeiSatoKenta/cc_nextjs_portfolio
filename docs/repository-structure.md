@@ -245,7 +245,7 @@ cc_nextjs_portfolio/
 | **ファイル構成** | `ci.yml`（PR 時の検証）、`deploy.yml`（main push 時の OIDC デプロイ + CloudFront invalidation） |
 | **認証方式** | AWS OIDC フェデレーション（`aws-actions/configure-aws-credentials@v5`）。アクセスキー不使用 |
 | **依存先** | `cc_aws_portfolio` リポジトリで Terraform 管理される IAM ロール・S3 バケット・CloudFront Distribution |
-| **設定値** | Repository Secrets（`AWS_ROLE_ARN`, `S3_BUCKET_NAME`, `CLOUDFRONT_DISTRIBUTION_ID`）と Repository Variables（`AWS_REGION`）で注入 |
+| **設定値** | Repository Secrets（`AWS_DEPLOY_ROLE_ARN`, `S3_BUCKET_NAME`, `CLOUDFRONT_DISTRIBUTION_ID`）と Repository Variables（`AWS_REGION`）で注入 |
 
 ## 命名規則
 

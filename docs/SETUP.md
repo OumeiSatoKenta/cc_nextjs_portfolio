@@ -272,14 +272,14 @@ terraform output cloudfront_distribution_id
 
 | Secret 名 | 値の例 |
 |----------|--------|
-| `AWS_ROLE_ARN` | `arn:aws:iam::123456789012:role/portfolio-github-actions` |
+| `AWS_DEPLOY_ROLE_ARN` | `arn:aws:iam::123456789012:role/portfolio-github-actions` |
 | `S3_BUCKET_NAME` | `portfolio-site-123456789012` |
 | `CLOUDFRONT_DISTRIBUTION_ID` | `E1234ABCDEF` |
 
 CLI で登録する場合:
 
 ```bash
-gh secret set AWS_ROLE_ARN --body "arn:aws:iam::123456789012:role/portfolio-github-actions"
+gh secret set AWS_DEPLOY_ROLE_ARN --body "arn:aws:iam::123456789012:role/portfolio-github-actions"
 gh secret set S3_BUCKET_NAME --body "portfolio-site-123456789012"
 gh secret set CLOUDFRONT_DISTRIBUTION_ID --body "E1234ABCDEF"
 ```
