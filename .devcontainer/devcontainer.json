@@ -1,8 +1,8 @@
 {
-  "name": "cc_base",
-  "runArgs": ["--name", "cc_base"],
+  "name": "cc_nextjs_portfolio",
+  "runArgs": ["--name", "cc_nextjs_portfolio"],
   "image": "mcr.microsoft.com/devcontainers/base:bookworm",
-  "workspaceFolder": "/workspaces/cc_base",
+  "workspaceFolder": "/workspaces/cc_nextjs_portfolio",
   "features": {
     "ghcr.io/devcontainers/features/node:1": {
       "version": "lts"
@@ -11,6 +11,9 @@
     "ghcr.io/devcontainers/features/aws-cli:1": {},
     "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
   },
+  "mounts": [
+    "source=${localWorkspaceFolder}/../cc_aws_portfolio,target=/workspaces/cc_aws_portfolio,type=bind,consistency=cached"
+  ],
   "containerEnv": {
     "PULSE_SERVER": "tcp:host.docker.internal:4713",
     "AUDIODRIVER": "pulseaudio"
