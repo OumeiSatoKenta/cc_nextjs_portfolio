@@ -2,7 +2,7 @@
 
 import { Menu } from 'lucide-react';
 import Link from 'next/link';
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import {
   Sheet,
   SheetContent,
@@ -22,12 +22,11 @@ export function Header({ siteName, navLinks }: HeaderProps) {
   const { pathname, isActive } = useActiveNav();
   const [isOpen, setIsOpen] = useState(false);
 
-  const previousPathname = useRef(pathname);
-  useEffect(() => {
-    if (previousPathname.current === pathname) return;
-    previousPathname.current = pathname;
+  const [prevPathname, setPrevPathname] = useState(pathname);
+  if (prevPathname !== pathname) {
+    setPrevPathname(pathname);
     if (isOpen) setIsOpen(false);
-  }, [pathname, isOpen]);
+  }
 
   return (
     <header className="sticky top-0 z-50 bg-pure-white shadow-ring">

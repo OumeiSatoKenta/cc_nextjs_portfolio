@@ -28,18 +28,15 @@
 | 引用符 | シングルクォート |
 | 末尾カンマ | あり（ES5） |
 | 行の最大長 | 100文字 |
-| フォーマッター | Prettier |
+| フォーマッター | Biome |
 
-**Prettier設定** (`.prettierrc`):
-```json
-{
-  "semi": true,
-  "singleQuote": true,
-  "trailingComma": "es5",
-  "tabWidth": 2,
-  "printWidth": 100
-}
-```
+**Biome設定** (`biome.json`):
+- セミコロン: あり
+- 引用符: シングルクォート
+- 末尾カンマ: あり（all）
+- インデント幅: 2スペース
+- 行幅: 100文字
+- Tailwind v4ディレクティブ対応: `css.parser.tailwindDirectives: true`
 
 ### TypeScript規約
 
@@ -75,8 +72,8 @@ export function ProjectCard({ project }: ProjectCardProps) {
 ### Tailwind CSS規約
 
 - **DESIGN.md準拠**: カラー・フォントサイズ・スペーシングはDESIGN.mdのトークンに従う
-- **カスタム値の制限**: `tailwind.config.ts` で定義されたトークンのみ使用。`[#ff5b4f]` 等の任意値は原則禁止
-- **クラス順序**: Prettier plugin for Tailwind CSS でクラス順序を自動整列
+- **カスタム値の制限**: `globals.css` の `@theme` ブロックで定義されたトークンのみ使用。`[#ff5b4f]` 等の任意値は原則禁止
+- **クラス順序**: Biome の `useSortedClasses` ルールでクラス順序を自動整列
 - **レスポンシブ**: モバイルファースト。`sm:`, `md:`, `lg:` の順にブレークポイントを適用
 
 ### コメント規約
@@ -179,7 +176,7 @@ main ← 本番デプロイ対象（push時に自動デプロイ）
 
 | ツール | 用途 |
 |--------|------|
-| Jest | テストランナー・アサーション |
+| Vitest | テストランナー・アサーション（Jest互換API） |
 | React Testing Library | コンポーネントテスト |
 | Lighthouse CI | パフォーマンス・アクセシビリティ（デプロイ後計測） |
 
@@ -227,13 +224,13 @@ describe('ExternalLink', () => {
 npm test
 
 # 特定ファイルのテスト
-npm test -- --testPathPattern=Header
+npx vitest run --testPathPattern=Header
 
 # カバレッジ付き
-npm test -- --coverage
+npm run test:coverage
 
 # ウォッチモード（開発中）
-npm test -- --watch
+npm run test:watch
 ```
 
 ### Static Exportの検証方法
@@ -260,9 +257,9 @@ GitHub ActionsのCIジョブで実行するチェックの順序:
 ```
 1. npm ci                    # 依存関係インストール
 2. npm audit --audit-level=high  # 既知の脆弱性チェック（high以上で失敗）
-3. npm run lint              # ESLint
+3. npm run lint              # Biome check + ESLint（Next.js固有ルール）
 4. npm run type-check        # TypeScript型チェック（tsc --noEmit）
-5. npm test                  # Jest テスト実行
+5. npm test                  # Vitest テスト実行
 6. npm run build             # Static Export ビルド
 7. Static Export検証          # out/ に全ページが出力されていることを確認
 ```
@@ -327,19 +324,21 @@ npm run build
 
 | コマンド | 用途 |
 |---------|------|
-| `npm run dev` | 開発サーバー起動（localhost:3000） |
+| `npm run dev` | 開発サーバー起動（localhost:3000、`--webpack`フラグ付き） |
 | `npm run build` | Static Exportビルド（`out/` 生成） |
-| `npm run lint` | ESLint実行 |
+| `npm run lint` | Biome check + ESLint実行 |
 | `npm run type-check` | TypeScript型チェック（`tsc --noEmit`） |
-| `npm test` | テスト実行 |
-| `npm run format` | Prettierによるフォーマット |
+| `npm test` | Vitestテスト実行 |
+| `npm run test:watch` | Vitestウォッチモード |
+| `npm run test:coverage` | Vitestカバレッジ付き実行 |
+| `npm run format` | Biomeによるフォーマット |
 
 ### 推奨VS Code拡張機能
 
 | 拡張機能 | 用途 |
 |---------|------|
-| ESLint | リアルタイムlint表示 |
-| Prettier | 保存時フォーマット |
+| Biome | リアルタイムlint・保存時フォーマット |
+| ESLint | Next.js固有ルールの表示 |
 | Tailwind CSS IntelliSense | Tailwindクラスの補完・プレビュー |
 | TypeScript Importer | import文の自動補完 |
 
@@ -351,10 +350,10 @@ MVPでは環境変数は不要。すべてのデータは `src/data/` 内のType
 
 ## デザインシステムとの連携
 
-### DESIGN.md → tailwind.config.ts の流れ
+### DESIGN.md → globals.css @theme の流れ
 
 1. **DESIGN.md**: デザインの真実の源泉。カラー、タイポグラフィ、スペーシングを定義
-2. **tailwind.config.ts**: DESIGN.mdのトークンをTailwind CSSのテーマに反映
+2. **globals.css `@theme { ... }`**: DESIGN.mdのトークンをCSS変数として定義。Tailwind v4が自動的にユーティリティクラスを生成
 3. **コンポーネント**: Tailwindのユーティリティクラスを通じてデザイントークンを適用
 
 ### デザイントークンの使用ルール

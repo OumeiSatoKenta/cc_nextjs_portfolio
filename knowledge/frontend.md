@@ -35,84 +35,51 @@ useEffect(() => {
 
 **初出**: `.steering/20260412-add-common-layout/`（Navigation のルート変更時自動クローズ）
 
-### body スクロールロックは元の値を保存・復元する
+### body スクロールロックは Radix Dialog に委譲する
 
-**問題**: `document.body.style.overflow = 'hidden'` をクリーンアップで空文字に戻すと、ユーザーや別コンポーネントが設定していた `overflow` 値（例: `'scroll'`）を消してしまう。
+**現状**: shadcn/ui Sheet（Radix Dialog ベース）がスクロールロックを内蔵で処理するため、手動実装は不要。
 
-**解決**: effect 起動時に元の値を保存し、クリーンアップで復元する。
+**過去の手動パターン**（参考、現在は不使用）: effect で元の `overflow` 値を保存・復元する方式だったが、Radix 導入により削除済み。
 
-```ts
-useEffect(() => {
-  if (!isOpen) return;
-  const previous = document.body.style.overflow;
-  document.body.style.overflow = 'hidden';
-  return () => {
-    document.body.style.overflow = previous;
-  };
-}, [isOpen]);
-```
-
-**初出**: `.steering/20260412-add-common-layout/`（Navigation のスクロールロック）
+**初出**: `.steering/20260412-add-common-layout/`（Navigation → Phase 5 で Sheet に置換）
 
 ## アクセシビリティ
 
-### モーダル非表示時は inert 属性で完全ブロックする
+### モーダル・ダイアログは shadcn/ui Sheet (Radix Dialog) を使う
 
-**問題**: `aria-hidden` + `pointer-events-none` + `opacity-0` だけでは、補助技術（AT）やブラウザの一部から閉じたモーダル内要素にフォーカスが届く可能性がある。
+**現状**: Phase 5 で手動モーダル（Navigation.tsx 134行）を shadcn/ui Sheet に置換。以下の機能が Radix Dialog に内蔵されており、手動実装が不要になった:
 
-**解決**: React 19 / Next.js では HTML 標準の `inert` 属性を使う。
+- フォーカストラップ（Tab / Shift-Tab ループ）
+- スクロールロック
+- Escape キーで閉じる
+- オーバーレイクリックで閉じる
+- `role="dialog"` + `aria-modal="true"`
+- `inert` 属性による非表示時のAT完全ブロック
 
-```tsx
-<div
-  aria-hidden={!isOpen}
-  inert={!isOpen}
-  className={isOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'}
->
-  {/* ダイアログ内容 */}
-</div>
-```
+**注意**: SheetContent には `SheetTitle` と `SheetDescription` が必須（Radix 警告回避）。視覚的に不要な場合は `sr-only` クラスで非表示にする。
 
-**利点**: アンマウント戦略（条件分岐で `{isOpen && <Dialog />}`）と異なり、開閉トランジションを維持したまま AT からの完全ブロックが実現できる。
-
-**初出**: `.steering/20260412-add-common-layout/`（Navigation モバイルメニュー）
-
-### フォーカストラップの標準実装
-
-モーダル系では以下をセットで実装する:
-
-1. 開いた瞬間にクローズボタン（または最初のフォーカス可能要素）へ `.focus()`
-2. Tab / Shift-Tab で最後⇔最初をループさせる
-3. Escape キーで閉じる
-4. 閉じた後は呼び出し元のフォーカス元に戻す（未実装なら将来の課題として記録）
-5. `role="dialog"` + `aria-modal="true"` + `aria-label`
-
-**初出**: `.steering/20260412-add-common-layout/`（Navigation）
+**初出**: `.steering/20260412-add-common-layout/`（Navigation → Phase 5 で Sheet に置換）
 
 ## ライブラリ・パッケージ
 
-### lucide-react ブランドアイコンの欠落と型戦略
+### lucide-react ブランドアイコンは SocialIcon 静的マッピングで解決する
 
-**事情**: lucide-react は商標回避のため `github` / `twitter` / `linkedin` など主要ブランドアイコンを削除している（`x` / `mail` など汎用アイコンは残存）。
+**事情**: lucide-react v1.x は商標回避のため `github` / `twitter` / `linkedin` など主要ブランドアイコンを削除。`DynamicIcon` も使用不可（"Name not found" エラー）。
 
-**対処**: `SocialLink.icon` のような外部ブランドを受けるフィールドを `IconName` に tighten すると既存データが破綻する。型は `string` のまま保ち、描画境界で `as IconName` キャスト + 意図コメントを残すのが現実解。
+**解決**: `SocialIcon` コンポーネント（`src/components/icons/SocialIcon.tsx`）で静的マッピングを定義し、ブランドアイコンはカスタム SVG（`GithubIcon.tsx` 等）で提供する。
 
-```ts
-// src/types/index.ts
-export interface SocialLink {
-  platform: string;
-  url: string;
-  icon: string; // lucide brand icon 欠落対応のため string のまま
-}
-
-// src/components/layout/Footer.tsx
-import { DynamicIcon, type IconName } from 'lucide-react/dynamic';
-// ...
-<DynamicIcon name={link.icon as IconName} size={20} />
+```tsx
+// src/components/icons/SocialIcon.tsx
+const iconMap: Record<string, ComponentType<SVGProps<SVGSVGElement>>> = {
+  github: GithubIcon,
+  calendar: Calendar,
+  mail: Mail,
+};
 ```
 
-**将来対応**: ブランドアイコンが必要なら `simple-icons` などブランド特化のアイコンライブラリ併用を検討する。
+**SVGアクセシビリティ**: カスタム SVG アイコンは `<title>` 要素で代替テキストを提供する（`aria-label` だと親要素の `aria-label` と競合する場合がある）。`SocialIcon` 側で `aria-hidden="true"` を付与し、リンクの `aria-label` に代替テキストを委譲。
 
-**初出**: `.steering/20260412-add-common-layout/`
+**初出**: `.steering/20260412-add-common-layout/`（Phase 4 で DynamicIcon → SocialIcon に移行）
 
 ### Static Export 下の usePathname
 
@@ -135,6 +102,31 @@ const pathname = usePathname() ?? '/';
 **初出**: `.steering/20260413-add-about-page/`（TimelineItem, Education）
 
 ## Tailwind CSS パターン
+
+### Tailwind v4: CSS-first config のトークン定義
+
+**構造**: `tailwind.config.ts` は廃止。`globals.css` 内の `@theme { ... }` ブロックでデザイントークンを CSS 変数として定義する。
+
+```css
+@import "tailwindcss";
+@theme {
+  --color-vercel-black: #171717;
+  --font-geist-sans: var(--font-geist-sans-face), Arial, sans-serif;
+  --text-body: 1rem;
+  --text-body--line-height: 1.625rem;
+  --spacing: 1px;  /* p-8 = 8px, p-16 = 16px */
+}
+```
+
+**フォント CSS 変数の命名**: `next/font/google` が生成する CSS 変数名と Tailwind `@theme` の変数名が衝突しないようにする。フォント側は `--font-geist-sans-face`、Tailwind テーマ側は `--font-geist-sans` と命名を分離する。
+
+**spacing 基底値**: `--spacing: 1px` を設定することで、`p-8` が `8px`、`gap-16` が `16px` と 1:1 マッピングになる（DESIGN.md のピクセル値ベースのスペーシングスケールと整合）。
+
+**PostCSS**: `@tailwindcss/postcss` プラグインを使用（`autoprefixer` は v4 内蔵のため不要）。
+
+**Biome 互換**: `biome.json` に `"css": { "parser": { "tailwindDirectives": true } }` が必要。
+
+**初出**: `.steering/20260413-portfolio-modernization/`（Phase 4）
 
 ### 動的クラス名は静的マップで解決する
 
