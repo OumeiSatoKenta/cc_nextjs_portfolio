@@ -124,6 +124,50 @@ const pathname = usePathname() ?? '/';
 
 **初出**: `.steering/20260412-add-common-layout/`（useActiveNav）
 
+## HTML セマンティクス
+
+### `<time>` 要素には必ず `dateTime` 属性を付与する
+
+**ルール**: `<time>` タグを使う場合、機械可読な日付値を `dateTime` 属性に設定する。テキスト内容が日本語表記（例: "2020年4月"）でも ISO 形式の `dateTime` が必要。
+
+**根拠**: HTML仕様・WCAG準拠。スクリーンリーダーやクローラーが正しく日付を解釈できる。
+
+**初出**: `.steering/20260413-add-about-page/`（TimelineItem, Education）
+
+## Tailwind CSS パターン
+
+### 動的クラス名は静的マップで解決する
+
+**問題**: Tailwind JIT はビルド時にクラスを抽出するため、テンプレートリテラルで動的に構築したクラス名（例: `` `bg-${color}` ``）は検出されない。
+
+**解決**: `Record<UnionType, string>` 型の定数マップを定義し、値の参照で切り替える。
+
+```ts
+const LEVEL_BADGE_CLASS: Record<SkillLevel, string> = {
+  expert: 'bg-vercel-black text-pure-white',
+  advanced: 'bg-gray-100 text-vercel-black',
+  intermediate: 'bg-badge-blue-bg text-badge-blue-text',
+};
+```
+
+**初出**: `.steering/20260413-add-about-page/`（SkillGrid）、`.steering/20260412-add-home-page/`（StrengthCard）
+
+### DESIGN.md の Badge/Caption には `font-medium` が必要
+
+**ルール**: Pill Badge（`.rounded-pill`）や Caption テキストには `font-medium`（weight 500）を付与する。DESIGN.md の Typography 仕様で定められている。
+
+**初出**: `.steering/20260413-add-about-page/`（TimelineItem badges, SkillGrid badges）
+
+## テスト
+
+### `getByText` は画面全体を検索する — 重複テキストに注意
+
+**問題**: 同じ画面に同じ文字列が複数箇所に出現すると `getByText` が `Found multiple elements` で失敗する。例: "AWS" が Career の技術タグと SkillGrid の両方に出現。
+
+**解決**: より具体的なクエリ（`getByRole('heading', { name })` やコンテナ内の `within()` スコープ）を使う。
+
+**初出**: `.steering/20260413-add-about-page/`（page.test.tsx で skill names → category headings に変更）
+
 ## パス比較
 
 ### prefix-only マッチの境界バグ
