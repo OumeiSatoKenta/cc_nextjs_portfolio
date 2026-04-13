@@ -1,7 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import AboutPage from '@/app/about/page';
 import { careers } from '@/data/career';
-import { skills } from '@/data/skills';
 import { educations } from '@/data/education';
 
 describe('AboutPage', () => {

@@ -36,10 +36,7 @@ export const projects: Project[] = [
       'TiDB ユーザーグループの運営メンバーとして、3 ヶ月に 1 度の MeetUp Event の企画・運営を担当。TiDB の普及と日本コミュニティの活性化に貢献。',
     technologies: ['TiDB', 'コミュニティ運営', 'connpass'],
     liveUrl: 'https://tiug.connpass.com/',
-    highlights: [
-      '3 ヶ月ごとの定期 MeetUp Event の企画・運営',
-      'TiDB 日本コミュニティの活性化',
-    ],
+    highlights: ['3 ヶ月ごとの定期 MeetUp Event の企画・運営', 'TiDB 日本コミュニティの活性化'],
     featured: false,
   },
 ];

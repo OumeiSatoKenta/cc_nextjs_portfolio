@@ -1,10 +1,10 @@
 'use client';
 
-import { useEffect, useRef, useCallback } from 'react';
-import Link from 'next/link';
 import { X } from 'lucide-react';
-import type { NavLink } from '@/types';
+import Link from 'next/link';
+import { useCallback, useEffect, useRef } from 'react';
 import { useActiveNav } from '@/hooks/useActiveNav';
+import type { NavLink } from '@/types';
 
 interface NavigationProps {
   isOpen: boolean;
@@ -25,9 +25,7 @@ export function Navigation({ isOpen, onClose, navLinks }: NavigationProps) {
       }
 
       if (e.key === 'Tab' && menuRef.current) {
-        const focusableElements = menuRef.current.querySelectorAll<HTMLElement>(
-          'button, a[href]'
-        );
+        const focusableElements = menuRef.current.querySelectorAll<HTMLElement>('button, a[href]');
         const firstElement = focusableElements[0];
         const lastElement = focusableElements[focusableElements.length - 1];
 
@@ -81,11 +79,7 @@ export function Navigation({ isOpen, onClose, navLinks }: NavigationProps) {
       {...(!isOpen ? { inert: '' as unknown as boolean } : {})}
     >
       {/* Overlay */}
-      <div
-        className="absolute inset-0 bg-[rgba(0,0,0,0.4)]"
-        onClick={onClose}
-        aria-hidden="true"
-      />
+      <div className="absolute inset-0 bg-[rgba(0,0,0,0.4)]" onClick={onClose} aria-hidden="true" />
 
       {/* Menu panel */}
       <div
@@ -93,7 +87,7 @@ export function Navigation({ isOpen, onClose, navLinks }: NavigationProps) {
         role="dialog"
         aria-modal="true"
         aria-label="ナビゲーションメニュー"
-        className={`absolute right-0 top-0 h-full w-3/4 max-w-[300px] bg-pure-white shadow-full-card transition-transform duration-200 ease-out ${
+        className={`absolute top-0 right-0 h-full w-3/4 max-w-[300px] bg-pure-white shadow-full-card transition-transform duration-200 ease-out ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >

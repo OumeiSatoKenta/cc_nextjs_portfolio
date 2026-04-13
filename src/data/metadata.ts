@@ -1,4 +1,4 @@
-import { SiteMetadata } from '@/types';
+import type { SiteMetadata } from '@/types';
 
 export const siteMetadata: SiteMetadata = {
   name: 'Portfolio',

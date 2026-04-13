@@ -20,7 +20,7 @@ export function SocialLinkCard({ platform, url, icon, label }: SocialLinkCardPro
         href={url}
         target="_blank"
         rel={external ? 'noopener noreferrer' : undefined}
-        className="text-button-link font-medium text-link-blue hover:underline"
+        className="font-medium text-button-link text-link-blue hover:underline"
       >
         {displayName} →
       </a>

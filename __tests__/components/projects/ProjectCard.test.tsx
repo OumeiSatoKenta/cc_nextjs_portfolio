@@ -52,12 +52,7 @@ describe('ProjectCard', () => {
   });
 
   it('renders highlights when provided', () => {
-    render(
-      <ProjectCard
-        {...baseProps}
-        highlights={['Highlight one', 'Highlight two']}
-      />,
-    );
+    render(<ProjectCard {...baseProps} highlights={['Highlight one', 'Highlight two']} />);
     expect(screen.getByText('Highlight one')).toBeInTheDocument();
     expect(screen.getByText('Highlight two')).toBeInTheDocument();
   });

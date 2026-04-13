@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { vi, type MockedFunction } from 'vitest';
+import { type MockedFunction, vi } from 'vitest';
 import { Header } from '@/components/layout/Header';
 import { NAV_LINKS } from '@/data/navigation';
 
@@ -13,8 +13,7 @@ const mockedUsePathname = usePathname as MockedFunction<typeof usePathname>;
 
 const SITE_NAME = 'Test Site';
 
-const renderHeader = () =>
-  render(<Header siteName={SITE_NAME} navLinks={NAV_LINKS} />);
+const renderHeader = () => render(<Header siteName={SITE_NAME} navLinks={NAV_LINKS} />);
 
 describe('Header', () => {
   beforeEach(() => {

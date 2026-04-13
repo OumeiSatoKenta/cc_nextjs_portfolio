@@ -1,5 +1,5 @@
-import { render, screen, fireEvent } from '@testing-library/react';
-import { vi, type MockedFunction } from 'vitest';
+import { fireEvent, render, screen } from '@testing-library/react';
+import { type MockedFunction, vi } from 'vitest';
 import { Navigation } from '@/components/layout/Navigation';
 import { NAV_LINKS } from '@/data/navigation';
 

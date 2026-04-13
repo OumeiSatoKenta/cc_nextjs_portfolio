@@ -23,7 +23,7 @@ export function TimelineItem({
 }: TimelineItemProps) {
   return (
     <article className="relative flex gap-32 pl-32">
-      <div className="absolute left-0 top-0 flex h-full flex-col items-center">
+      <div className="absolute top-0 left-0 flex h-full flex-col items-center">
         <div className="h-3 w-3 shrink-0 rounded-circle bg-vercel-black" aria-hidden="true" />
         {!isLast && <div className="w-1 flex-1 bg-gray-100" aria-hidden="true" />}
       </div>
@@ -32,7 +32,7 @@ export function TimelineItem({
         <h3 className="text-card-title text-vercel-black">{company}</h3>
         <time
           dateTime={period.end ?? period.start}
-          className="font-geist-mono text-caption font-medium uppercase text-gray-500"
+          className="font-geist-mono font-medium text-caption text-gray-500 uppercase"
         >
           {formatPeriod(period)}
         </time>
@@ -42,7 +42,10 @@ export function TimelineItem({
         {achievements.length > 0 && (
           <ul className="flex flex-col gap-4 pl-16">
             {achievements.map((achievement, index) => (
-              <li key={`${index}-${achievement}`} className="list-disc text-body-small text-gray-600">
+              <li
+                key={`${index}-${achievement}`}
+                className="list-disc text-body-small text-gray-600"
+              >
                 {achievement}
               </li>
             ))}
@@ -54,7 +57,7 @@ export function TimelineItem({
             {technologies.map((tech) => (
               <span
                 key={tech}
-                className="rounded-pill bg-badge-blue-bg px-10 py-3 text-caption font-medium text-badge-blue-text"
+                className="rounded-pill bg-badge-blue-bg px-10 py-3 font-medium text-badge-blue-text text-caption"
               >
                 {tech}
               </span>

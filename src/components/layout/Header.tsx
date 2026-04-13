@@ -1,10 +1,10 @@
 'use client';
 
-import { useState } from 'react';
-import Link from 'next/link';
 import { Menu } from 'lucide-react';
-import type { NavLink } from '@/types';
+import Link from 'next/link';
+import { useState } from 'react';
 import { useActiveNav } from '@/hooks/useActiveNav';
+import type { NavLink } from '@/types';
 import { Navigation } from './Navigation';
 
 interface HeaderProps {
@@ -54,11 +54,7 @@ export function Header({ siteName, navLinks }: HeaderProps) {
         </div>
       </header>
 
-      <Navigation
-        isOpen={isMenuOpen}
-        onClose={() => setIsMenuOpen(false)}
-        navLinks={navLinks}
-      />
+      <Navigation isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} navLinks={navLinks} />
     </>
   );
 }

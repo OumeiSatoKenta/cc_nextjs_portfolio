@@ -31,16 +31,16 @@ export function ProjectCard({
       )}
 
       {technologies.length > 0 && (
-      <div className="flex flex-wrap gap-8">
-        {technologies.map((tech) => (
-          <span
-            key={tech}
-            className="rounded-pill bg-badge-blue-bg px-10 py-3 text-caption font-medium text-badge-blue-text"
-          >
-            {tech}
-          </span>
-        ))}
-      </div>
+        <div className="flex flex-wrap gap-8">
+          {technologies.map((tech) => (
+            <span
+              key={tech}
+              className="rounded-pill bg-badge-blue-bg px-10 py-3 font-medium text-badge-blue-text text-caption"
+            >
+              {tech}
+            </span>
+          ))}
+        </div>
       )}
 
       {(githubUrl || liveUrl) && (
@@ -50,7 +50,7 @@ export function ProjectCard({
               href={githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-button-link font-medium text-link-blue hover:underline"
+              className="font-medium text-button-link text-link-blue hover:underline"
             >
               GitHub →
             </a>
@@ -60,7 +60,7 @@ export function ProjectCard({
               href={liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-button-link font-medium text-link-blue hover:underline"
+              className="font-medium text-button-link text-link-blue hover:underline"
             >
               Live →
             </a>
