@@ -1,14 +1,15 @@
 import { render, screen } from '@testing-library/react';
+import { vi, type MockedFunction } from 'vitest';
 import { Header } from '@/components/layout/Header';
 import { NAV_LINKS } from '@/data/navigation';
 
-jest.mock('next/navigation', () => ({
-  usePathname: jest.fn(),
+vi.mock('next/navigation', () => ({
+  usePathname: vi.fn(),
 }));
 
 import { usePathname } from 'next/navigation';
 
-const mockedUsePathname = usePathname as jest.MockedFunction<typeof usePathname>;
+const mockedUsePathname = usePathname as MockedFunction<typeof usePathname>;
 
 const SITE_NAME = 'Test Site';
 
