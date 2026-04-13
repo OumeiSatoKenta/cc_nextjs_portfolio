@@ -30,5 +30,10 @@ export const siteMetadata: SiteMetadata = {
         accentColor: 'ship',
       },
     ],
+    stats: [
+      { value: '5+', label: '年のSRE経験' },
+      { value: '3', label: 'クラウド基盤' },
+      { value: '6', label: '技術記事・書籍' },
+    ],
   },
 };

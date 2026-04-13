@@ -8,6 +8,7 @@ export interface SiteMetadata {
     name: string;
     tagline: string;
     strengths: Strength[];
+    stats: { label: string; value: string }[];
   };
 }
 
@@ -56,6 +57,7 @@ export interface Skill {
   name: string;
   category: SkillCategory;
   level?: SkillLevel;
+  years?: number;
 }
 
 export interface Project {

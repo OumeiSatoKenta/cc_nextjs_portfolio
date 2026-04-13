@@ -39,6 +39,7 @@ export function SkillGrid({ skills }: SkillGridProps) {
                 className={`rounded-pill px-10 py-3 font-medium text-caption ${LEVEL_BADGE_CLASS[skill.level ?? 'intermediate']}`}
               >
                 {skill.name}
+                {skill.years ? ` · ${skill.years}年` : ''}
               </span>
             ))}
           </div>
