@@ -385,7 +385,7 @@ interface StrengthCardProps {
 **カードデザイン**:
 - 背景: `#ffffff`
 - 角丸: 8px
-- 影: Card Stack shadow
+- 影: Card Stack shadow（Tailwind トークン: `shadow-subtle-card`）
 
 ### Aboutページコンポーネント（F2）
 
@@ -455,7 +455,7 @@ interface ProjectCardProps {
 **カードデザイン**:
 - 背景: `#ffffff`
 - 角丸: 8px（画像あり: 12px）
-- 影: Card Stack shadow
+- 影: Card Stack shadow（Tailwind トークン: `shadow-subtle-card`）
 - ホバー: 影の強度微増
 
 ### Blogページコンポーネント（F4）

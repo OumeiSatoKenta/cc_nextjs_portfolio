@@ -9,21 +9,24 @@ export const siteMetadata: SiteMetadata = {
   ogImage: '/images/og-image.png',
   author: {
     name: 'Your Name',
-    tagline: 'Software Engineer',
+    tagline: 'SRE Engineer — Multi-Cloud · IaC · AI-Driven Development',
     strengths: [
       {
         title: 'マルチクラウド',
-        description: 'AWS・GCPを活用したクラウドインフラ設計・構築',
+        description:
+          'AWS・Google Cloud の両クラウドで Terraform / Terragrunt による IaC 設計・構築・運用を実務で担当しています。',
         accentColor: 'develop',
       },
       {
         title: 'AI駆動開発',
-        description: 'AI技術を活用した開発プロセスの効率化',
+        description:
+          'Claude Code の導入を複数プロジェクトで主導。Skills・Agents・MCP 連携によるコードレビュー自動化と設計書生成を実践しています。',
         accentColor: 'preview',
       },
       {
         title: 'パフォーマンス改善',
-        description: 'Webアプリケーションの高速化・最適化',
+        description:
+          '負荷試験の設計・実施からボトルネック特定、DB インデックス・スロークエリ改善、コスト最適化まで定量的な成果を積み上げています。',
         accentColor: 'ship',
       },
     ],
