@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { Footer } from '@/components/layout/Footer';
 import { Header } from '@/components/layout/Header';
+import { ThemeProvider } from '@/components/providers/ThemeProvider';
 import { siteMetadata } from '@/data/metadata';
 import { NAV_LINKS } from '@/data/navigation';
 import { socialLinks } from '@/data/social';
@@ -36,17 +37,23 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ja" className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html
+      lang="ja"
+      className={`${geistSans.variable} ${geistMono.variable}`}
+      suppressHydrationWarning
+    >
       <body className="min-h-screen bg-pure-white font-geist-sans text-vercel-black antialiased">
-        <Header siteName={siteMetadata.name} navLinks={NAV_LINKS} />
-        <main>{children}</main>
-        <Footer
-          authorName={siteMetadata.author.name}
-          socialLinks={socialLinks}
-          siteName={siteMetadata.name}
-          siteDescription={siteMetadata.description}
-          navLinks={NAV_LINKS}
-        />
+        <ThemeProvider>
+          <Header siteName={siteMetadata.name} navLinks={NAV_LINKS} />
+          <main>{children}</main>
+          <Footer
+            authorName={siteMetadata.author.name}
+            socialLinks={socialLinks}
+            siteName={siteMetadata.name}
+            siteDescription={siteMetadata.description}
+            navLinks={NAV_LINKS}
+          />
+        </ThemeProvider>
       </body>
     </html>
   );
