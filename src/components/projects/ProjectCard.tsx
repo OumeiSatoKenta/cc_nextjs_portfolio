@@ -37,14 +37,14 @@ export function ProjectCard({
       {metrics && metrics.length > 0 && (
         <dl className="flex gap-32">
           {metrics.map((metric) => (
-            <div key={metric.label} className="text-center">
+            <div key={metric.label} className="flex flex-col-reverse text-center">
+              <dt className="font-medium text-caption text-gray-400">{metric.label}</dt>
               <dd
                 className="text-sub-heading-large text-vercel-black"
                 style={{ fontFeatureSettings: '"tnum"' }}
               >
                 {metric.value}
               </dd>
-              <dt className="font-medium text-caption text-gray-400">{metric.label}</dt>
             </div>
           ))}
         </dl>

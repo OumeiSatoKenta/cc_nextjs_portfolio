@@ -10,6 +10,15 @@
 - [x] T6: `src/components/home/HeroSection.tsx` — CTA テキスト変更
 - [x] T7: `__tests__/components/projects/ProjectCard.test.tsx` — テスト更新
 
+## フォローアップ（ユーザーリクエスト）
+
+- [x] T8: カード高さ揃え — ProjectCard / BlogCard に `h-full` 追加
+- [x] T9: About 自己紹介を PDF 職務要約 3 段落に更新
+- [x] T10: 学歴エントリに修士・博士の研究内容 description 追加
+- [x] T11: ICRC2019 Proceedings（筆頭著者）を Education に追加、`Education` 型に `'publication'` 追加
+- [x] T12: Education カードにタイプバッジ（学歴/論文）と日付ラベル（修了/発表）追加
+- [x] T13: 論文の発表年を 2019 に修正（PoS 掲載 2021 は description に補足）
+
 ## 検証
 
 - [x] V1: `npm run type-check` — パス
