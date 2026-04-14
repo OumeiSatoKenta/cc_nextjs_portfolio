@@ -62,7 +62,7 @@ export function ProjectCard({
               rel="noopener noreferrer"
               className="font-medium text-button-link text-link-blue hover:underline"
             >
-              Live →
+              Connpass →
             </a>
           )}
         </div>
