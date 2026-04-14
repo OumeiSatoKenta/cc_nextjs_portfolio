@@ -38,9 +38,9 @@ describe('ProjectCard', () => {
     expect(link).toHaveAttribute('rel', 'noopener noreferrer');
   });
 
-  it('renders Live link when provided', () => {
+  it('renders Connpass link when provided', () => {
     render(<ProjectCard {...baseProps} liveUrl="https://example.com" />);
-    const link = screen.getByRole('link', { name: 'Live →' });
+    const link = screen.getByRole('link', { name: 'Connpass →' });
     expect(link).toHaveAttribute('href', 'https://example.com');
     expect(link).toHaveAttribute('target', '_blank');
     expect(link).toHaveAttribute('rel', 'noopener noreferrer');
