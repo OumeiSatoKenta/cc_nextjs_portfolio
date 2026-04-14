@@ -38,12 +38,18 @@ describe('ProjectCard', () => {
     expect(link).toHaveAttribute('rel', 'noopener noreferrer');
   });
 
-  it('renders Connpass link when provided', () => {
+  it('renders live link with default label when no linkLabel provided', () => {
     render(<ProjectCard {...baseProps} liveUrl="https://example.com" />);
-    const link = screen.getByRole('link', { name: 'Connpass →' });
+    const link = screen.getByRole('link', { name: 'Live →' });
     expect(link).toHaveAttribute('href', 'https://example.com');
     expect(link).toHaveAttribute('target', '_blank');
     expect(link).toHaveAttribute('rel', 'noopener noreferrer');
+  });
+
+  it('renders live link with custom linkLabel', () => {
+    render(<ProjectCard {...baseProps} liveUrl="https://example.com" linkLabel="Connpass" />);
+    const link = screen.getByRole('link', { name: 'Connpass →' });
+    expect(link).toHaveAttribute('href', 'https://example.com');
   });
 
   it('does not render links section when no URLs provided', () => {
@@ -60,5 +66,22 @@ describe('ProjectCard', () => {
   it('does not render highlights section when empty', () => {
     const { container } = render(<ProjectCard {...baseProps} highlights={[]} />);
     expect(container.querySelectorAll('li')).toHaveLength(0);
+  });
+
+  it('renders metrics when provided', () => {
+    const metrics = [
+      { label: '共著者数', value: '70' },
+      { label: 'ダウンロード数', value: '16,500' },
+    ];
+    render(<ProjectCard {...baseProps} metrics={metrics} />);
+    expect(screen.getByText('70')).toBeInTheDocument();
+    expect(screen.getByText('共著者数')).toBeInTheDocument();
+    expect(screen.getByText('16,500')).toBeInTheDocument();
+    expect(screen.getByText('ダウンロード数')).toBeInTheDocument();
+  });
+
+  it('does not render metrics section when not provided', () => {
+    const { container } = render(<ProjectCard {...baseProps} />);
+    expect(container.querySelectorAll('dl')).toHaveLength(0);
   });
 });

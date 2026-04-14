@@ -24,7 +24,7 @@ describe('HeroSection', () => {
 
   it('renders a CTA link that points to /projects/', () => {
     render(<HeroSection {...defaultProps} />);
-    const link = screen.getByRole('link', { name: 'Projects を見る' });
+    const link = screen.getByRole('link', { name: 'Side Projects を見る' });
     expect(link).toBeInTheDocument();
     expect(link.getAttribute('href')).toMatch(/^\/projects\/?$/);
   });
