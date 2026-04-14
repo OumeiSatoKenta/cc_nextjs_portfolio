@@ -40,7 +40,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="min-h-screen bg-pure-white font-geist-sans text-vercel-black antialiased">
         <Header siteName={siteMetadata.name} navLinks={NAV_LINKS} />
         <main>{children}</main>
-        <Footer authorName={siteMetadata.author.name} socialLinks={socialLinks} />
+        <Footer
+          authorName={siteMetadata.author.name}
+          socialLinks={socialLinks}
+          siteName={siteMetadata.name}
+          siteDescription={siteMetadata.description}
+          navLinks={NAV_LINKS}
+        />
       </body>
     </html>
   );
