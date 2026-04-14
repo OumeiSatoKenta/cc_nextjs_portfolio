@@ -30,3 +30,13 @@
 - `__tests__/app/page.test.tsx` — CTA テキスト更新
 - `__tests__/components/home/HeroSection.test.tsx` — CTA テキスト更新
 - `__tests__/app/projects/page.test.tsx` — h1 / subtitle テキスト更新
+
+## 申し送り事項
+
+- **実装完了日**: 2026-04-14
+- **計画と実績の差分**: 当初 C2 のみの計画だったが、ユーザーリクエストでカード高さ揃え・About充実化・Education拡張が追加。同一PRに統合。
+- **学び**:
+  - `dt`/`dd` の DOM 順序は HTML 仕様で規定されており、視覚順序の調整は `flex-col-reverse` で対応可能
+  - Education の type ユニオンを拡張した場合、UI の条件分岐も網羅的に更新する必要がある
+  - グリッドカードの高さ揃えは `h-full` を AnimateOnScroll ラッパー + カード article の両方に付ける
+- **次回への改善**: 型のユニオン拡張時に UI の全分岐をチェックするルールを knowledge/frontend.md に追加検討
