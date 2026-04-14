@@ -14,8 +14,8 @@ export const educations: Education[] = [
     title:
       'The energy spectrum of forward photons measured by the RHICf experiment in √s = 510 GeV proton-proton collisions',
     institution: 'Proceedings of Science (ICRC2019)',
-    date: '2021',
+    date: '2019',
     description:
-      '筆頭著者。国際宇宙線会議 ICRC2019 にて RHICf 実験の前方光子エネルギースペクトル測定結果を発表。DOI: 10.22323/1.358.0413',
+      '筆頭著者。国際宇宙線会議 ICRC2019 にて RHICf 実験の前方光子エネルギースペクトル測定結果を発表（Proceedings of Science 掲載: 2021 年）。DOI: 10.22323/1.358.0413',
   },
 ];
