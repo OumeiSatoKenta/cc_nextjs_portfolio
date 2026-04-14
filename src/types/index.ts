@@ -69,6 +69,8 @@ export interface Project {
   githubUrl?: string;
   liveUrl?: string;
   highlights?: string[];
+  metrics?: { label: string; value: string }[];
+  linkLabel?: string;
   featured: boolean;
 }
 
@@ -84,7 +86,7 @@ export interface BlogPost {
 }
 
 export interface Education {
-  type: 'certification' | 'degree';
+  type: 'certification' | 'degree' | 'publication';
   title: string;
   institution?: string;
   date: string;

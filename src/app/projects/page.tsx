@@ -7,8 +7,8 @@ export default function ProjectsPage() {
     <>
       <section className="mx-auto max-w-[1200px] px-16 py-40 md:px-32" aria-label="プロジェクト">
         <AnimateOnScroll>
-          <h1 className="text-display-hero text-vercel-black">Projects</h1>
-          <p className="mt-16 text-body-large text-gray-600">公開プロジェクト一覧</p>
+          <h1 className="text-display-hero text-vercel-black">Side Projects</h1>
+          <p className="mt-16 text-body-large text-gray-600">個人開発・技術書・コミュニティ活動</p>
         </AnimateOnScroll>
       </section>
 
@@ -18,7 +18,7 @@ export default function ProjectsPage() {
       >
         <div className="grid gap-32 md:grid-cols-2">
           {projects.map((project, index) => (
-            <AnimateOnScroll key={project.id} delay={index * 100}>
+            <AnimateOnScroll key={project.id} delay={index * 100} className="h-full">
               <ProjectCard
                 title={project.title}
                 description={project.description}
@@ -26,6 +26,8 @@ export default function ProjectsPage() {
                 githubUrl={project.githubUrl}
                 liveUrl={project.liveUrl}
                 highlights={project.highlights}
+                metrics={project.metrics}
+                linkLabel={project.linkLabel}
               />
             </AnimateOnScroll>
           ))}

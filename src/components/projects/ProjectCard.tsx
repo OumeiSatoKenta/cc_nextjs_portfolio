@@ -5,6 +5,8 @@ interface ProjectCardProps {
   githubUrl?: string;
   liveUrl?: string;
   highlights?: string[];
+  metrics?: { label: string; value: string }[];
+  linkLabel?: string;
 }
 
 export function ProjectCard({
@@ -14,9 +16,11 @@ export function ProjectCard({
   githubUrl,
   liveUrl,
   highlights,
+  metrics,
+  linkLabel,
 }: ProjectCardProps) {
   return (
-    <article className="flex flex-col gap-16 rounded-comfortable bg-pure-white p-32 shadow-subtle-card transition-all duration-200 hover:-translate-y-4 hover:shadow-full-card">
+    <article className="flex h-full flex-col gap-16 rounded-comfortable bg-pure-white p-32 shadow-subtle-card transition-all duration-200 hover:-translate-y-4 hover:shadow-full-card">
       <h3 className="text-card-title text-vercel-black">{title}</h3>
       <p className="text-body-small text-gray-600">{description}</p>
 
@@ -28,6 +32,22 @@ export function ProjectCard({
             </li>
           ))}
         </ul>
+      )}
+
+      {metrics && metrics.length > 0 && (
+        <dl className="flex gap-32">
+          {metrics.map((metric) => (
+            <div key={metric.label} className="text-center">
+              <dd
+                className="text-sub-heading-large text-vercel-black"
+                style={{ fontFeatureSettings: '"tnum"' }}
+              >
+                {metric.value}
+              </dd>
+              <dt className="font-medium text-caption text-gray-400">{metric.label}</dt>
+            </div>
+          ))}
+        </dl>
       )}
 
       {technologies.length > 0 && (
@@ -62,7 +82,7 @@ export function ProjectCard({
               rel="noopener noreferrer"
               className="font-medium text-button-link text-link-blue hover:underline"
             >
-              Connpass →
+              {linkLabel ?? 'Live'} →
             </a>
           )}
         </div>
