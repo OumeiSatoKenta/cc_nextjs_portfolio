@@ -27,10 +27,22 @@ describe('BlogCard', () => {
     expect(screen.getByText('Zenn')).toBeInTheDocument();
   });
 
-  it('renders platform badge with pill style', () => {
+  it('renders platform badge with pill style and platform-specific color', () => {
     render(<BlogCard {...baseProps} />);
     const badge = screen.getByText('Zenn');
-    expect(badge).toHaveClass('rounded-pill', 'bg-badge-blue-bg', 'text-badge-blue-text');
+    expect(badge).toHaveClass('rounded-pill', 'bg-badge-cloud-bg', 'text-badge-cloud-text');
+  });
+
+  it('renders Qiita badge with lang color', () => {
+    render(<BlogCard {...baseProps} platform="qiita" />);
+    const badge = screen.getByText('Qiita');
+    expect(badge).toHaveClass('bg-badge-lang-bg', 'text-badge-lang-text');
+  });
+
+  it('renders Amazon badge with db color', () => {
+    render(<BlogCard {...baseProps} platform="amazon" />);
+    const badge = screen.getByText('Amazon Kindle');
+    expect(badge).toHaveClass('bg-badge-db-bg', 'text-badge-db-text');
   });
 
   it('renders as article with external link at bottom', () => {
