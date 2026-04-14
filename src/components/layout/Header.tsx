@@ -59,7 +59,7 @@ export function Header({ siteName, navLinks }: HeaderProps) {
           <ThemeToggle />
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger
-              className="inline-flex items-center justify-center rounded-circle p-8 focus-visible:shadow-focus focus-visible:outline-none md:hidden"
+              className="inline-flex items-center justify-center rounded-circle p-8 focus-visible:shadow-focus focus-visible:outline-none active:scale-95 md:hidden"
               aria-label="メニューを開く"
             >
               <Menu size={24} />

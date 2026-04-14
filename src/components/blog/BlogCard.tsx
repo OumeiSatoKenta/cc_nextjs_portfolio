@@ -27,7 +27,7 @@ interface BlogCardProps {
 
 export function BlogCard({ title, url, publishedAt, platform, description, tags }: BlogCardProps) {
   return (
-    <article className="flex flex-col gap-16 rounded-comfortable bg-pure-white p-32 shadow-subtle-card transition hover:-translate-y-4 hover:shadow-full-card">
+    <article className="flex flex-col gap-16 rounded-comfortable bg-pure-white p-32 shadow-subtle-card transition-all duration-200 hover:-translate-y-4 hover:shadow-full-card">
       <div className="flex items-center gap-8">
         <time dateTime={publishedAt} className="font-geist-mono text-caption text-gray-500">
           {new Intl.DateTimeFormat('ja-JP', {

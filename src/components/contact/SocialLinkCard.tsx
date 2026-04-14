@@ -13,7 +13,7 @@ export function SocialLinkCard({ platform, url, icon, label }: SocialLinkCardPro
   const displayName = label ?? platform;
 
   return (
-    <article className="flex flex-col gap-16 rounded-comfortable bg-pure-white p-32 shadow-subtle-card transition hover:-translate-y-4 hover:shadow-full-card">
+    <article className="flex flex-col gap-16 rounded-comfortable bg-pure-white p-32 shadow-subtle-card transition-all duration-200 hover:-translate-y-4 hover:shadow-full-card">
       <SocialIcon name={icon} size={32} className="text-gray-600" />
       <h3 className="text-body-medium text-vercel-black">{displayName}</h3>
       <a
