@@ -21,7 +21,7 @@ export default function BlogPage() {
       <section className="mx-auto max-w-[1200px] px-16 pb-40 md:px-32" aria-label="記事一覧">
         <div className="grid gap-32 md:grid-cols-2">
           {blogPosts.map((post, index) => (
-            <AnimateOnScroll key={post.url} delay={index * 100}>
+            <AnimateOnScroll key={post.url} delay={index * 100} className="h-full">
               <BlogCard
                 title={post.title}
                 url={post.url}
