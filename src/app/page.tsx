@@ -9,7 +9,7 @@ export default function HomePage() {
   return (
     <>
       <AnimateOnScroll>
-        <HeroSection name={author.name} tagline={author.tagline} />
+        <HeroSection name={author.name} tagline={author.tagline} stats={author.stats} />
       </AnimateOnScroll>
       <section className="mx-auto max-w-[1200px] px-16 pb-40 md:px-32" aria-label="強み">
         <ul className="grid gap-32 md:grid-cols-2 lg:grid-cols-3">
