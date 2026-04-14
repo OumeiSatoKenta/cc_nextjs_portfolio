@@ -42,16 +42,28 @@ describe('SkillGrid', () => {
     expect(awsBadge).toHaveClass('bg-vercel-black', 'text-pure-white');
   });
 
-  it('applies gray badge class for advanced level skills', () => {
+  it('applies category color for cloud advanced skills', () => {
     render(<SkillGrid skills={mockSkills} />);
     const terraformBadge = screen.getByText('Terraform · 2年');
-    expect(terraformBadge).toHaveClass('bg-gray-100', 'text-vercel-black');
+    expect(terraformBadge).toHaveClass('bg-badge-cloud-bg', 'text-badge-cloud-text');
   });
 
-  it('applies default badge class for intermediate level skills', () => {
+  it('applies category color for language skills', () => {
     render(<SkillGrid skills={mockSkills} />);
     const pythonBadge = screen.getByText('Python · 4年');
-    expect(pythonBadge).toHaveClass('bg-badge-blue-bg', 'text-badge-blue-text');
+    expect(pythonBadge).toHaveClass('bg-badge-lang-bg', 'text-badge-lang-text');
+  });
+
+  it('applies category color for database skills', () => {
+    render(<SkillGrid skills={mockSkills} />);
+    const dbBadge = screen.getByText('Aurora MySQL · 3年');
+    expect(dbBadge).toHaveClass('bg-badge-db-bg', 'text-badge-db-text');
+  });
+
+  it('applies category color for tool skills', () => {
+    render(<SkillGrid skills={mockSkills} />);
+    const toolBadge = screen.getByText('Docker · 4年');
+    expect(toolBadge).toHaveClass('bg-badge-tool-bg', 'text-badge-tool-text');
   });
 
   it('omits categories with no skills', () => {

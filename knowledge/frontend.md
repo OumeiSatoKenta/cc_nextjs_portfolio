@@ -45,6 +45,16 @@ useEffect(() => {
 
 ## アクセシビリティ
 
+### バッジカラーの WCAG AA コントラスト比を設計段階で検証する
+
+**問題**: 淡い背景色 + 鮮やかなテキスト色の組み合わせは、見た目の印象ほどコントラスト比が高くない。ワークフローアクセントカラー（#0a72ef, #de1d8d）をそのまま淡い背景に載せると 4.5:1 未達になる。
+
+**解決**: カラートークン設計時に WCAG AA 4.5:1 を事前検証し、必要に応じてテキスト色を暗い派生値に調整する。例: cloud #0a72ef→#0052cc（~6.6:1）、lang #de1d8d→#b31472（~5.2:1）、db #e04e43→#b83028（~5.4:1）。
+
+**適用**: `@theme` にバッジカラートークンを追加する際は、必ず bg/text のペアでコントラスト比を確認してから design.md に記載する。
+
+**初出**: `.steering/20260413-badge-color-hover/`（カテゴリバッジカラー）
+
 ### モーダル・ダイアログは shadcn/ui Sheet (Radix Dialog) を使う
 
 **現状**: Phase 5 で手動モーダル（Navigation.tsx 134行）を shadcn/ui Sheet に置換。以下の機能が Radix Dialog に内蔵されており、手動実装が不要になった:
@@ -128,6 +138,22 @@ const pathname = usePathname() ?? '/';
 
 **初出**: `.steering/20260413-portfolio-modernization/`（Phase 4）
 
+### `--spacing: 1px` は translate-y にも影響する
+
+**問題**: `@theme { --spacing: 1px; }` を設定すると、`p-*` / `gap-*` だけでなく `translate-y-*` 等の transform ユーティリティにも影響する。`hover:-translate-y-2` は 2px（デフォルトの 0.5rem ではない）となり、リフト量が不足する。
+
+**解決**: 視認性のあるホバーリフトには `hover:-translate-y-4`（= 4px）を使用する。デザイン時に `--spacing` の影響を考慮し、実ピクセル値で検討すること。
+
+**初出**: `.steering/20260413-badge-color-hover/`（カードホバーリフト）
+
+### カードホバーには `transition`（`transition-all` ではない）を使う
+
+**ルール**: Tailwind v4 の `transition` クラスは box-shadow, translate, transform 等のよく使うプロパティに限定されたキュレート済みセット。`transition-all` は全プロパティをアニメーション対象にするためパフォーマンスが劣る。
+
+**適用**: `shadow-subtle-card` → `hover:shadow-full-card` + `hover:-translate-y-4` のようなカードホバーパターンでは `transition` で十分。
+
+**初出**: `.steering/20260413-badge-color-hover/`（4 カードコンポーネント）
+
 ### 動的クラス名は静的マップで解決する
 
 **問題**: Tailwind JIT はビルド時にクラスを抽出するため、テンプレートリテラルで動的に構築したクラス名（例: `` `bg-${color}` ``）は検出されない。
@@ -135,14 +161,15 @@ const pathname = usePathname() ?? '/';
 **解決**: `Record<UnionType, string>` 型の定数マップを定義し、値の参照で切り替える。
 
 ```ts
-const LEVEL_BADGE_CLASS: Record<SkillLevel, string> = {
-  expert: 'bg-vercel-black text-pure-white',
-  advanced: 'bg-gray-100 text-vercel-black',
-  intermediate: 'bg-badge-blue-bg text-badge-blue-text',
+const CATEGORY_BADGE_CLASS: Record<SkillCategory, string> = {
+  cloud: 'bg-badge-cloud-bg text-badge-cloud-text',
+  language: 'bg-badge-lang-bg text-badge-lang-text',
+  database: 'bg-badge-db-bg text-badge-db-text',
+  tool: 'bg-badge-tool-bg text-badge-tool-text',
 };
 ```
 
-**初出**: `.steering/20260413-add-about-page/`（SkillGrid）、`.steering/20260412-add-home-page/`（StrengthCard）
+**初出**: `.steering/20260413-add-about-page/`（SkillGrid）、`.steering/20260412-add-home-page/`（StrengthCard）、`.steering/20260413-badge-color-hover/`（カテゴリバッジカラー）
 
 ### DESIGN.md の Badge/Caption には `font-medium` が必要
 
