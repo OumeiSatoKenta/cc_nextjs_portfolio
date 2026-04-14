@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 const mailLink = socialLinks.find((link) => link.platform === 'Mail');
 const linkedinLink = socialLinks.find((link) => link.platform === 'LinkedIn');
 const otherLinks = socialLinks.filter(
-  (link) => link.platform !== 'Mail' && link.platform !== 'LinkedIn',
+  (link) => link.platform !== 'Mail' && link.platform !== 'LinkedIn'
 );
 
 export default function ContactPage() {

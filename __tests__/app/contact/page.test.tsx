@@ -9,7 +9,7 @@ import ContactPage from '@/app/contact/page';
 import { socialLinks } from '@/data/social';
 
 const otherLinks = socialLinks.filter(
-  (link) => link.platform !== 'Mail' && link.platform !== 'LinkedIn',
+  (link) => link.platform !== 'Mail' && link.platform !== 'LinkedIn'
 );
 
 describe('ContactPage', () => {
