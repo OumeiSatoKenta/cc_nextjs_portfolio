@@ -17,13 +17,13 @@ export function HeroSection({ name, tagline, stats }: HeroSectionProps) {
       <div className="mt-32 flex gap-16">
         <Link
           href="/projects/"
-          className="inline-flex items-center rounded-standard bg-vercel-black px-16 py-10 text-button-link text-pure-white transition-opacity hover:opacity-85 focus-visible:shadow-focus focus-visible:outline-none"
+          className="inline-flex items-center rounded-standard bg-vercel-black px-16 py-10 text-button-link text-pure-white transition-all duration-200 hover:opacity-85 focus-visible:shadow-focus focus-visible:outline-none active:scale-[0.98]"
         >
           Projects を見る
         </Link>
         <Link
           href="/about/"
-          className="inline-flex items-center rounded-standard bg-pure-white px-16 py-10 text-button-link text-vercel-black shadow-light-ring transition-shadow hover:shadow-ring focus-visible:shadow-focus focus-visible:outline-none"
+          className="inline-flex items-center rounded-standard bg-pure-white px-16 py-10 text-button-link text-vercel-black shadow-light-ring transition-all duration-200 hover:shadow-ring focus-visible:shadow-focus focus-visible:outline-none active:scale-[0.98]"
         >
           About を見る
         </Link>

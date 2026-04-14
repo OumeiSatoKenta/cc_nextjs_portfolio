@@ -2,11 +2,22 @@ import { render, screen } from '@testing-library/react';
 import AboutPage from '@/app/about/page';
 import { careers } from '@/data/career';
 import { educations } from '@/data/education';
+import { siteMetadata } from '@/data/metadata';
 
 describe('AboutPage', () => {
   it('renders h1 with "About"', () => {
     render(<AboutPage />);
     expect(screen.getByRole('heading', { level: 1, name: 'About' })).toBeInTheDocument();
+  });
+
+  it('renders Introduction section heading', () => {
+    render(<AboutPage />);
+    expect(screen.getByRole('heading', { level: 2, name: 'Introduction' })).toBeInTheDocument();
+  });
+
+  it('renders the introduction text from siteMetadata', () => {
+    render(<AboutPage />);
+    expect(screen.getByText(siteMetadata.author.introduction)).toBeInTheDocument();
   });
 
   it('renders Career section heading', () => {

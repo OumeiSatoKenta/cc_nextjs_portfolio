@@ -16,7 +16,7 @@ export function ProjectCard({
   highlights,
 }: ProjectCardProps) {
   return (
-    <article className="flex flex-col gap-16 rounded-comfortable bg-pure-white p-32 shadow-subtle-card transition hover:-translate-y-4 hover:shadow-full-card">
+    <article className="flex flex-col gap-16 rounded-comfortable bg-pure-white p-32 shadow-subtle-card transition-all duration-200 hover:-translate-y-4 hover:shadow-full-card">
       <h3 className="text-card-title text-vercel-black">{title}</h3>
       <p className="text-body-small text-gray-600">{description}</p>
 

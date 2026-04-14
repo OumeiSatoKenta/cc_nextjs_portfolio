@@ -52,7 +52,7 @@ export function Footer({
                   <a
                     href={link.url}
                     {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                    className="inline-flex items-center justify-center rounded-circle p-8 text-gray-500 transition-colors hover:text-vercel-black focus-visible:shadow-focus focus-visible:outline-none"
+                    className="inline-flex items-center justify-center rounded-circle p-8 text-gray-500 transition-all duration-200 hover:text-vercel-black focus-visible:shadow-focus focus-visible:outline-none active:scale-95"
                     aria-label={link.label ?? link.platform}
                   >
                     <SocialIcon name={link.icon} size={20} />

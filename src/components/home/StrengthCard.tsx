@@ -16,7 +16,7 @@ const ACCENT_BAR_CLASS: Record<AccentColor, string> = {
 
 export function StrengthCard({ title, description, accentColor }: StrengthCardProps) {
   return (
-    <article className="flex flex-col overflow-hidden rounded-comfortable bg-pure-white shadow-subtle-card transition hover:-translate-y-4 hover:shadow-full-card">
+    <article className="flex flex-col overflow-hidden rounded-comfortable bg-pure-white shadow-subtle-card transition-all duration-200 hover:-translate-y-4 hover:shadow-full-card">
       <div className={`h-4 ${ACCENT_BAR_CLASS[accentColor]}`} aria-hidden="true" />
       <div className="flex flex-col gap-12 p-32">
         <h3 className="text-card-title text-vercel-black">{title}</h3>

@@ -9,6 +9,7 @@ export interface SiteMetadata {
     tagline: string;
     strengths: Strength[];
     stats: { label: string; value: string }[];
+    introduction: string;
   };
 }
 

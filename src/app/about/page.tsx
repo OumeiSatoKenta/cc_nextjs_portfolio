@@ -3,6 +3,7 @@ import { Timeline } from '@/components/about/Timeline';
 import { AnimateOnScroll } from '@/components/ui/AnimateOnScroll';
 import { careers } from '@/data/career';
 import { educations } from '@/data/education';
+import { siteMetadata } from '@/data/metadata';
 import { skills } from '@/data/skills';
 
 export default function AboutPage() {
@@ -12,6 +13,13 @@ export default function AboutPage() {
         <AnimateOnScroll>
           <h1 className="text-display-hero text-vercel-black">About</h1>
           <p className="mt-16 text-body-large text-gray-600">経歴とスキルセット</p>
+        </AnimateOnScroll>
+      </section>
+
+      <section className="mx-auto max-w-[1200px] px-16 pb-40 md:px-32" aria-label="自己紹介">
+        <AnimateOnScroll>
+          <h2 className="text-sub-heading text-vercel-black">Introduction</h2>
+          <p className="mt-16 text-body-large text-gray-600">{siteMetadata.author.introduction}</p>
         </AnimateOnScroll>
       </section>
 
