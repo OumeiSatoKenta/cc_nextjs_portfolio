@@ -57,7 +57,16 @@ export default function AboutPage() {
               <li key={`${edu.type}-${edu.title}`}>
                 <AnimateOnScroll delay={index * 100}>
                   <div className="rounded-comfortable bg-pure-white p-32 shadow-subtle-card">
-                    <h3 className="text-card-title text-vercel-black">{edu.title}</h3>
+                    <span
+                      className={`inline-block rounded-pill px-10 py-3 font-medium text-caption ${edu.type === 'publication' ? 'bg-badge-lang-bg text-badge-lang-text' : edu.type === 'certification' ? 'bg-badge-db-bg text-badge-db-text' : 'bg-badge-cloud-bg text-badge-cloud-text'}`}
+                    >
+                      {edu.type === 'publication'
+                        ? '論文'
+                        : edu.type === 'certification'
+                          ? '資格'
+                          : '学歴'}
+                    </span>
+                    <h3 className="mt-8 text-card-title text-vercel-black">{edu.title}</h3>
                     {edu.institution && (
                       <p className="mt-8 text-body-small text-gray-600">{edu.institution}</p>
                     )}
@@ -65,6 +74,11 @@ export default function AboutPage() {
                       dateTime={edu.date}
                       className="mt-4 block font-geist-mono text-caption text-gray-500"
                     >
+                      {edu.type === 'publication'
+                        ? '発表: '
+                        : edu.type === 'certification'
+                          ? '取得: '
+                          : '修了: '}
                       {edu.date}
                     </time>
                     {edu.description && (
