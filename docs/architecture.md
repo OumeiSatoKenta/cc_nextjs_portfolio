@@ -21,6 +21,7 @@
 | Tailwind CSS | 4.x | スタイリング | CSS-first config（`@theme`）でDESIGN.mdデザイントークンとの統合が容易。ビルド時に未使用CSSを除去 |
 | shadcn/ui | — | UIコンポーネントプリミティブ | Radix UIベースのアクセシブルなコンポーネント。Sheet（モバイルナビ）等で使用 |
 | Framer Motion | — | アニメーション（Post-MVP P1） | ページ遷移・スクロールアニメーション。React向けの宣言的アニメーションライブラリ |
+| next-themes | 0.4.x | ダークモード切替 | `attribute="class"` でHTML要素にテーマクラスを付与。SSR/Static Export対応、FOUC防止スクリプト内蔵 |
 
 ### 開発ツール
 
@@ -251,7 +252,7 @@ Content-Security-Policy:
 | 機能 | 優先度 | 技術的影響 |
 |------|--------|-----------|
 | Framer Motionアニメーション | P1 | 依存追加のみ。アーキテクチャ変更なし |
-| ダークモード | P2 | Tailwind `dark:` バリアント + テーマ切替ロジック |
+| ダークモード | **実装済** | CSS変数スワップ方式（next-themes + `@custom-variant dark`）。`.dark` クラスで全トークンを再定義し、個別コンポーネントへの `dark:` 追加不要 |
 | i18n（英語対応） | P2 | ディレクトリ構造変更（`/en/` プレフィックス）。ルーティング設計の見直し |
 | OGP画像自動生成 | P2 | ビルドスクリプト追加。Static Export内で完結可能 |
 

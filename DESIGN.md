@@ -60,6 +60,36 @@ What distinguishes Vercel from other monochrome design systems is its shadow-as-
 - **Card Stack** (`rgba(0,0,0,0.08) 0px 0px 0px 1px, rgba(0,0,0,0.04) 0px 2px 2px, rgba(0,0,0,0.04) 0px 8px 8px -8px, #fafafa 0px 0px 0px 1px`): Full multi-layer card shadow.
 - **Ring Border** (`rgb(235, 235, 235) 0px 0px 0px 1px`): Light gray ring-border for tabs and images.
 
+### Dark Mode Color Palette
+
+ダークモードはCSS変数スワップ方式で実装。`.dark` クラスがHTMLに付与されると、全トークンが以下の値に自動置換される。個別コンポーネントに `dark:` クラスを付与する必要はない。
+
+**Primary (Dark)**
+- **Pure White** → `#0a0a0a`: ダーク背景（ほぼ黒だが純粋な黒ではない）
+- **Vercel Black** → `#ededed`: ダークモードの主テキスト
+- **True Black** → `#ffffff`: ダークモードの強調テキスト
+
+**Neutral Scale (Dark)**
+- **Gray 50** → `#1a1a1a` | **Gray 100** → `#2a2a2a` | **Gray 400** → `#808080`
+- **Gray 500** → `#999999` | **Gray 600** → `#b0b0b0` | **Gray 900** → `#ededed`
+
+**Accent Colors (Dark)** — 明度を上げてダーク背景上での視認性を確保
+- **Ship Red** → `#ff6f64` | **Preview Pink** → `#e84da5` | **Develop Blue** → `#3d8ef5`
+- **Link Blue** → `#4da3ff` | **Focus Blue** → `hsla(212, 100%, 60%, 1)`
+
+**Badge Colors (Dark)** — 半透明背景に変更し、ダーク面に馴染ませる
+- Badge Blue: `rgba(10, 114, 239, 0.15)` bg / `#6db3ff` text
+- Badge Cloud: `rgba(0, 82, 204, 0.15)` bg / `#6da3ff` text
+- Badge Lang: `rgba(179, 20, 114, 0.15)` bg / `#e85aac` text
+- Badge DB: `rgba(184, 48, 40, 0.15)` bg / `#f07068` text
+- Badge Tool: `rgba(255, 255, 255, 0.08)` bg / `#b0b0b0` text
+
+**Shadows (Dark)** — 白系のリングと濃い影に反転
+- **Border Shadow** → `rgba(255, 255, 255, 0.1) 0px 0px 0px 1px`
+- **Ring Border** → `rgba(255, 255, 255, 0.12) 0px 0px 0px 1px`
+- **Subtle Card** → `rgba(255, 255, 255, 0.06) 0px 0px 0px 1px, rgba(0, 0, 0, 0.3) 0px 2px 2px`
+- **Focus Ring** → `0 0 0 2px hsla(212, 100%, 60%, 1)`
+
 ## 3. Typography Rules
 
 ### Font Family
