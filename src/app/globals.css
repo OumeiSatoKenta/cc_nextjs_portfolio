@@ -136,6 +136,16 @@
   animation: fade-in-up 0.5s ease-out forwards;
 }
 
+.hero-gradient {
+  background: radial-gradient(
+    ellipse at 50% 0%,
+    rgba(10, 114, 239, 0.06) 0%,
+    rgba(222, 29, 141, 0.04) 40%,
+    rgba(255, 91, 79, 0.02) 70%,
+    transparent 100%
+  );
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-fade-in-up {
     animation: none;

@@ -35,4 +35,17 @@ describe('HomePage', () => {
     const link = screen.getByRole('link', { name: 'Projects を見る' });
     expect(link.getAttribute('href')).toMatch(/^\/projects\/?$/);
   });
+
+  it('renders each stat value from siteMetadata.author.stats', () => {
+    render(<HomePage />);
+    siteMetadata.author.stats.forEach((stat) => {
+      expect(screen.getByText(stat.value)).toBeInTheDocument();
+    });
+  });
+
+  it('renders a secondary CTA link to /about/', () => {
+    render(<HomePage />);
+    const link = screen.getByRole('link', { name: 'About を見る' });
+    expect(link.getAttribute('href')).toMatch(/^\/about\/?$/);
+  });
 });
