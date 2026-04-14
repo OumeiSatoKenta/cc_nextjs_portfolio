@@ -121,6 +121,53 @@
   --breakpoint-xl: 1280px;
 }
 
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  color-scheme: light;
+}
+
+.dark {
+  color-scheme: dark;
+
+  --color-pure-white: #0a0a0a;
+  --color-vercel-black: #ededed;
+  --color-true-black: #ffffff;
+  --color-gray-50: #1a1a1a;
+  --color-gray-100: #2a2a2a;
+  --color-gray-400: #808080;
+  --color-gray-500: #999999;
+  --color-gray-600: #b0b0b0;
+  --color-gray-900: #ededed;
+
+  --color-ship-red: #ff6f64;
+  --color-preview-pink: #e84da5;
+  --color-develop-blue: #3d8ef5;
+  --color-link-blue: #4da3ff;
+  --color-focus-blue: hsla(212, 100%, 60%, 1);
+  --color-ring-blue: rgba(147, 197, 253, 0.3);
+
+  --color-badge-blue-bg: rgba(10, 114, 239, 0.15);
+  --color-badge-blue-text: #6db3ff;
+  --color-badge-cloud-bg: rgba(0, 82, 204, 0.15);
+  --color-badge-cloud-text: #6da3ff;
+  --color-badge-lang-bg: rgba(179, 20, 114, 0.15);
+  --color-badge-lang-text: #e85aac;
+  --color-badge-db-bg: rgba(184, 48, 40, 0.15);
+  --color-badge-db-text: #f07068;
+  --color-badge-tool-bg: rgba(255, 255, 255, 0.08);
+  --color-badge-tool-text: #b0b0b0;
+
+  --shadow-ring: rgba(255, 255, 255, 0.1) 0px 0px 0px 1px;
+  --shadow-light-ring: rgba(255, 255, 255, 0.12) 0px 0px 0px 1px;
+  --shadow-subtle-card: rgba(255, 255, 255, 0.06) 0px 0px 0px 1px, rgba(0, 0, 0, 0.3) 0px 2px 2px;
+  /* #fafafa inner ring omitted — white glow is counterproductive on dark backgrounds */
+  --shadow-full-card:
+    rgba(255, 255, 255, 0.1) 0px 0px 0px 1px, rgba(0, 0, 0, 0.4) 0px 2px 2px,
+    rgba(0, 0, 0, 0.3) 0px 8px 8px -8px;
+  --shadow-focus: 0 0 0 2px hsla(212, 100%, 60%, 1);
+}
+
 @keyframes fade-in-up {
   from {
     opacity: 0;
@@ -142,6 +189,16 @@
     rgba(10, 114, 239, 0.06) 0%,
     rgba(222, 29, 141, 0.04) 40%,
     rgba(255, 91, 79, 0.02) 70%,
+    transparent 100%
+  );
+}
+
+.dark .hero-gradient {
+  background: radial-gradient(
+    ellipse at 50% 0%,
+    rgba(61, 142, 245, 0.12) 0%,
+    rgba(232, 77, 165, 0.08) 40%,
+    rgba(255, 111, 100, 0.04) 70%,
     transparent 100%
   );
 }

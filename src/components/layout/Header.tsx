@@ -10,6 +10,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
+import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { useActiveNav } from '@/hooks/useActiveNav';
 import type { NavLink } from '@/types';
 
@@ -54,37 +55,40 @@ export function Header({ siteName, navLinks }: HeaderProps) {
           </ul>
         </nav>
 
-        <Sheet open={isOpen} onOpenChange={setIsOpen}>
-          <SheetTrigger
-            className="inline-flex items-center justify-center rounded-circle p-8 focus-visible:shadow-focus focus-visible:outline-none md:hidden"
-            aria-label="メニューを開く"
-          >
-            <Menu size={24} />
-          </SheetTrigger>
-          <SheetContent side="right" aria-label="ナビゲーションメニュー">
-            <SheetTitle>ナビゲーション</SheetTitle>
-            <SheetDescription>サイト内のページへ移動</SheetDescription>
-            <nav aria-label="モバイルナビゲーション" className="mt-40">
-              <ul className="flex flex-col gap-8 px-16">
-                {navLinks.map((link) => (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      onClick={() => setIsOpen(false)}
-                      className={`block rounded-standard px-12 py-10 text-body-medium transition-colors ${
-                        isActive(link.href)
-                          ? 'font-semibold underline underline-offset-4'
-                          : 'text-vercel-black hover:bg-gray-50'
-                      }`}
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          </SheetContent>
-        </Sheet>
+        <div className="flex items-center gap-8">
+          <ThemeToggle />
+          <Sheet open={isOpen} onOpenChange={setIsOpen}>
+            <SheetTrigger
+              className="inline-flex items-center justify-center rounded-circle p-8 focus-visible:shadow-focus focus-visible:outline-none md:hidden"
+              aria-label="メニューを開く"
+            >
+              <Menu size={24} />
+            </SheetTrigger>
+            <SheetContent side="right" aria-label="ナビゲーションメニュー">
+              <SheetTitle>ナビゲーション</SheetTitle>
+              <SheetDescription>サイト内のページへ移動</SheetDescription>
+              <nav aria-label="モバイルナビゲーション" className="mt-40">
+                <ul className="flex flex-col gap-8 px-16">
+                  {navLinks.map((link) => (
+                    <li key={link.href}>
+                      <Link
+                        href={link.href}
+                        onClick={() => setIsOpen(false)}
+                        className={`block rounded-standard px-12 py-10 text-body-medium transition-colors ${
+                          isActive(link.href)
+                            ? 'font-semibold underline underline-offset-4'
+                            : 'text-vercel-black hover:bg-gray-50'
+                        }`}
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            </SheetContent>
+          </Sheet>
+        </div>
       </div>
     </header>
   );
