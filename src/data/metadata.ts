@@ -35,5 +35,7 @@ export const siteMetadata: SiteMetadata = {
       { value: '3', label: 'クラウド基盤' },
       { value: '6', label: '技術記事・書籍' },
     ],
+    introduction:
+      'マルチクラウド（AWS / Google Cloud）環境での IaC 設計・構築・運用を軸に、AI 駆動開発の導入推進やパフォーマンス改善・コスト最適化に取り組む SRE エンジニアです。技術書の共著やコミュニティ運営を通じた技術発信にも力を入れています。',
   },
 };
