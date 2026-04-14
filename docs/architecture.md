@@ -296,7 +296,7 @@ Content-Security-Policy:
 | Image Optimization API 不使用 | 自動画像最適化なし | 手動でWebP変換・リサイズ。`images.unoptimized: true` |
 | API Routes 不使用 | サーバーサイド処理なし | フォーム送信等は外部サービス連携（MVP外） |
 | Dynamic Routes 制限 | 動的パス生成に `generateStaticParams` 必要 | 5ページ固定のためMVPでは不要 |
-| Middleware 不使用 | リダイレクト・認証はEdge Function不可 | CloudFront Functionsで対応（インフラ側） |
+| Proxy 不使用（Next.js 16 で Middleware から改称） | リダイレクト・認証はサーバーランタイム不可 | CloudFront Functionsで対応（インフラ側） |
 
 ### 環境要件
 
