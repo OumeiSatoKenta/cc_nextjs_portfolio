@@ -19,7 +19,13 @@ export default function AboutPage() {
       <section className="mx-auto max-w-[1200px] px-16 pb-40 md:px-32" aria-label="自己紹介">
         <AnimateOnScroll>
           <h2 className="text-sub-heading text-vercel-black">Introduction</h2>
-          <p className="mt-16 text-body-large text-gray-600">{siteMetadata.author.introduction}</p>
+          <div className="mt-16 flex flex-col gap-16">
+            {siteMetadata.author.introduction.split('\n\n').map((paragraph) => (
+              <p key={paragraph.slice(0, 20)} className="text-body-large text-gray-600">
+                {paragraph}
+              </p>
+            ))}
+          </div>
         </AnimateOnScroll>
       </section>
 
