@@ -3,14 +3,14 @@ import ProjectsPage from '@/app/projects/page';
 import { projects } from '@/data/projects';
 
 describe('ProjectsPage', () => {
-  it('renders h1 with "Projects"', () => {
+  it('renders h1 with "Side Projects"', () => {
     render(<ProjectsPage />);
-    expect(screen.getByRole('heading', { level: 1, name: 'Projects' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1, name: 'Side Projects' })).toBeInTheDocument();
   });
 
   it('renders subtitle', () => {
     render(<ProjectsPage />);
-    expect(screen.getByText('公開プロジェクト一覧')).toBeInTheDocument();
+    expect(screen.getByText('個人開発・技術書・コミュニティ活動')).toBeInTheDocument();
   });
 
   it('renders all project titles from data', () => {

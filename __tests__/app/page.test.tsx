@@ -32,7 +32,7 @@ describe('HomePage', () => {
 
   it('renders a CTA link to /projects/', () => {
     render(<HomePage />);
-    const link = screen.getByRole('link', { name: 'Projects を見る' });
+    const link = screen.getByRole('link', { name: 'Side Projects を見る' });
     expect(link.getAttribute('href')).toMatch(/^\/projects\/?$/);
   });
 

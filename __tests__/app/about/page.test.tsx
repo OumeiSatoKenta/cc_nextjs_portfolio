@@ -15,9 +15,12 @@ describe('AboutPage', () => {
     expect(screen.getByRole('heading', { level: 2, name: 'Introduction' })).toBeInTheDocument();
   });
 
-  it('renders the introduction text from siteMetadata', () => {
+  it('renders the introduction paragraphs from siteMetadata', () => {
     render(<AboutPage />);
-    expect(screen.getByText(siteMetadata.author.introduction)).toBeInTheDocument();
+    const paragraphs = siteMetadata.author.introduction.split('\n\n');
+    for (const paragraph of paragraphs) {
+      expect(screen.getByText(paragraph)).toBeInTheDocument();
+    }
   });
 
   it('renders Career section heading', () => {

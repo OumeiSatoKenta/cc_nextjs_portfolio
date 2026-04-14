@@ -19,7 +19,7 @@ export function HeroSection({ name, tagline, stats }: HeroSectionProps) {
           href="/projects/"
           className="inline-flex items-center rounded-standard bg-vercel-black px-16 py-10 text-button-link text-pure-white transition-all duration-200 hover:opacity-85 focus-visible:shadow-focus focus-visible:outline-none active:scale-[0.98]"
         >
-          Projects を見る
+          Side Projects を見る
         </Link>
         <Link
           href="/about/"
