@@ -61,6 +61,15 @@ export interface Skill {
   years?: number;
 }
 
+export type ProjectAccentColor = 'ship' | 'preview' | 'develop';
+
+export interface ProjectThumbnail {
+  accentColor: ProjectAccentColor;
+  icon: string;
+  image?: string;
+  fit?: 'cover' | 'contain';
+}
+
 export interface Project {
   id: string;
   title: string;
@@ -71,6 +80,7 @@ export interface Project {
   highlights?: string[];
   metrics?: { label: string; value: string }[];
   linkLabel?: string;
+  thumbnail?: ProjectThumbnail;
   featured: boolean;
 }
 

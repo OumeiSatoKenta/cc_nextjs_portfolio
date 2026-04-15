@@ -21,6 +21,7 @@ export const projects: Project[] = [
       'Claude Code による AI 駆動開発ワークフロー',
       'Static Export + CloudFront 配信で高速・低コスト',
     ],
+    thumbnail: { accentColor: 'develop', icon: 'Globe' },
     featured: true,
   },
   {
@@ -35,6 +36,7 @@ export const projects: Project[] = [
       'CloudFront + S3 オリジンアクセスコントロール（OAC）',
       'GitHub Actions による plan/apply 自動化',
     ],
+    thumbnail: { accentColor: 'ship', icon: 'Cloud' },
     featured: true,
   },
   {
@@ -46,6 +48,12 @@ export const projects: Project[] = [
     liveUrl: 'https://tiug.connpass.com/',
     linkLabel: 'Connpass',
     highlights: ['3 ヶ月ごとの定期 MeetUp Event の企画・運営', 'TiDB 日本コミュニティの活性化'],
+    thumbnail: {
+      accentColor: 'preview',
+      icon: 'Users',
+      image: '/images/projects/tiug-community.jpeg',
+      fit: 'contain',
+    },
     featured: false,
   },
   {
@@ -64,6 +72,12 @@ export const projects: Project[] = [
       { label: '共著者数', value: '70' },
       { label: 'ダウンロード数', value: '16,500' },
     ],
+    thumbnail: {
+      accentColor: 'ship',
+      icon: 'BookOpen',
+      image: '/images/projects/aws-cert-book.jpg',
+      fit: 'contain',
+    },
     featured: false,
   },
   {
@@ -75,6 +89,12 @@ export const projects: Project[] = [
     liveUrl: 'https://www.amazon.co.jp/dp/B0DTJMCR42',
     linkLabel: 'Amazon',
     highlights: ['ハンズオン形式の技術書の編集・校正'],
+    thumbnail: {
+      accentColor: 'develop',
+      icon: 'PenTool',
+      image: '/images/projects/amplify-handson-book.jpg',
+      fit: 'contain',
+    },
     featured: false,
   },
   {
@@ -84,6 +104,7 @@ export const projects: Project[] = [
       'AWS JAWS コミュニティや生成 AI 勉強会に積極参加し、最新技術のキャッチアップとエンジニア同士のナレッジシェアを実践。',
     technologies: ['AWS', 'JAWS', '生成AI', 'コミュニティ'],
     highlights: ['AWS JAWS コミュニティへの継続的な参加', '生成 AI 関連勉強会でのナレッジシェア'],
+    thumbnail: { accentColor: 'preview', icon: 'Presentation' },
     featured: false,
   },
 ];
