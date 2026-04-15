@@ -1,90 +1,38 @@
-# cc_base
+# cc_nextjs_portfolio
 
-Claude Code を使ったスペック駆動開発のためのプロジェクトテンプレートです。
-カスタムスキル・エージェント・MCP サーバー・フック・セキュリティガードを一式備えており、すぐに本格的な AI 駆動開発を始められます。
+Next.js 16 + Tailwind CSS v4 で構築した個人ポートフォリオサイトです。
 
-## 特徴
+## 技術スタック
 
-### カスタムスキル（25+）
-
-`/` コマンドで呼び出せるスキルを多数収録しています。
-
-| カテゴリ | スキル例 |
-|---------|---------|
-| **開発フロー** | `ship-pr`, `add-feature`, `steering`, `review-codes`, `review-docs` |
-| **ドキュメント** | `prd-writing`, `architecture-design`, `functional-design`, `glossary-creation` |
-| **フロントエンド** | `frontend-design`, `web-artifacts-builder`, `theme-factory`, `webapp-testing` |
-| **TiDB** | `tidb-cloud`, `tidb-sql`, `tidb-python`, `tidb-kysely`, `tidb-serverless-driver` |
-| **コンテンツ** | `zenn-article`, `zenn-publish`, `zenn-review`\*、`pptx-build`, `internal-comms` |
-| **AI開発** | `claude-api`, `skill-creator`, `doc-coauthoring` |
-
-### カスタムエージェント
-
-チームとして協調作業する専門エージェント群:
-
-- `code-reviewer` — コード品質・パターン準拠レビュー
-- `code-reviewer-structural` — 構造・アーキテクチャレビュー
-- `code-reviewer-secondary` — 欠陥・セキュリティレビュー
-- `code-reviewer-docs` — API使用の正確性レビュー
-- `frontend-developer` — フロントエンドコンポーネント実装
-- `test-writer` — テストコード作成
-- `doc-reviewer` — ドキュメントレビュー
-- `implementation-validator` — スペックとの整合性検証
-
-### MCP サーバー構成
-
-`.mcp.json` に以下のサーバーを設定済み:
-
-| サーバー | 用途 |
+| カテゴリ | 技術 |
 |---------|------|
-| **serena** | セマンティックコード解析・シンボル操作 |
-| **context7** | 外部ライブラリの最新ドキュメント取得 |
-| **codex** | セカンドオピニオン AI（OpenAI Codex） |
-| **drawio** | Draw.io 図表の生成・編集 |
-| **aws-knowledge-mcp-server** | AWS ドキュメント検索 |
-| **awslabs.aws-documentation-mcp-server** | AWS 公式ドキュメント読み取り |
-| **awslabs.aws-api-mcp-server** | AWS API 呼び出し（読み取り専用） |
-| **awslabs.terraform-mcp-server** | Terraform プロバイダードキュメント |
-| **awslabs.well-architected-security-mcp-server** | Well-Architected セキュリティレビュー |
+| フレームワーク | Next.js 16 (App Router) |
+| 言語 | TypeScript 5.x |
+| スタイリング | Tailwind CSS v4 |
+| テスト | Vitest + Testing Library |
+| リンター / フォーマッター | Biome + ESLint |
+| CI | GitHub Actions |
+| デプロイ | Static Export → S3 + CloudFront |
 
-### セキュリティフック
+インフラ（Terraform）は別リポジトリ `cc_aws_portfolio` で管理しています。
 
-`pre-tool-use` フックで Claude Code の操作を自動ガード:
+## 開発環境
 
-- `guard-secrets.sh` — シークレット・認証情報ファイルへの書き込みをブロック
-- `guard-secrets-read.sh` — シークレット・認証情報ファイルの読み取りをブロック
-- `guard-aws-cli.sh` — AWS CLI の破壊的操作（`delete`, `terminate` 等）をブロック
-- `guard-terraform.sh` — `terraform destroy` をブロック
-- `validate-commit-message.sh` — Conventional Commits 形式を強制
+devcontainer で開発環境を構築しています。VS Code の Remote - Containers または GitHub Codespaces で起動してください。
 
-### devcontainer
+## コマンド一覧
 
-`.devcontainer/` に開発環境を定義済み。コンテナ起動時に以下を自動セットアップ:
-
-- Node.js (LTS) / GitHub CLI / AWS CLI / Docker outside of Docker
-- Claude Code / OpenAI Codex CLI / bubblewrap（Codex サンドボックス用）
-- uv / uvx（MCP サーバー実行用）
-- aws-vault / AWS SSM Session Manager Plugin
-- Draw.io MCP / Serena
-
-> \* `zenn-article` / `zenn-publish` / `zenn-review` は、Zenn と GitHub 連携した別リポジトリがローカルに存在することを前提とします。
-
-## セットアップ
-
-→ [docs/SETUP.md](docs/SETUP.md)
-
-## 開発フロー
-
-このテンプレートは**スペック駆動開発**を採用しています。
-
+```bash
+npm run dev          # 開発サーバー起動
+npm run build        # 本番ビルド（Static Export）
+npm run lint         # Biome + ESLint によるリント
+npm run format       # Biome による自動フォーマット
+npm run type-check   # TypeScript 型チェック
+npm test             # Vitest テスト実行
+npm run test:watch   # テスト ウォッチモード
+npm run test:coverage # カバレッジ付きテスト実行
 ```
-1. /setup-project    # 永続ドキュメントを対話的に作成（初回のみ）
-2. /add-feature      # 機能実装（ステアリングファイル → 実装 → 検証）
-3. /ship-pr          # ブランチ作成 → コミット → PR 作成
-```
-
-詳細なワークフローは [CLAUDE.md](CLAUDE.md) を参照してください。
 
 ## ライセンス
 
-スキルの一部は [Apache License 2.0](.claude/skills/APACHE-2.0-LICENSE) の下でライセンスされています。
+`.claude/skills/` 内のスキルの一部は [Apache License 2.0](.claude/skills/APACHE-2.0-LICENSE) の下でライセンスされています。
