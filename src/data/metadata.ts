@@ -1,8 +1,8 @@
 import type { SiteMetadata } from '@/types';
 
 export const siteMetadata: SiteMetadata = {
-  name: 'Portfolio',
-  title: 'エンジニアポートフォリオ',
+  name: 'Kenta Sato',
+  title: 'Kenta Sato | SRE Engineer Portfolio',
   description:
     'マルチクラウド対応力・AI駆動開発・パフォーマンス改善の3つの強みを示すエンジニアポートフォリオサイト',
   url: 'https://example.com',
