@@ -65,18 +65,6 @@ Terraform や Terragrunt によるインフラ構築・設計時は `awslabs.ter
 - AWSCC プロバイダを優先（`SearchAwsccProviderDocs`）、なければ AWS プロバイダ（`SearchAwsProviderDocs`）にフォールバック
 - コードの検証には `ExecuteTerraformCommand`（validate → init → plan）と `RunCheckovScan` を使用
 
-### TiDB関連
-
-TiDB に関する質問・実装時は、対応するスキルを自動的に使用する:
-
-| トリガー条件 | 使用するスキル |
-|---|---|
-| TiDB Cloudクラスタの作成・削除・一覧・管理 | `tidb-cloud` |
-| サーバーレス/エッジ環境でのTiDB接続 | `tidb-serverless-driver` |
-| Kysely ORM + TiDB Cloud | `tidb-kysely` |
-| Python (pytidb) でのTiDB操作・検索・AI機能 | `tidb-python` |
-| TiDB向けSQL作成・MySQL互換性・パフォーマンス診断 | `tidb-sql` |
-
 ## スペック駆動開発の基本原則
 
 ### 基本フロー
