@@ -28,6 +28,7 @@ export default function ProjectsPage() {
                 highlights={project.highlights}
                 metrics={project.metrics}
                 linkLabel={project.linkLabel}
+                thumbnail={project.thumbnail}
               />
             </AnimateOnScroll>
           ))}

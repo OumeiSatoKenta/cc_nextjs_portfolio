@@ -1,3 +1,6 @@
+import type { ProjectThumbnail as ProjectThumbnailType } from '@/types';
+import { ProjectThumbnail } from './ProjectThumbnail';
+
 interface ProjectCardProps {
   title: string;
   description: string;
@@ -7,6 +10,7 @@ interface ProjectCardProps {
   highlights?: string[];
   metrics?: { label: string; value: string }[];
   linkLabel?: string;
+  thumbnail?: ProjectThumbnailType;
 }
 
 export function ProjectCard({
@@ -18,9 +22,20 @@ export function ProjectCard({
   highlights,
   metrics,
   linkLabel,
+  thumbnail,
 }: ProjectCardProps) {
   return (
-    <article className="flex h-full flex-col gap-16 rounded-comfortable bg-pure-white p-32 shadow-subtle-card transition-all duration-200 hover:-translate-y-4 hover:shadow-full-card">
+    <article className="flex h-full flex-col gap-16 overflow-hidden rounded-image bg-pure-white p-32 shadow-subtle-card transition-all duration-200 hover:-translate-y-4 hover:shadow-full-card">
+      {thumbnail && (
+        <div className="-mx-32 -mt-32 mb-0">
+          <ProjectThumbnail
+            accentColor={thumbnail.accentColor}
+            icon={thumbnail.icon}
+            image={thumbnail.image}
+            fit={thumbnail.fit}
+          />
+        </div>
+      )}
       <h3 className="text-card-title text-vercel-black">{title}</h3>
       <p className="text-body-small text-gray-600">{description}</p>
 
