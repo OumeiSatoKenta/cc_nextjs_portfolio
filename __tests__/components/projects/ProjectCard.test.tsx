@@ -84,4 +84,45 @@ describe('ProjectCard', () => {
     const { container } = render(<ProjectCard {...baseProps} />);
     expect(container.querySelectorAll('dl')).toHaveLength(0);
   });
+
+  it('renders thumbnail when provided', () => {
+    const { container } = render(
+      <ProjectCard {...baseProps} thumbnail={{ accentColor: 'develop', icon: 'Globe' }} />
+    );
+    const thumbnail = container.querySelector('[aria-hidden="true"]');
+    expect(thumbnail).toBeInTheDocument();
+    expect(thumbnail).toHaveClass('bg-gradient-to-br');
+  });
+
+  it('does not render thumbnail when not provided', () => {
+    const { container } = render(<ProjectCard {...baseProps} />);
+    expect(container.querySelector('[aria-hidden="true"]')).not.toBeInTheDocument();
+  });
+
+  it('does not render thumbnail for unknown icon', () => {
+    const { container } = render(
+      <ProjectCard {...baseProps} thumbnail={{ accentColor: 'ship', icon: 'UnknownIcon' }} />
+    );
+    expect(container.querySelector('[aria-hidden="true"]')).not.toBeInTheDocument();
+  });
+
+  it('renders image thumbnail when image is provided', () => {
+    const { container } = render(
+      <ProjectCard
+        {...baseProps}
+        thumbnail={{ accentColor: 'develop', icon: 'Globe', image: '/images/test.png' }}
+      />
+    );
+    const img = container.querySelector('img');
+    expect(img).toBeInTheDocument();
+    expect(container.querySelector('[aria-hidden="true"]')).toBeInTheDocument();
+  });
+
+  it('renders icon fallback when image is not provided', () => {
+    const { container } = render(
+      <ProjectCard {...baseProps} thumbnail={{ accentColor: 'develop', icon: 'Globe' }} />
+    );
+    expect(container.querySelector('img')).not.toBeInTheDocument();
+    expect(container.querySelector('[aria-hidden="true"]')).toHaveClass('bg-gradient-to-br');
+  });
 });
