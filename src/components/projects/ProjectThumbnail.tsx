@@ -29,6 +29,7 @@ interface ProjectThumbnailProps {
   icon: string;
   image?: string;
   fit?: 'cover' | 'contain';
+  background?: 'gradient' | 'white';
 }
 
 export function ProjectThumbnail({
@@ -36,11 +37,14 @@ export function ProjectThumbnail({
   icon,
   image,
   fit = 'cover',
+  background = 'gradient',
 }: ProjectThumbnailProps) {
   if (image) {
+    const backgroundClass =
+      background === 'white' ? 'bg-pure-white' : `bg-gradient-to-br ${gradientMap[accentColor]}`;
     return (
       <div
-        className={`relative h-180 overflow-hidden rounded-image bg-gradient-to-br ${gradientMap[accentColor]}`}
+        className={`relative h-180 overflow-hidden rounded-image ${backgroundClass}`}
         aria-hidden="true"
       >
         <Image

@@ -33,6 +33,7 @@ export function ProjectCard({
             icon={thumbnail.icon}
             image={thumbnail.image}
             fit={thumbnail.fit}
+            background={thumbnail.background}
           />
         </div>
       )}

@@ -68,6 +68,7 @@ export interface ProjectThumbnail {
   icon: string;
   image?: string;
   fit?: 'cover' | 'contain';
+  background?: 'gradient' | 'white';
 }
 
 export interface Project {

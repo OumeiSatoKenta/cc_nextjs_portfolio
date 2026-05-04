@@ -36,7 +36,13 @@ export const projects: Project[] = [
       'CloudFront + S3 オリジンアクセスコントロール（OAC）',
       'GitHub Actions による plan/apply 自動化',
     ],
-    thumbnail: { accentColor: 'ship', icon: 'Cloud' },
+    thumbnail: {
+      accentColor: 'ship',
+      icon: 'Cloud',
+      image: '/images/projects/portfolio-architecture.png',
+      fit: 'contain',
+      background: 'white',
+    },
     featured: true,
   },
   {
