@@ -125,6 +125,40 @@
 
 :root {
   color-scheme: light;
+  /* Header height shared with scroll-padding-top and StickyNav top offset */
+  --header-height: 56px;
+  /* StickyNav height (py-8 + button height ~28px). Anchor jumps must clear it too. */
+  --sticky-nav-height: 44px;
+}
+
+html {
+  scroll-padding-top: calc(var(--header-height) + var(--sticky-nav-height));
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+.accordion-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s ease-out;
+}
+
+.accordion-content[data-state="open"] {
+  grid-template-rows: 1fr;
+}
+
+.accordion-content > div {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .accordion-content {
+    transition: none;
+  }
 }
 
 .dark {

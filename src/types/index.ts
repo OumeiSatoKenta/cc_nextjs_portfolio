@@ -10,6 +10,7 @@ export interface SiteMetadata {
     strengths: Strength[];
     stats: { label: string; value: string }[];
     introduction: string;
+    personalInfo?: PersonalInfo;
   };
 }
 
@@ -100,10 +101,30 @@ export interface BlogPost {
   tags?: string[];
 }
 
+export interface EducationImage {
+  src: string;
+  alt: string;
+  caption?: string;
+}
+
 export interface Education {
   type: 'certification' | 'degree' | 'publication';
   title: string;
   institution?: string;
   date: string;
   description?: string;
+  details?: string;
+  images?: EducationImage[];
+}
+
+export interface PersonalQuality {
+  title: string;
+  description: string;
+}
+
+export interface PersonalInfo {
+  type: string;
+  typeDescription: string;
+  topQualities: PersonalQuality[];
+  selfAwareness: string[];
 }
