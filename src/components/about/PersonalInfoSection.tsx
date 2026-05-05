@@ -30,23 +30,23 @@ export function PersonalInfoSection({ info }: PersonalInfoSectionProps) {
         </ul>
       </div>
 
-      {info.source && (
-        <p className="text-caption text-gray-500">
-          出典:{' '}
-          <a
-            href={info.source.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-link-blue hover:underline"
-          >
-            {info.source.name}
-          </a>{' '}
-          による適性診断
-        </p>
-      )}
-
       <div>
-        <h3 className="text-sub-heading-large text-vercel-black">自己認識</h3>
+        <h3 className="text-sub-heading-large text-vercel-black">
+          {info.source && (
+            <>
+              <a
+                href={info.source.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-link-blue hover:underline"
+              >
+                {info.source.name}
+              </a>
+              {' による適性診断、'}
+            </>
+          )}
+          自己認識
+        </h3>
         <ul className="mt-16 flex flex-col gap-8">
           {info.selfAwareness.map((item) => (
             <li

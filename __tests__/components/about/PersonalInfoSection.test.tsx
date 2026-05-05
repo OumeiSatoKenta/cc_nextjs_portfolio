@@ -52,7 +52,7 @@ describe('PersonalInfoSection', () => {
     });
   });
 
-  it('renders the self-awareness sub-section heading', () => {
+  it('renders the self-awareness sub-section heading without source by default', () => {
     render(<PersonalInfoSection info={info} />);
     expect(screen.getByRole('heading', { level: 3, name: '自己認識' })).toBeInTheDocument();
   });
@@ -63,20 +63,21 @@ describe('PersonalInfoSection', () => {
     expect(screen.getByRole('heading', { level: 3, name: '自己認識' })).toBeInTheDocument();
   });
 
-  it('renders a source attribution link when source is provided', () => {
+  it('embeds the source link into the self-awareness heading when source is provided', () => {
     const withSource = {
       ...info,
       source: { name: 'アッテル', url: 'https://attelu.jp/' },
     };
     render(<PersonalInfoSection info={withSource} />);
+    const heading = screen.getByRole('heading', {
+      level: 3,
+      name: 'アッテル による適性診断、自己認識',
+    });
+    expect(heading).toBeInTheDocument();
+
     const link = screen.getByRole('link', { name: 'アッテル' });
     expect(link).toHaveAttribute('href', 'https://attelu.jp/');
     expect(link).toHaveAttribute('target', '_blank');
     expect(link).toHaveAttribute('rel', 'noopener noreferrer');
-  });
-
-  it('does not render the source attribution when source is omitted', () => {
-    render(<PersonalInfoSection info={info} />);
-    expect(screen.queryByText(/出典:/)).not.toBeInTheDocument();
   });
 });
