@@ -1,4 +1,22 @@
-import type { Career } from '@/types';
+import type { Career, CareerOverview } from '@/types';
+
+/**
+ * ホームページ用の雇用主単位の経歴サマリ。
+ * オルトプラスは複数の業務委託案件 + 自社開発プロジェクトを内包する単一の在籍期間として扱う。
+ * 案件単位の詳細は `careers`（About ページの Timeline 用）を参照。
+ */
+export const careerOverview: CareerOverview[] = [
+  {
+    company: '株式会社オルトプラス',
+    role: 'SRE / DBRE エンジニア',
+    period: { start: '2023-06' },
+  },
+  {
+    company: '株式会社シャノン',
+    role: 'サーバー / SRE エンジニア',
+    period: { start: '2021-04', end: '2023-05' },
+  },
+];
 
 export const careers: Career[] = [
   {
