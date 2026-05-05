@@ -40,10 +40,10 @@ describe('Header', () => {
 
     const desktopNav = screen.getByRole('navigation', { name: 'メインナビゲーション' });
     const aboutLink = Array.from(desktopNav.querySelectorAll('a')).find(
-      (a) => a.textContent === 'About'
+      (a) => a.textContent === '経歴・スキル'
     );
     const homeLink = Array.from(desktopNav.querySelectorAll('a')).find(
-      (a) => a.textContent === 'Home'
+      (a) => a.textContent === 'ホーム'
     );
 
     expect(aboutLink?.className).toContain('font-semibold');
@@ -57,7 +57,7 @@ describe('Header', () => {
 
     const desktopNav = screen.getByRole('navigation', { name: 'メインナビゲーション' });
     const blogLink = Array.from(desktopNav.querySelectorAll('a')).find(
-      (a) => a.textContent === 'Blog'
+      (a) => a.textContent === 'ブログ'
     );
     expect(blogLink?.className).not.toContain('font-semibold');
   });
@@ -104,7 +104,7 @@ describe('Header', () => {
 
     const mobileNav = screen.getByRole('navigation', { name: 'モバイルナビゲーション' });
     const aboutLink = Array.from(mobileNav.querySelectorAll('a')).find(
-      (a) => a.textContent === 'About'
+      (a) => a.textContent === '経歴・スキル'
     );
     await user.click(aboutLink!);
 
