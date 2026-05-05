@@ -60,4 +60,39 @@ describe('TimelineItem', () => {
     const line = container.querySelector('.bg-gray-100');
     expect(line).not.toBeInTheDocument();
   });
+
+  it('renders teamSize badge when teamSize is provided', () => {
+    render(<TimelineItem {...baseProps} teamSize={5} />);
+    expect(screen.getByText('チーム 5人')).toBeInTheDocument();
+  });
+
+  it('renders all roleType labels when multiple types are provided', () => {
+    render(
+      <TimelineItem
+        {...baseProps}
+        roleType={['design', 'implementation', 'management', 'operations']}
+      />
+    );
+    expect(screen.getByText('設計')).toBeInTheDocument();
+    expect(screen.getByText('実装')).toBeInTheDocument();
+    expect(screen.getByText('マネジメント')).toBeInTheDocument();
+    expect(screen.getByText('運用')).toBeInTheDocument();
+  });
+
+  it('applies category-specific badge color to each roleType label', () => {
+    render(<TimelineItem {...baseProps} roleType={['design', 'implementation']} />);
+    expect(screen.getByText('設計')).toHaveClass('bg-badge-cloud-bg', 'text-badge-cloud-text');
+    expect(screen.getByText('実装')).toHaveClass('bg-badge-lang-bg', 'text-badge-lang-text');
+  });
+
+  it('does not render the role meta section when neither teamSize nor roleType is set', () => {
+    render(<TimelineItem {...baseProps} />);
+    expect(screen.queryByRole('list', { name: 'チーム規模・役割種別' })).not.toBeInTheDocument();
+  });
+
+  it('renders only roleType badges when teamSize is omitted', () => {
+    render(<TimelineItem {...baseProps} roleType={['operations']} />);
+    expect(screen.getByText('運用')).toBeInTheDocument();
+    expect(screen.queryByText(/^チーム/)).not.toBeInTheDocument();
+  });
 });
