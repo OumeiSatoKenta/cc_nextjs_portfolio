@@ -23,6 +23,8 @@ export const projects: Project[] = [
     ],
     thumbnail: { accentColor: 'develop', icon: 'Globe' },
     featured: true,
+    teamSize: 1,
+    role: '個人開発',
   },
   {
     id: 'portfolio-infra',
@@ -44,6 +46,8 @@ export const projects: Project[] = [
       background: 'white',
     },
     featured: true,
+    teamSize: 1,
+    role: '個人開発',
   },
   {
     id: 'tiug-community',
@@ -61,6 +65,7 @@ export const projects: Project[] = [
       fit: 'contain',
     },
     featured: false,
+    role: '運営メンバー',
   },
   {
     id: 'aws-cert-book',
@@ -85,6 +90,8 @@ export const projects: Project[] = [
       fit: 'contain',
     },
     featured: false,
+    teamSize: 70,
+    role: '執筆・進捗管理 GAS 開発',
   },
   {
     id: 'amplify-handson-book',
@@ -102,6 +109,7 @@ export const projects: Project[] = [
       fit: 'contain',
     },
     featured: false,
+    role: '編集',
   },
   {
     id: 'jaws-genai-study',
@@ -112,5 +120,6 @@ export const projects: Project[] = [
     highlights: ['AWS JAWS コミュニティへの継続的な参加', '生成 AI 関連勉強会でのナレッジシェア'],
     thumbnail: { accentColor: 'preview', icon: 'Presentation' },
     featured: false,
+    role: '参加・登壇',
   },
 ];

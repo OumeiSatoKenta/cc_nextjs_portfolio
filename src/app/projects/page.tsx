@@ -29,6 +29,9 @@ export default function ProjectsPage() {
                 metrics={project.metrics}
                 linkLabel={project.linkLabel}
                 thumbnail={project.thumbnail}
+                teamSize={project.teamSize}
+                role={project.role}
+                userCount={project.userCount}
               />
             </AnimateOnScroll>
           ))}

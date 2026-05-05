@@ -1,3 +1,4 @@
+import { TrendingUp, User, Users } from 'lucide-react';
 import type { ProjectThumbnail as ProjectThumbnailType } from '@/types';
 import { ProjectThumbnail } from './ProjectThumbnail';
 
@@ -11,6 +12,9 @@ interface ProjectCardProps {
   metrics?: { label: string; value: string }[];
   linkLabel?: string;
   thumbnail?: ProjectThumbnailType;
+  teamSize?: number;
+  role?: string;
+  userCount?: string;
 }
 
 export function ProjectCard({
@@ -23,7 +27,12 @@ export function ProjectCard({
   metrics,
   linkLabel,
   thumbnail,
+  teamSize,
+  role,
+  userCount,
 }: ProjectCardProps) {
+  const hasMeta = teamSize !== undefined || Boolean(role) || Boolean(userCount);
+
   return (
     <article className="flex h-full flex-col gap-16 overflow-hidden rounded-image bg-pure-white p-32 shadow-subtle-card transition-all duration-200 hover:-translate-y-4 hover:shadow-full-card">
       {thumbnail && (
@@ -39,6 +48,29 @@ export function ProjectCard({
       )}
       <h3 className="text-card-title text-vercel-black">{title}</h3>
       <p className="text-body-small text-gray-600">{description}</p>
+
+      {hasMeta && (
+        <ul className="flex flex-wrap gap-8" aria-label="プロジェクト詳細">
+          {teamSize !== undefined && (
+            <li className="inline-flex items-center gap-4 rounded-pill bg-badge-tool-bg px-10 py-3 font-medium text-badge-tool-text text-caption">
+              <Users size={14} aria-hidden="true" />
+              <span>チーム {teamSize}人</span>
+            </li>
+          )}
+          {role && (
+            <li className="inline-flex items-center gap-4 rounded-pill bg-badge-tool-bg px-10 py-3 font-medium text-badge-tool-text text-caption">
+              <User size={14} aria-hidden="true" />
+              <span>役割: {role}</span>
+            </li>
+          )}
+          {userCount && (
+            <li className="inline-flex items-center gap-4 rounded-pill bg-badge-tool-bg px-10 py-3 font-medium text-badge-tool-text text-caption">
+              <TrendingUp size={14} aria-hidden="true" />
+              <span>{userCount}</span>
+            </li>
+          )}
+        </ul>
+      )}
 
       {highlights && highlights.length > 0 && (
         <ul className="flex flex-col gap-4 pl-16">

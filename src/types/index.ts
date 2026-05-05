@@ -48,10 +48,14 @@ export interface CareerOverview {
   };
 }
 
+export type CareerRoleType = 'design' | 'implementation' | 'management' | 'operations';
+
 export interface Career extends CareerOverview {
   description: string;
   achievements: string[];
   technologies?: string[];
+  teamSize?: number;
+  roleType?: CareerRoleType[];
 }
 
 export type SkillCategory = 'cloud' | 'language' | 'database' | 'tool';
@@ -64,6 +68,7 @@ export interface Skill {
   level?: SkillLevel;
   years?: number;
   description?: string;
+  icon?: string;
 }
 
 export type ProjectAccentColor = 'ship' | 'preview' | 'develop';
@@ -88,6 +93,9 @@ export interface Project {
   linkLabel?: string;
   thumbnail?: ProjectThumbnail;
   featured: boolean;
+  teamSize?: number;
+  role?: string;
+  userCount?: string;
 }
 
 export type BlogPlatform = 'zenn' | 'qiita' | 'note' | 'amazon' | 'other';

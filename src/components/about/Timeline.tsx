@@ -17,6 +17,8 @@ export function Timeline({ careers }: TimelineProps) {
           description={career.description}
           achievements={career.achievements}
           technologies={career.technologies}
+          teamSize={career.teamSize}
+          roleType={career.roleType}
           isLast={index === careers.length - 1}
         />
       ))}

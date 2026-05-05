@@ -42,6 +42,7 @@ export const careers: Career[] = [
       'GitHub',
       'Claude Code',
     ],
+    roleType: ['design', 'implementation', 'operations'],
   },
   {
     company: 'モバイルゲーム企業 A 社',
@@ -57,6 +58,8 @@ export const careers: Career[] = [
       'シーズン運用連動のインフラライフサイクル管理',
     ],
     technologies: ['Google Cloud', 'Terraform', 'Docker', 'Python', 'GitHub', 'Claude Code'],
+    teamSize: 1,
+    roleType: ['design', 'implementation', 'operations'],
   },
   {
     company: '大手美容メディア企業 B 社',
@@ -80,6 +83,7 @@ export const careers: Career[] = [
       'Python',
       'GitHub',
     ],
+    roleType: ['design', 'implementation', 'management'],
   },
   {
     company: '大手 Web プラットフォーム企業 C 社',
@@ -94,6 +98,7 @@ export const careers: Career[] = [
       'NewRelic / Mackerel アラート閾値調整、Aurora スロークエリ監視・改善提案',
     ],
     technologies: ['AWS', 'Docker', 'Laravel', 'Python', 'GitHub'],
+    roleType: ['implementation', 'operations'],
   },
   {
     company: '株式会社シャノン',
@@ -108,5 +113,6 @@ export const careers: Career[] = [
       '新人入社研修カリキュラム作成',
     ],
     technologies: ['AWS', 'Docker', 'Perl', 'Ruby on Rails', 'PostgreSQL', 'Jenkins', 'GitHub'],
+    roleType: ['implementation', 'operations', 'management'],
   },
 ];
