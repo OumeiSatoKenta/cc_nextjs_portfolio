@@ -30,20 +30,6 @@ export function PersonalInfoSection({ info }: PersonalInfoSectionProps) {
         </ul>
       </div>
 
-      <div>
-        <h4 className="text-card-title-light text-vercel-black">自己認識</h4>
-        <ul className="mt-16 flex flex-col gap-8">
-          {info.selfAwareness.map((item) => (
-            <li
-              key={item}
-              className="rounded-comfortable bg-pure-white p-16 text-body-small text-gray-600 shadow-subtle-card"
-            >
-              {item}
-            </li>
-          ))}
-        </ul>
-      </div>
-
       {info.source && (
         <p className="text-caption text-gray-500">
           出典:{' '}
@@ -58,6 +44,20 @@ export function PersonalInfoSection({ info }: PersonalInfoSectionProps) {
           による適性診断
         </p>
       )}
+
+      <div>
+        <h4 className="text-card-title-light text-vercel-black">自己認識</h4>
+        <ul className="mt-16 flex flex-col gap-8">
+          {info.selfAwareness.map((item) => (
+            <li
+              key={item}
+              className="rounded-comfortable bg-pure-white p-16 text-body-small text-gray-600 shadow-subtle-card"
+            >
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
