@@ -7,23 +7,23 @@ interface PersonalInfoSectionProps {
 export function PersonalInfoSection({ info }: PersonalInfoSectionProps) {
   return (
     <div className="flex flex-col gap-32">
-      <div className="rounded-comfortable bg-pure-white p-32 shadow-subtle-card">
-        <span className="inline-block rounded-pill bg-badge-cloud-bg px-10 py-3 font-medium text-badge-cloud-text text-caption">
-          資質タイプ
-        </span>
-        <h3 className="mt-12 text-card-title text-vercel-black">{info.type}</h3>
-        <p className="mt-12 text-body-small text-gray-600">{info.typeDescription}</p>
+      <div>
+        <h3 className="text-sub-heading-large text-vercel-black">資質タイプ</h3>
+        <div className="mt-16 rounded-comfortable bg-pure-white p-32 shadow-subtle-card">
+          <p className="font-semibold text-card-title text-vercel-black">{info.type}</p>
+          <p className="mt-12 text-body-small text-gray-600">{info.typeDescription}</p>
+        </div>
       </div>
 
       <div>
-        <h4 className="text-card-title-light text-vercel-black">上位 3 つの資質</h4>
+        <h3 className="text-sub-heading-large text-vercel-black">上位 3 つの資質</h3>
         <ul className="mt-16 grid gap-16 md:grid-cols-3">
           {info.topQualities.map((q) => (
             <li
               key={q.title}
               className="flex flex-col gap-8 rounded-comfortable bg-pure-white p-32 shadow-subtle-card"
             >
-              <h5 className="text-card-title text-vercel-black">{q.title}</h5>
+              <h4 className="text-card-title text-vercel-black">{q.title}</h4>
               <p className="text-body-small text-gray-600">{q.description}</p>
             </li>
           ))}
@@ -46,7 +46,7 @@ export function PersonalInfoSection({ info }: PersonalInfoSectionProps) {
       )}
 
       <div>
-        <h4 className="text-card-title-light text-vercel-black">自己認識</h4>
+        <h3 className="text-sub-heading-large text-vercel-black">自己認識</h3>
         <ul className="mt-16 flex flex-col gap-8">
           {info.selfAwareness.map((item) => (
             <li

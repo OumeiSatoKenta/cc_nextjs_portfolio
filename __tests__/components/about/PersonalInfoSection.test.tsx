@@ -14,16 +14,17 @@ const info: PersonalInfo = {
 };
 
 describe('PersonalInfoSection', () => {
-  it('renders the type label', () => {
+  it('renders the type sub-section heading', () => {
     render(<PersonalInfoSection info={info} />);
-    expect(screen.getByText('資質タイプ')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 3, name: '資質タイプ' })).toBeInTheDocument();
   });
 
-  it('renders the type name as a card-title heading', () => {
+  it('renders the type name as bold body text (not a heading)', () => {
     render(<PersonalInfoSection info={info} />);
+    expect(screen.getByText('専門家 × エクスパンダー')).toBeInTheDocument();
     expect(
-      screen.getByRole('heading', { level: 3, name: '専門家 × エクスパンダー' })
-    ).toBeInTheDocument();
+      screen.queryByRole('heading', { name: '専門家 × エクスパンダー' })
+    ).not.toBeInTheDocument();
   });
 
   it('renders the type description', () => {
@@ -34,14 +35,14 @@ describe('PersonalInfoSection', () => {
   it('renders each top quality with title and description', () => {
     render(<PersonalInfoSection info={info} />);
     info.topQualities.forEach((q) => {
-      expect(screen.getByRole('heading', { level: 5, name: q.title })).toBeInTheDocument();
+      expect(screen.getByRole('heading', { level: 4, name: q.title })).toBeInTheDocument();
       expect(screen.getByText(q.description)).toBeInTheDocument();
     });
   });
 
-  it('renders the section heading for top qualities', () => {
+  it('renders the sub-section heading for top qualities', () => {
     render(<PersonalInfoSection info={info} />);
-    expect(screen.getByRole('heading', { level: 4, name: '上位 3 つの資質' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 3, name: '上位 3 つの資質' })).toBeInTheDocument();
   });
 
   it('renders all self-awareness items', () => {
@@ -51,15 +52,15 @@ describe('PersonalInfoSection', () => {
     });
   });
 
-  it('renders the self-awareness section heading', () => {
+  it('renders the self-awareness sub-section heading', () => {
     render(<PersonalInfoSection info={info} />);
-    expect(screen.getByRole('heading', { level: 4, name: '自己認識' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 3, name: '自己認識' })).toBeInTheDocument();
   });
 
   it('renders an empty list when selfAwareness has no items', () => {
     const emptyInfo = { ...info, selfAwareness: [] };
     render(<PersonalInfoSection info={emptyInfo} />);
-    expect(screen.getByRole('heading', { level: 4, name: '自己認識' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 3, name: '自己認識' })).toBeInTheDocument();
   });
 
   it('renders a source attribution link when source is provided', () => {
