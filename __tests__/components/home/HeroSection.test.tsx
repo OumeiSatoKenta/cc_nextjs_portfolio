@@ -22,11 +22,11 @@ describe('HeroSection', () => {
     expect(screen.getByText(defaultProps.tagline)).toBeInTheDocument();
   });
 
-  it('renders a CTA link that points to /projects/', () => {
+  it('renders a primary CTA link that points to /about/', () => {
     render(<HeroSection {...defaultProps} />);
-    const link = screen.getByRole('link', { name: 'Side Projects を見る' });
+    const link = screen.getByRole('link', { name: '経歴・スキルを見る' });
     expect(link).toBeInTheDocument();
-    expect(link.getAttribute('href')).toMatch(/^\/projects\/?$/);
+    expect(link.getAttribute('href')).toMatch(/^\/about\/?$/);
   });
 
   it('wraps content in a section element', () => {
@@ -41,10 +41,10 @@ describe('HeroSection', () => {
     });
   });
 
-  it('renders a secondary CTA link to /about/', () => {
+  it('renders a secondary CTA link to /projects/', () => {
     render(<HeroSection {...defaultProps} />);
-    const link = screen.getByRole('link', { name: 'About を見る' });
-    expect(link.getAttribute('href')).toMatch(/^\/about\/?$/);
+    const link = screen.getByRole('link', { name: 'サイドプロジェクトを見る' });
+    expect(link.getAttribute('href')).toMatch(/^\/projects\/?$/);
   });
 
   it('does not render the stats list when stats is empty', () => {

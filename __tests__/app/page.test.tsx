@@ -30,10 +30,10 @@ describe('HomePage', () => {
     });
   });
 
-  it('renders a CTA link to /projects/', () => {
+  it('renders a primary CTA link to /about/', () => {
     render(<HomePage />);
-    const link = screen.getByRole('link', { name: 'Side Projects を見る' });
-    expect(link.getAttribute('href')).toMatch(/^\/projects\/?$/);
+    const link = screen.getByRole('link', { name: '経歴・スキルを見る' });
+    expect(link.getAttribute('href')).toMatch(/^\/about\/?$/);
   });
 
   it('renders each stat value from siteMetadata.author.stats', () => {
@@ -43,9 +43,9 @@ describe('HomePage', () => {
     });
   });
 
-  it('renders a secondary CTA link to /about/', () => {
+  it('renders a secondary CTA link to /projects/', () => {
     render(<HomePage />);
-    const link = screen.getByRole('link', { name: 'About を見る' });
-    expect(link.getAttribute('href')).toMatch(/^\/about\/?$/);
+    const link = screen.getByRole('link', { name: 'サイドプロジェクトを見る' });
+    expect(link.getAttribute('href')).toMatch(/^\/projects\/?$/);
   });
 });

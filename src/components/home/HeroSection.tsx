@@ -16,16 +16,16 @@ export function HeroSection({ name, tagline, stats }: HeroSectionProps) {
       <p className="mt-16 text-body-large text-gray-600">{tagline}</p>
       <div className="mt-32 flex gap-16">
         <Link
-          href="/projects/"
+          href="/about/"
           className="inline-flex items-center rounded-standard bg-vercel-black px-16 py-10 text-button-link text-pure-white transition-all duration-200 hover:opacity-85 focus-visible:shadow-focus focus-visible:outline-none active:scale-[0.98]"
         >
-          Side Projects を見る
+          経歴・スキルを見る
         </Link>
         <Link
-          href="/about/"
+          href="/projects/"
           className="inline-flex items-center rounded-standard bg-pure-white px-16 py-10 text-button-link text-vercel-black shadow-light-ring transition-all duration-200 hover:shadow-ring focus-visible:shadow-focus focus-visible:outline-none active:scale-[0.98]"
         >
-          About を見る
+          サイドプロジェクトを見る
         </Link>
       </div>
       {stats.length > 0 && (
