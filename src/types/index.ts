@@ -59,6 +59,7 @@ export interface Skill {
   category: SkillCategory;
   level?: SkillLevel;
   years?: number;
+  description?: string;
 }
 
 export type ProjectAccentColor = 'ship' | 'preview' | 'develop';
