@@ -56,7 +56,7 @@ describe('AboutPage', () => {
   it('renders education titles from data', () => {
     render(<AboutPage />);
     for (const edu of educations) {
-      expect(screen.getByText(edu.title)).toBeInTheDocument();
+      expect(screen.getByRole('heading', { level: 3, name: edu.title })).toBeInTheDocument();
     }
   });
 
@@ -64,5 +64,43 @@ describe('AboutPage', () => {
     render(<AboutPage />);
     const articles = screen.getAllByRole('article');
     expect(articles).toHaveLength(careers.length);
+  });
+
+  it('renders the StickyNav with all 5 nav items linking to section ids', () => {
+    render(<AboutPage />);
+    const nav = screen.getByRole('navigation', { name: 'ページ内ナビゲーション' });
+    expect(nav).toBeInTheDocument();
+    ['intro', 'career', 'skills', 'education', 'personal'].forEach((id) => {
+      const links = screen.getAllByRole('link');
+      expect(links.some((l) => l.getAttribute('href') === `#${id}`)).toBe(true);
+    });
+  });
+
+  it('renders Personal section when personalInfo is provided', () => {
+    render(<AboutPage />);
+    if (siteMetadata.author.personalInfo) {
+      expect(screen.getByRole('heading', { level: 2, name: 'Personal' })).toBeInTheDocument();
+      expect(screen.getByText(siteMetadata.author.personalInfo.type)).toBeInTheDocument();
+    }
+  });
+
+  it('renders the Next read navigation section with 3 cards', () => {
+    render(<AboutPage />);
+    expect(screen.getByRole('heading', { level: 2, name: 'Next read' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { level: 3, name: 'サイドプロジェクト' })
+    ).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 3, name: 'ブログ' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 3, name: 'お問い合わせ' })).toBeInTheDocument();
+  });
+
+  it('marks each section landmark with the expected aria-label', () => {
+    render(<AboutPage />);
+    expect(screen.getByRole('region', { name: '自己紹介' })).toBeInTheDocument();
+    expect(screen.getByRole('region', { name: '職務経歴' })).toBeInTheDocument();
+    expect(screen.getByRole('region', { name: 'スキル' })).toBeInTheDocument();
+    expect(screen.getByRole('region', { name: '学歴・資格' })).toBeInTheDocument();
+    expect(screen.getByRole('region', { name: 'パーソナル情報' })).toBeInTheDocument();
+    expect(screen.getByRole('region', { name: '次に読む' })).toBeInTheDocument();
   });
 });
