@@ -38,13 +38,16 @@ export interface NavLink {
   label: string;
 }
 
-export interface Career {
+export interface CareerOverview {
   company: string;
   role: string;
   period: {
     start: string;
     end?: string;
   };
+}
+
+export interface Career extends CareerOverview {
   description: string;
   achievements: string[];
   technologies?: string[];
