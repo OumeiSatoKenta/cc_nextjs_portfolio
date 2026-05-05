@@ -7,6 +7,21 @@ interface PersonalInfoSectionProps {
 export function PersonalInfoSection({ info }: PersonalInfoSectionProps) {
   return (
     <div className="flex flex-col gap-32">
+      {info.source && (
+        <p className="text-caption text-gray-500">
+          資質タイプ・上位 3 つの資質は{' '}
+          <a
+            href={info.source.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-link-blue hover:underline"
+          >
+            {info.source.name}
+          </a>{' '}
+          による適性診断の結果
+        </p>
+      )}
+
       <div>
         <h3 className="text-sub-heading-large text-vercel-black">資質タイプ</h3>
         <div className="mt-16 rounded-comfortable bg-pure-white p-32 shadow-subtle-card">
@@ -31,22 +46,7 @@ export function PersonalInfoSection({ info }: PersonalInfoSectionProps) {
       </div>
 
       <div>
-        <h3 className="text-sub-heading-large text-vercel-black">
-          {info.source && (
-            <>
-              <a
-                href={info.source.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-link-blue hover:underline"
-              >
-                {info.source.name}
-              </a>
-              {' による適性診断、'}
-            </>
-          )}
-          自己認識
-        </h3>
+        <h3 className="text-sub-heading-large text-vercel-black">自己認識</h3>
         <ul className="mt-16 flex flex-col gap-8">
           {info.selfAwareness.map((item) => (
             <li
