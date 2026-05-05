@@ -125,4 +125,35 @@ describe('ProjectCard', () => {
     expect(container.querySelector('img')).not.toBeInTheDocument();
     expect(container.querySelector('[aria-hidden="true"]')).toHaveClass('bg-gradient-to-br');
   });
+
+  it('renders the metadata pills section when teamSize is provided', () => {
+    render(<ProjectCard {...baseProps} teamSize={70} />);
+    const region = screen.getByRole('list', { name: 'プロジェクト詳細' });
+    expect(region).toBeInTheDocument();
+    expect(screen.getByText('チーム 70人')).toBeInTheDocument();
+  });
+
+  it('renders the role meta pill when role is provided', () => {
+    render(<ProjectCard {...{ ...baseProps, role: '編集' }} />);
+    expect(screen.getByText('役割: 編集')).toBeInTheDocument();
+  });
+
+  it('renders the userCount meta pill when userCount is provided', () => {
+    render(<ProjectCard {...baseProps} userCount="16,500 ダウンロード" />);
+    expect(screen.getByText('16,500 ダウンロード')).toBeInTheDocument();
+  });
+
+  it('renders all three meta pills together when all fields are provided', () => {
+    render(
+      <ProjectCard {...{ ...baseProps, teamSize: 70, role: '執筆', userCount: '16,500 DL' }} />
+    );
+    expect(screen.getByText('チーム 70人')).toBeInTheDocument();
+    expect(screen.getByText('役割: 執筆')).toBeInTheDocument();
+    expect(screen.getByText('16,500 DL')).toBeInTheDocument();
+  });
+
+  it('does not render the metadata pills section when no meta fields are set', () => {
+    render(<ProjectCard {...baseProps} />);
+    expect(screen.queryByRole('list', { name: 'プロジェクト詳細' })).not.toBeInTheDocument();
+  });
 });

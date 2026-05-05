@@ -47,10 +47,15 @@ describe('AboutPage', () => {
 
   it('renders skill category headings from SkillGrid', () => {
     render(<AboutPage />);
-    expect(screen.getByRole('heading', { level: 3, name: 'Cloud / IaC' })).toBeInTheDocument();
-    expect(screen.getByRole('heading', { level: 3, name: 'Languages' })).toBeInTheDocument();
-    expect(screen.getByRole('heading', { level: 3, name: 'Database' })).toBeInTheDocument();
-    expect(screen.getByRole('heading', { level: 3, name: 'DevOps / Tools' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 4, name: 'Cloud / IaC' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 4, name: 'Languages' })).toBeInTheDocument();
+    // 'Database' may appear in both 得意領域 and 成長中 groups
+    expect(screen.getAllByRole('heading', { level: 4, name: 'Database' }).length).toBeGreaterThan(
+      0
+    );
+    expect(
+      screen.getAllByRole('heading', { level: 4, name: 'DevOps / Tools' }).length
+    ).toBeGreaterThan(0);
   });
 
   it('renders education titles from data', () => {
