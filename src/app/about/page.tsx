@@ -1,4 +1,8 @@
+import { EducationAccordion } from '@/components/about/EducationAccordion';
+import { NextReadNav } from '@/components/about/NextReadNav';
+import { PersonalInfoSection } from '@/components/about/PersonalInfoSection';
 import { SkillGrid } from '@/components/about/SkillGrid';
+import { StickyNav } from '@/components/about/StickyNav';
 import { Timeline } from '@/components/about/Timeline';
 import { AnimateOnScroll } from '@/components/ui/AnimateOnScroll';
 import { careers } from '@/data/career';
@@ -6,91 +10,119 @@ import { educations } from '@/data/education';
 import { siteMetadata } from '@/data/metadata';
 import { skills } from '@/data/skills';
 
+const NEXT_READ_CARDS = [
+  {
+    href: '/projects/',
+    title: 'サイドプロジェクト',
+    description: '個人開発・技術書・コミュニティ活動の一覧',
+  },
+  { href: '/blog/', title: 'ブログ', description: '技術記事・執筆活動' },
+  { href: '/contact/', title: 'お問い合わせ', description: 'メール・LinkedIn での連絡先' },
+] as const;
+
 export default function AboutPage() {
+  const { author } = siteMetadata;
+
+  // Build nav items dynamically so optional sections (education / personal) don't
+  // appear in the nav when their corresponding sections aren't rendered.
+  const navItems = [
+    { id: 'intro', label: 'イントロ' },
+    { id: 'career', label: 'キャリア' },
+    { id: 'skills', label: 'スキル' },
+    ...(educations.length > 0 ? [{ id: 'education', label: '学歴' }] : []),
+    ...(author.personalInfo ? [{ id: 'personal', label: 'パーソナル' }] : []),
+  ];
+
   return (
     <>
-      <section className="mx-auto max-w-[1200px] px-16 py-40 md:px-32" aria-label="経歴">
-        <AnimateOnScroll>
-          <h1 className="text-display-hero text-vercel-black">About</h1>
-          <p className="mt-16 text-body-large text-gray-600">経歴とスキルセット</p>
-        </AnimateOnScroll>
+      <section className="bg-pure-white" aria-label="経歴">
+        <div className="mx-auto max-w-[1200px] px-16 py-40 md:px-32">
+          <AnimateOnScroll>
+            <h1 className="text-display-hero text-vercel-black">About</h1>
+            <p className="mt-16 text-body-large text-gray-600">経歴とスキルセット</p>
+          </AnimateOnScroll>
+        </div>
       </section>
 
-      <section className="mx-auto max-w-[1200px] px-16 pb-40 md:px-32" aria-label="自己紹介">
-        <AnimateOnScroll>
-          <h2 className="text-sub-heading text-vercel-black">Introduction</h2>
-          <div className="mt-16 flex flex-col gap-16">
-            {siteMetadata.author.introduction.split('\n\n').map((paragraph) => (
-              <p key={paragraph.slice(0, 20)} className="text-body-large text-gray-600">
-                {paragraph}
-              </p>
-            ))}
-          </div>
-        </AnimateOnScroll>
+      <StickyNav items={navItems} />
+
+      <section id="intro" className="bg-pure-white" aria-label="自己紹介">
+        <div className="mx-auto max-w-[1200px] px-16 py-40 md:px-32">
+          <AnimateOnScroll>
+            <h2 className="text-section-heading text-vercel-black">Introduction</h2>
+            <div className="mt-16 flex flex-col gap-16">
+              {author.introduction
+                .split('\n\n')
+                .filter(Boolean)
+                .map((paragraph) => (
+                  <p key={paragraph} className="text-body-large text-gray-600">
+                    {paragraph}
+                  </p>
+                ))}
+            </div>
+          </AnimateOnScroll>
+        </div>
       </section>
 
-      <section className="mx-auto max-w-[1200px] px-16 pb-40 md:px-32" aria-label="職務経歴">
-        <AnimateOnScroll>
-          <h2 className="text-section-heading text-vercel-black">Career</h2>
-        </AnimateOnScroll>
-        <AnimateOnScroll className="mt-32">
-          <Timeline careers={careers} />
-        </AnimateOnScroll>
+      <section id="career" className="bg-gray-50" aria-label="職務経歴">
+        <div className="mx-auto max-w-[1200px] px-16 py-40 md:px-32">
+          <AnimateOnScroll>
+            <h2 className="text-section-heading text-vercel-black">Career</h2>
+          </AnimateOnScroll>
+          <AnimateOnScroll className="mt-32">
+            <Timeline careers={careers} />
+          </AnimateOnScroll>
+        </div>
       </section>
 
-      <section className="mx-auto max-w-[1200px] px-16 pb-40 md:px-32" aria-label="スキル">
-        <AnimateOnScroll>
-          <h2 className="text-section-heading text-vercel-black">Skills</h2>
-        </AnimateOnScroll>
-        <AnimateOnScroll className="mt-32">
-          <SkillGrid skills={skills} />
-        </AnimateOnScroll>
+      <section id="skills" className="bg-pure-white" aria-label="スキル">
+        <div className="mx-auto max-w-[1200px] px-16 py-40 md:px-32">
+          <AnimateOnScroll>
+            <h2 className="text-section-heading text-vercel-black">Skills</h2>
+          </AnimateOnScroll>
+          <AnimateOnScroll className="mt-32">
+            <SkillGrid skills={skills} />
+          </AnimateOnScroll>
+        </div>
       </section>
 
       {educations.length > 0 && (
-        <section className="mx-auto max-w-[1200px] px-16 pb-40 md:px-32" aria-label="学歴・資格">
-          <AnimateOnScroll>
-            <h2 className="text-section-heading text-vercel-black">Education</h2>
-          </AnimateOnScroll>
-          <ul className="mt-32 flex flex-col gap-16">
-            {educations.map((edu, index) => (
-              <li key={`${edu.type}-${edu.title}`}>
-                <AnimateOnScroll delay={index * 100}>
-                  <div className="rounded-comfortable bg-pure-white p-32 shadow-subtle-card">
-                    <span
-                      className={`inline-block rounded-pill px-10 py-3 font-medium text-caption ${edu.type === 'publication' ? 'bg-badge-lang-bg text-badge-lang-text' : edu.type === 'certification' ? 'bg-badge-db-bg text-badge-db-text' : 'bg-badge-cloud-bg text-badge-cloud-text'}`}
-                    >
-                      {edu.type === 'publication'
-                        ? '論文'
-                        : edu.type === 'certification'
-                          ? '資格'
-                          : '学歴'}
-                    </span>
-                    <h3 className="mt-8 text-card-title text-vercel-black">{edu.title}</h3>
-                    {edu.institution && (
-                      <p className="mt-8 text-body-small text-gray-600">{edu.institution}</p>
-                    )}
-                    <time
-                      dateTime={edu.date}
-                      className="mt-4 block font-geist-mono text-caption text-gray-500"
-                    >
-                      {edu.type === 'publication'
-                        ? '発表: '
-                        : edu.type === 'certification'
-                          ? '取得: '
-                          : '修了: '}
-                      {edu.date}
-                    </time>
-                    {edu.description && (
-                      <p className="mt-8 text-body-small text-gray-600">{edu.description}</p>
-                    )}
-                  </div>
-                </AnimateOnScroll>
-              </li>
-            ))}
-          </ul>
+        <section id="education" className="bg-gray-50" aria-label="学歴・資格">
+          <div className="mx-auto max-w-[1200px] px-16 py-40 md:px-32">
+            <AnimateOnScroll>
+              <h2 className="text-section-heading text-vercel-black">Education</h2>
+            </AnimateOnScroll>
+            <AnimateOnScroll className="mt-32">
+              <EducationAccordion educations={educations} />
+            </AnimateOnScroll>
+          </div>
         </section>
       )}
+
+      {author.personalInfo && (
+        <section id="personal" className="bg-pure-white" aria-label="パーソナル情報">
+          <div className="mx-auto max-w-[1200px] px-16 py-40 md:px-32">
+            <AnimateOnScroll>
+              <h2 className="text-section-heading text-vercel-black">Personal</h2>
+            </AnimateOnScroll>
+            <AnimateOnScroll className="mt-32">
+              <PersonalInfoSection info={author.personalInfo} />
+            </AnimateOnScroll>
+          </div>
+        </section>
+      )}
+
+      <section className="bg-gray-50" aria-label="次に読む">
+        <div className="mx-auto max-w-[1200px] px-16 py-40 md:px-32">
+          <AnimateOnScroll>
+            <h2 className="text-section-heading text-vercel-black">Next read</h2>
+            <p className="mt-16 text-body-small text-gray-600">他のセクションへ</p>
+          </AnimateOnScroll>
+          <AnimateOnScroll className="mt-32">
+            <NextReadNav cards={NEXT_READ_CARDS} />
+          </AnimateOnScroll>
+        </div>
+      </section>
     </>
   );
 }
