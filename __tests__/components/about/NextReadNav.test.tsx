@@ -5,7 +5,7 @@ const cards = [
   { href: '/projects/', title: 'サイドプロジェクト', description: '個人開発・技術書' },
   { href: '/blog/', title: 'ブログ', description: '技術記事' },
   { href: '/contact/', title: 'お問い合わせ', description: '連絡先' },
-];
+] as const;
 
 describe('NextReadNav', () => {
   it('renders one link per card pointing to its href', () => {
