@@ -122,9 +122,15 @@ export interface PersonalQuality {
   description: string;
 }
 
+export interface PersonalInfoSource {
+  name: string;
+  url: string;
+}
+
 export interface PersonalInfo {
   type: string;
   typeDescription: string;
   topQualities: PersonalQuality[];
   selfAwareness: string[];
+  source?: PersonalInfoSource;
 }

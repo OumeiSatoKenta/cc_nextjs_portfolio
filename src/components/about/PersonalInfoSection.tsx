@@ -43,6 +43,21 @@ export function PersonalInfoSection({ info }: PersonalInfoSectionProps) {
           ))}
         </ul>
       </div>
+
+      {info.source && (
+        <p className="text-caption text-gray-500">
+          出典:{' '}
+          <a
+            href={info.source.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-link-blue hover:underline"
+          >
+            {info.source.name}
+          </a>{' '}
+          による適性診断
+        </p>
+      )}
     </div>
   );
 }

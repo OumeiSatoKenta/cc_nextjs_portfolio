@@ -61,4 +61,21 @@ describe('PersonalInfoSection', () => {
     render(<PersonalInfoSection info={emptyInfo} />);
     expect(screen.getByRole('heading', { level: 4, name: '自己認識' })).toBeInTheDocument();
   });
+
+  it('renders a source attribution link when source is provided', () => {
+    const withSource = {
+      ...info,
+      source: { name: 'アッテル', url: 'https://attelu.jp/' },
+    };
+    render(<PersonalInfoSection info={withSource} />);
+    const link = screen.getByRole('link', { name: 'アッテル' });
+    expect(link).toHaveAttribute('href', 'https://attelu.jp/');
+    expect(link).toHaveAttribute('target', '_blank');
+    expect(link).toHaveAttribute('rel', 'noopener noreferrer');
+  });
+
+  it('does not render the source attribution when source is omitted', () => {
+    render(<PersonalInfoSection info={info} />);
+    expect(screen.queryByText(/出典:/)).not.toBeInTheDocument();
+  });
 });
