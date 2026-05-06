@@ -74,6 +74,48 @@ describe('EducationAccordion', () => {
     expect(screen.getByText('装置のキャプション')).toBeInTheDocument();
   });
 
+  it('renders nested publications in the expanded content', async () => {
+    const user = userEvent.setup();
+    const withPublication: Education = {
+      type: 'degree',
+      title: '修士・博士課程',
+      institution: '名古屋大学',
+      date: '2021-03',
+      description: '研究概要',
+      publications: [
+        {
+          title: 'ネストされた論文タイトル',
+          venue: 'Test Venue',
+          date: '2019',
+          description: '論文の説明',
+        },
+      ],
+    };
+    render(<EducationAccordion educations={[withPublication]} />);
+    // Nested publications live inside the collapsed content; the heading exists
+    // in the DOM (queryable by text) but is not exposed to AT until expanded.
+    expect(screen.getByText('論文・学会発表')).toBeInTheDocument();
+    expect(screen.getByText('ネストされた論文タイトル')).toBeInTheDocument();
+    expect(screen.getByText('Test Venue')).toBeInTheDocument();
+    expect(screen.getByText('発表: 2019')).toBeInTheDocument();
+
+    // After expanding, the heading becomes accessible by role.
+    await user.click(screen.getByRole('button'));
+    expect(screen.getByRole('heading', { level: 4, name: '論文・学会発表' })).toBeInTheDocument();
+  });
+
+  it('makes a degree entry expandable when only publications are present', () => {
+    const onlyPubs: Education = {
+      type: 'degree',
+      title: '修士',
+      institution: 'X',
+      date: '2018-03',
+      publications: [{ title: 'P', venue: 'V', date: '2019' }],
+    };
+    render(<EducationAccordion educations={[onlyPubs]} />);
+    expect(screen.getByRole('button')).toHaveAttribute('aria-expanded', 'false');
+  });
+
   it('renders dateTime attribute on the time element with the prefix label', () => {
     render(<EducationAccordion educations={[expandable]} />);
     const time = screen.getByText('修了: 2021-03');

@@ -57,3 +57,6 @@ coverage/
 
 # Personal resume (local reference only; do not commit)
 docs/20260411_resume.pdf
+
+# Personal aptitude test result (local reference only; contains PII)
+docs/20260505_*.pdf

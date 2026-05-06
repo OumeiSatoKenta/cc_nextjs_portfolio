@@ -73,7 +73,7 @@ export const projects: Project[] = [
     description:
       '70 名の共著者で執筆した AWS SAA 対策本（Kindle）。3 ページの執筆・レビューに加え、進捗管理 GAS ツールを作成。',
     technologies: ['AWS', 'SAA', 'Kindle', '技術書執筆'],
-    liveUrl: 'https://www.amazon.co.jp/dp/B0DK3KFYWQ',
+    liveUrl: 'https://www.amazon.co.jp/dp/B0BCPNZ9GJ',
     linkLabel: 'Amazon',
     highlights: [
       '70 名の共著プロジェクトで執筆・レビュー・進捗管理を担当',
@@ -99,7 +99,7 @@ export const projects: Project[] = [
     description:
       'AWS ハンズオン虎の巻シリーズ「Amplify でフルスタックな開発体験をしよう」の編集を担当。',
     technologies: ['AWS Amplify', 'Kindle', '技術書編集'],
-    liveUrl: 'https://www.amazon.co.jp/dp/B0DTJMCR42',
+    liveUrl: 'https://www.amazon.co.jp/dp/B0CH7LLX2H',
     linkLabel: 'Amazon',
     highlights: ['ハンズオン形式の技術書の編集・校正'],
     thumbnail: {

@@ -50,12 +50,31 @@ export interface CareerOverview {
 
 export type CareerRoleType = 'design' | 'implementation' | 'management' | 'operations';
 
-export interface Career extends CareerOverview {
+/** 雇用形態下の個別案件 (自社開発 / SES) を表すサブエントリ */
+export type EngagementType = 'in-house' | 'ses';
+
+export interface CareerEngagement {
+  /** クライアント名・案件名 */
+  client: string;
+  engagementType: EngagementType;
+  role: string;
+  period: { start: string; end?: string };
   description: string;
   achievements: string[];
   technologies?: string[];
   teamSize?: number;
   roleType?: CareerRoleType[];
+}
+
+export interface Career extends CareerOverview {
+  description: string;
+  /** Parent-only 雇用エントリでは省略 (engagements 配下に詳細を持つ場合) */
+  achievements?: string[];
+  technologies?: string[];
+  teamSize?: number;
+  roleType?: CareerRoleType[];
+  /** 雇用主の下にぶら下がる個別案件 (自社開発 + SES 案件など) */
+  engagements?: CareerEngagement[];
 }
 
 export type SkillCategory = 'cloud' | 'language' | 'database' | 'tool';
@@ -115,6 +134,14 @@ export interface EducationImage {
   caption?: string;
 }
 
+/** 学位エントリ内にネストする論文・学会発表 */
+export interface AcademicPublication {
+  title: string;
+  venue: string;
+  date: string;
+  description?: string;
+}
+
 export interface Education {
   type: 'certification' | 'degree' | 'publication';
   title: string;
@@ -123,6 +150,8 @@ export interface Education {
   description?: string;
   details?: string;
   images?: EducationImage[];
+  /** 学位エントリ配下に表示する論文・学会発表 */
+  publications?: AcademicPublication[];
 }
 
 export interface PersonalQuality {
@@ -141,4 +170,26 @@ export interface PersonalInfo {
   topQualities: PersonalQuality[];
   selfAwareness: string[];
   source?: PersonalInfoSource;
+}
+
+export type ActivityCategory =
+  | 'meetup'
+  | 'conference'
+  | 'study-group'
+  | 'oss'
+  | 'publication'
+  | 'other';
+
+export interface Activity {
+  id: string;
+  title: string;
+  /** ISO 8601: YYYY, YYYY-MM, or YYYY-MM-DD. Year-only entries denote ongoing activity within that year. */
+  date: string;
+  category: ActivityCategory;
+  description: string;
+  role?: string;
+  url?: string;
+  tags?: string[];
+  /** Activity that started on `date` and is still ongoing. Renders the date as "...〜現在". */
+  ongoing?: boolean;
 }

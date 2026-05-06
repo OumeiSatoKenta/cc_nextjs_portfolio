@@ -44,7 +44,7 @@ export function ProjectThumbnail({
       background === 'white' ? 'bg-pure-white' : `bg-gradient-to-br ${gradientMap[accentColor]}`;
     return (
       <div
-        className={`relative h-180 overflow-hidden rounded-image ${backgroundClass}`}
+        className={`relative aspect-[16/9] overflow-hidden rounded-image ${backgroundClass}`}
         aria-hidden="true"
       >
         <Image
@@ -62,7 +62,7 @@ export function ProjectThumbnail({
 
   return (
     <div
-      className={`grid h-180 place-items-center rounded-image bg-gradient-to-br ${gradientMap[accentColor]}`}
+      className={`grid aspect-[16/9] place-items-center rounded-image bg-gradient-to-br ${gradientMap[accentColor]}`}
       aria-hidden="true"
     >
       <Icon width={48} height={48} className={`opacity-60 ${iconColorMap[accentColor]}`} />

@@ -1,19 +1,5 @@
 import { Users } from 'lucide-react';
-import { EngagementItem } from '@/components/about/EngagementItem';
-import type { CareerEngagement, CareerRoleType } from '@/types';
-
-interface TimelineItemProps {
-  company: string;
-  role: string;
-  period: { start: string; end?: string };
-  description: string;
-  achievements?: string[];
-  technologies?: string[];
-  teamSize?: number;
-  roleType?: CareerRoleType[];
-  engagements?: CareerEngagement[];
-  isLast: boolean;
-}
+import type { CareerEngagement, CareerRoleType, EngagementType } from '@/types';
 
 const ROLE_TYPE_LABEL: Record<CareerRoleType, string> = {
   design: '設計',
@@ -29,34 +15,55 @@ const ROLE_TYPE_BADGE_CLASS: Record<CareerRoleType, string> = {
   operations: 'bg-badge-tool-bg text-badge-tool-text',
 };
 
+const ENGAGEMENT_LABEL: Record<EngagementType, string> = {
+  'in-house': '自社開発',
+  ses: 'SES',
+};
+
+const ENGAGEMENT_BADGE_CLASS: Record<EngagementType, string> = {
+  'in-house': 'bg-vercel-black text-pure-white',
+  ses: 'bg-badge-blue-bg text-badge-blue-text',
+};
+
 function formatPeriod(period: { start: string; end?: string }): string {
   return period.end ? `${period.start} — ${period.end}` : `${period.start} — 現在`;
 }
 
-export function TimelineItem({
-  company,
-  role,
-  period,
-  description,
-  achievements,
-  technologies,
-  teamSize,
-  roleType,
-  engagements,
-  isLast,
-}: TimelineItemProps) {
+interface EngagementItemProps {
+  engagement: CareerEngagement;
+  isLast: boolean;
+}
+
+export function EngagementItem({ engagement, isLast }: EngagementItemProps) {
+  const {
+    client,
+    engagementType,
+    role,
+    period,
+    description,
+    achievements,
+    technologies,
+    teamSize,
+    roleType,
+  } = engagement;
   const hasRoleMeta = teamSize !== undefined || (roleType && roleType.length > 0);
-  const hasEngagements = engagements && engagements.length > 0;
 
   return (
-    <article className="relative flex gap-32 pl-32">
+    <article className="relative flex gap-24 pl-24">
       <div className="absolute top-0 left-0 flex h-full flex-col items-center">
-        <div className="h-3 w-3 shrink-0 rounded-circle bg-vercel-black" aria-hidden="true" />
-        {!isLast && <div className="w-1 flex-1 bg-gray-100" aria-hidden="true" />}
+        <div className="mt-3 h-2 w-2 shrink-0 rounded-circle bg-gray-500" aria-hidden="true" />
+        {!isLast && <div className="w-0.5 flex-1 bg-gray-100" aria-hidden="true" />}
       </div>
 
-      <div className="flex flex-col gap-8 pb-40">
-        <h3 className="text-card-title text-vercel-black">{company}</h3>
+      <div className="flex flex-col gap-8 pb-32">
+        <div className="flex flex-wrap items-center gap-8">
+          <h4 className="text-card-title-light text-vercel-black">{client}</h4>
+          <span
+            className={`rounded-pill px-10 py-3 font-medium text-caption ${ENGAGEMENT_BADGE_CLASS[engagementType]}`}
+          >
+            {ENGAGEMENT_LABEL[engagementType]}
+          </span>
+        </div>
         <time
           dateTime={period.end ?? period.start}
           className="font-geist-mono font-medium text-caption text-gray-500 uppercase"
@@ -86,7 +93,7 @@ export function TimelineItem({
 
         <p className="text-body-small text-gray-600">{description}</p>
 
-        {achievements && achievements.length > 0 && (
+        {achievements.length > 0 && (
           <ul className="flex flex-col gap-4 pl-16">
             {achievements.map((achievement, index) => (
               <li
@@ -110,18 +117,6 @@ export function TimelineItem({
               </span>
             ))}
           </div>
-        )}
-
-        {hasEngagements && (
-          <section className="mt-16 flex flex-col" aria-label={`${company} の案件一覧`}>
-            {engagements.map((engagement, index) => (
-              <EngagementItem
-                key={`${engagement.client}-${engagement.period.start}`}
-                engagement={engagement}
-                isLast={index === engagements.length - 1}
-              />
-            ))}
-          </section>
         )}
       </div>
     </article>

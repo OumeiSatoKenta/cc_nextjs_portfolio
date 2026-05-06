@@ -14,7 +14,7 @@ describe('SkillGrid', () => {
   it('renders the strong/growing top-level group headings', () => {
     render(<SkillGrid skills={mockSkills} />);
     expect(screen.getByRole('heading', { level: 3, name: '得意領域' })).toBeInTheDocument();
-    expect(screen.getByRole('heading', { level: 3, name: '成長中' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 3, name: '注力領域' })).toBeInTheDocument();
   });
 
   it('renders category sub-headings as h4', () => {
@@ -46,21 +46,21 @@ describe('SkillGrid', () => {
     const intermediateOnly: Skill[] = [{ name: 'Go', category: 'language', level: 'intermediate' }];
     render(<SkillGrid skills={intermediateOnly} />);
     expect(screen.queryByRole('heading', { level: 3, name: '得意領域' })).not.toBeInTheDocument();
-    expect(screen.getByRole('heading', { level: 3, name: '成長中' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 3, name: '注力領域' })).toBeInTheDocument();
   });
 
   it('omits the growing group when no intermediate/beginner skills exist', () => {
     const expertOnly: Skill[] = [{ name: 'AWS', category: 'cloud', level: 'expert' }];
     render(<SkillGrid skills={expertOnly} />);
     expect(screen.getByRole('heading', { level: 3, name: '得意領域' })).toBeInTheDocument();
-    expect(screen.queryByRole('heading', { level: 3, name: '成長中' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('heading', { level: 3, name: '注力領域' })).not.toBeInTheDocument();
   });
 
   it('classifies a skill without level into the growing group', () => {
     const noLevel: Skill[] = [{ name: 'Rust', category: 'language' }];
     render(<SkillGrid skills={noLevel} />);
     expect(screen.queryByRole('heading', { level: 3, name: '得意領域' })).not.toBeInTheDocument();
-    expect(screen.getByRole('heading', { level: 3, name: '成長中' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 3, name: '注力領域' })).toBeInTheDocument();
     expect(screen.getByText('Rust')).toBeInTheDocument();
   });
 

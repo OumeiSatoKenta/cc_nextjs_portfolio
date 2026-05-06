@@ -49,7 +49,7 @@ describe('AboutPage', () => {
     render(<AboutPage />);
     expect(screen.getByRole('heading', { level: 4, name: 'Cloud / IaC' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { level: 4, name: 'Languages' })).toBeInTheDocument();
-    // 'Database' may appear in both 得意領域 and 成長中 groups
+    // 'Database' may appear in both 得意領域 and 注力領域 groups
     expect(screen.getAllByRole('heading', { level: 4, name: 'Database' }).length).toBeGreaterThan(
       0
     );
@@ -65,10 +65,12 @@ describe('AboutPage', () => {
     }
   });
 
-  it('renders the correct number of timeline articles', () => {
+  it('renders one timeline article per employer plus one per engagement', () => {
     render(<AboutPage />);
     const articles = screen.getAllByRole('article');
-    expect(articles).toHaveLength(careers.length);
+    const expected =
+      careers.length + careers.reduce((sum, c) => sum + (c.engagements?.length ?? 0), 0);
+    expect(articles).toHaveLength(expected);
   });
 
   it('renders the StickyNav with all 5 nav items linking to section ids', () => {
@@ -104,7 +106,7 @@ describe('AboutPage', () => {
     expect(screen.getByRole('region', { name: '自己紹介' })).toBeInTheDocument();
     expect(screen.getByRole('region', { name: '職務経歴' })).toBeInTheDocument();
     expect(screen.getByRole('region', { name: 'スキル' })).toBeInTheDocument();
-    expect(screen.getByRole('region', { name: '学歴・資格' })).toBeInTheDocument();
+    expect(screen.getByRole('region', { name: '学歴・学術研究' })).toBeInTheDocument();
     expect(screen.getByRole('region', { name: 'パーソナル情報' })).toBeInTheDocument();
     expect(screen.getByRole('region', { name: '次に読む' })).toBeInTheDocument();
   });

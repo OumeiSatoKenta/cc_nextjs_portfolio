@@ -75,4 +75,22 @@ describe('ProjectThumbnail', () => {
       expect(el).toHaveClass('from-ship-red/20');
     });
   });
+
+  describe('aspect ratio', () => {
+    it('applies aspect-[16/9] in icon mode', () => {
+      const { container } = render(<ProjectThumbnail accentColor="ship" icon="Cloud" />);
+      const el = container.querySelector('[aria-hidden="true"]');
+      expect(el).toHaveClass('aspect-[16/9]');
+      expect(el).not.toHaveClass('h-180');
+    });
+
+    it('applies aspect-[16/9] in image mode', () => {
+      const { container } = render(
+        <ProjectThumbnail accentColor="ship" icon="Globe" image="/images/test.png" />
+      );
+      const el = container.querySelector('[aria-hidden="true"]');
+      expect(el).toHaveClass('aspect-[16/9]');
+      expect(el).not.toHaveClass('h-180');
+    });
+  });
 });
