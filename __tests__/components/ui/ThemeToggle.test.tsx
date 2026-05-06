@@ -26,63 +26,114 @@ describe('ThemeToggle', () => {
     expect(placeholder).toBeInTheDocument();
   });
 
-  it('renders a button after mount', async () => {
-    render(<ThemeToggle />);
-    const button = await screen.findByRole('button', { name: /テーマ切替/ });
-    expect(button).toBeInTheDocument();
-  });
-
-  it('cycles from system to light on click', async () => {
-    const user = userEvent.setup();
+  it('renders a trigger button with a fixed "ビジュアルモード" label regardless of current theme', async () => {
     mockTheme = 'system';
-    render(<ThemeToggle />);
-    const button = await screen.findByRole('button', { name: /テーマ切替/ });
-    await user.click(button);
-    expect(mockSetTheme).toHaveBeenCalledWith('light');
+    const { rerender } = render(<ThemeToggle />);
+    const trigger = await screen.findByRole('button', { name: 'ビジュアルモード' });
+    expect(trigger).toBeInTheDocument();
+    expect(trigger).toHaveAttribute('aria-haspopup', 'menu');
+    expect(trigger).toHaveAttribute('aria-expanded', 'false');
+
+    mockTheme = 'light';
+    rerender(<ThemeToggle />);
+    expect(screen.getByRole('button', { name: 'ビジュアルモード' })).toBeInTheDocument();
+
+    mockTheme = 'dark';
+    rerender(<ThemeToggle />);
+    expect(screen.getByRole('button', { name: 'ビジュアルモード' })).toBeInTheDocument();
   });
 
-  it('cycles from light to dark on click', async () => {
+  it('opens the menu when the trigger is clicked', async () => {
+    const user = userEvent.setup();
+    render(<ThemeToggle />);
+    const trigger = await screen.findByRole('button', { name: /ビジュアルモード/ });
+
+    expect(screen.queryByRole('menu')).not.toBeInTheDocument();
+    await user.click(trigger);
+
+    const menu = await screen.findByRole('menu', { name: 'ビジュアルモードを選択' });
+    expect(menu).toBeInTheDocument();
+    expect(trigger).toHaveAttribute('aria-expanded', 'true');
+  });
+
+  it('renders the menu header (without ベータ badge) and three menuitemradio options when open', async () => {
+    const user = userEvent.setup();
+    render(<ThemeToggle />);
+    await user.click(await screen.findByRole('button', { name: 'ビジュアルモード' }));
+
+    // The trigger and the menu header both contain the same label, so we expect ≥1 match
+    expect(screen.getAllByText('ビジュアルモード').length).toBeGreaterThanOrEqual(1);
+    expect(screen.queryByText('ベータ')).not.toBeInTheDocument();
+
+    const items = screen.getAllByRole('menuitemradio');
+    expect(items).toHaveLength(3);
+    expect(items[0]).toHaveTextContent('ブラウザのデフォルト');
+    expect(items[1]).toHaveTextContent('ライト');
+    expect(items[2]).toHaveTextContent('ダーク');
+  });
+
+  it('marks the active option with aria-checked=true', async () => {
     const user = userEvent.setup();
     mockTheme = 'light';
     render(<ThemeToggle />);
-    const button = await screen.findByRole('button', { name: /テーマ切替/ });
-    await user.click(button);
+    await user.click(await screen.findByRole('button', { name: /ビジュアルモード/ }));
+
+    const lightOption = screen.getByRole('menuitemradio', { name: /ライト/ });
+    expect(lightOption).toHaveAttribute('aria-checked', 'true');
+
+    const darkOption = screen.getByRole('menuitemradio', { name: /ダーク/ });
+    expect(darkOption).toHaveAttribute('aria-checked', 'false');
+  });
+
+  it('selecting "ライト" calls setTheme with "light" and closes the menu', async () => {
+    const user = userEvent.setup();
+    render(<ThemeToggle />);
+    await user.click(await screen.findByRole('button', { name: /ビジュアルモード/ }));
+
+    await user.click(screen.getByRole('menuitemradio', { name: /ライト/ }));
+    expect(mockSetTheme).toHaveBeenCalledWith('light');
+    expect(screen.queryByRole('menu')).not.toBeInTheDocument();
+  });
+
+  it('selecting "ダーク" calls setTheme with "dark"', async () => {
+    const user = userEvent.setup();
+    render(<ThemeToggle />);
+    await user.click(await screen.findByRole('button', { name: /ビジュアルモード/ }));
+    await user.click(screen.getByRole('menuitemradio', { name: /ダーク/ }));
     expect(mockSetTheme).toHaveBeenCalledWith('dark');
   });
 
-  it('cycles from dark to system on click', async () => {
+  it('selecting "ブラウザのデフォルト" calls setTheme with "system"', async () => {
     const user = userEvent.setup();
-    mockTheme = 'dark';
+    mockTheme = 'light';
     render(<ThemeToggle />);
-    const button = await screen.findByRole('button', { name: /テーマ切替/ });
-    await user.click(button);
+    await user.click(await screen.findByRole('button', { name: /ビジュアルモード/ }));
+    await user.click(screen.getByRole('menuitemradio', { name: /ブラウザのデフォルト/ }));
     expect(mockSetTheme).toHaveBeenCalledWith('system');
   });
 
-  it('shows the correct aria-label for system mode', async () => {
-    mockTheme = 'system';
+  it('closes the menu when Escape is pressed', async () => {
+    const user = userEvent.setup();
     render(<ThemeToggle />);
-    const button = await screen.findByRole('button', {
-      name: 'テーマ切替: 現在システムモード',
-    });
-    expect(button).toBeInTheDocument();
+    await user.click(await screen.findByRole('button', { name: /ビジュアルモード/ }));
+    expect(screen.getByRole('menu')).toBeInTheDocument();
+
+    await user.keyboard('{Escape}');
+    expect(screen.queryByRole('menu')).not.toBeInTheDocument();
   });
 
-  it('shows the correct aria-label for light mode', async () => {
-    mockTheme = 'light';
-    render(<ThemeToggle />);
-    const button = await screen.findByRole('button', {
-      name: 'テーマ切替: 現在ライトモード',
-    });
-    expect(button).toBeInTheDocument();
-  });
+  it('closes the menu when clicking outside', async () => {
+    const user = userEvent.setup();
+    render(
+      <div>
+        <button type="button">外側</button>
+        <ThemeToggle />
+      </div>
+    );
+    await user.click(await screen.findByRole('button', { name: /ビジュアルモード/ }));
+    expect(screen.getByRole('menu')).toBeInTheDocument();
 
-  it('shows the correct aria-label for dark mode', async () => {
-    mockTheme = 'dark';
-    render(<ThemeToggle />);
-    const button = await screen.findByRole('button', {
-      name: 'テーマ切替: 現在ダークモード',
-    });
-    expect(button).toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: '外側' }));
+    expect(screen.queryByRole('menu')).not.toBeInTheDocument();
   });
 });
