@@ -59,7 +59,7 @@ describe('HomePage', () => {
     render(<HomePage />);
     const careerSection = screen.getByRole('region', { name: '経歴' });
     expect(
-      within(careerSection).getByRole('heading', { level: 2, name: 'Career' })
+      within(careerSection).getByRole('heading', { level: 2, name: '経歴' })
     ).toBeInTheDocument();
     const link = within(careerSection).getByRole('link', { name: '経歴を詳しく見る →' });
     expect(link.getAttribute('href')).toMatch(/^\/about\/?$/);
@@ -73,17 +73,17 @@ describe('HomePage', () => {
     render(<HomePage />);
     const skillsSection = screen.getByRole('region', { name: 'スキルプレビュー' });
     expect(
-      within(skillsSection).getByRole('heading', { level: 2, name: 'Skills' })
+      within(skillsSection).getByRole('heading', { level: 2, name: 'スキル' })
     ).toBeInTheDocument();
     const link = within(skillsSection).getByRole('link', { name: 'スキルを詳しく見る →' });
     expect(link.getAttribute('href')).toMatch(/^\/about\/?$/);
   });
 
-  it('renders the Featured Projects section with featured project headings only', () => {
+  it('renders the 注目プロジェクト section with featured project headings only', () => {
     render(<HomePage />);
-    const projectsSection = screen.getByRole('region', { name: 'Featured プロジェクト' });
+    const projectsSection = screen.getByRole('region', { name: '注目プロジェクト' });
     expect(
-      within(projectsSection).getByRole('heading', { level: 2, name: 'Featured Projects' })
+      within(projectsSection).getByRole('heading', { level: 2, name: '注目プロジェクト' })
     ).toBeInTheDocument();
     const link = within(projectsSection).getByRole('link', {
       name: 'すべてのプロジェクトを見る →',
@@ -98,21 +98,36 @@ describe('HomePage', () => {
     render(<HomePage />);
     const blogSection = screen.getByRole('region', { name: '最新ブログ' });
     expect(
-      within(blogSection).getByRole('heading', { level: 2, name: 'Latest Posts' })
+      within(blogSection).getByRole('heading', { level: 2, name: '最新の記事' })
     ).toBeInTheDocument();
     const link = within(blogSection).getByRole('link', { name: 'すべての記事を見る →' });
     expect(link.getAttribute('href')).toMatch(/^\/blog\/?$/);
     expect(within(blogSection).getAllByRole('article')).toHaveLength(Math.min(3, blogPosts.length));
   });
 
-  it('renders the Activity preview section with link to /activity/', () => {
+  it('renders the 活動履歴 section with link to /activity/', () => {
     render(<HomePage />);
     const activitySection = screen.getByRole('region', { name: '活動プレビュー' });
     expect(
-      within(activitySection).getByRole('heading', { level: 2, name: 'Activity' })
+      within(activitySection).getByRole('heading', { level: 2, name: '活動履歴' })
     ).toBeInTheDocument();
     const link = within(activitySection).getByRole('link', { name: 'すべての活動を見る →' });
     expect(link.getAttribute('href')).toMatch(/^\/activity\/?$/);
     expect(within(activitySection).getAllByRole('listitem').length).toBeGreaterThanOrEqual(1);
+  });
+
+  it('renders the パーソナル preview section when personalInfo is provided', () => {
+    render(<HomePage />);
+    if (siteMetadata.author.personalInfo) {
+      const personalSection = screen.getByRole('region', { name: 'パーソナル情報' });
+      expect(
+        within(personalSection).getByRole('heading', { level: 2, name: 'パーソナル' })
+      ).toBeInTheDocument();
+      const link = within(personalSection).getByRole('link', { name: '詳細を見る →' });
+      expect(link.getAttribute('href')).toMatch(/^\/about\/?#personal$/);
+      expect(
+        within(personalSection).getByText(siteMetadata.author.personalInfo.type)
+      ).toBeInTheDocument();
+    }
   });
 });
