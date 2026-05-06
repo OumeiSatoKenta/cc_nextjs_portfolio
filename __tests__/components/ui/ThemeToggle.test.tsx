@@ -26,31 +26,21 @@ describe('ThemeToggle', () => {
     expect(placeholder).toBeInTheDocument();
   });
 
-  it('renders a trigger button labeled with the current option', async () => {
+  it('renders a trigger button with a fixed "ビジュアルモード" label regardless of current theme', async () => {
     mockTheme = 'system';
-    render(<ThemeToggle />);
-    const trigger = await screen.findByRole('button', {
-      name: 'ビジュアルモード: 現在ブラウザのデフォルト',
-    });
+    const { rerender } = render(<ThemeToggle />);
+    const trigger = await screen.findByRole('button', { name: 'ビジュアルモード' });
     expect(trigger).toBeInTheDocument();
     expect(trigger).toHaveAttribute('aria-haspopup', 'menu');
     expect(trigger).toHaveAttribute('aria-expanded', 'false');
-  });
 
-  it('shows trigger label "ライト" when theme is light', async () => {
     mockTheme = 'light';
-    render(<ThemeToggle />);
-    expect(
-      await screen.findByRole('button', { name: 'ビジュアルモード: 現在ライト' })
-    ).toBeInTheDocument();
-  });
+    rerender(<ThemeToggle />);
+    expect(screen.getByRole('button', { name: 'ビジュアルモード' })).toBeInTheDocument();
 
-  it('shows trigger label "ダーク" when theme is dark', async () => {
     mockTheme = 'dark';
-    render(<ThemeToggle />);
-    expect(
-      await screen.findByRole('button', { name: 'ビジュアルモード: 現在ダーク' })
-    ).toBeInTheDocument();
+    rerender(<ThemeToggle />);
+    expect(screen.getByRole('button', { name: 'ビジュアルモード' })).toBeInTheDocument();
   });
 
   it('opens the menu when the trigger is clicked', async () => {
@@ -66,13 +56,14 @@ describe('ThemeToggle', () => {
     expect(trigger).toHaveAttribute('aria-expanded', 'true');
   });
 
-  it('renders the beta header and three menuitemradio options when open', async () => {
+  it('renders the menu header (without ベータ badge) and three menuitemradio options when open', async () => {
     const user = userEvent.setup();
     render(<ThemeToggle />);
-    await user.click(await screen.findByRole('button', { name: /ビジュアルモード/ }));
+    await user.click(await screen.findByRole('button', { name: 'ビジュアルモード' }));
 
-    expect(screen.getByText('ビジュアルモード')).toBeInTheDocument();
-    expect(screen.getByText('ベータ')).toBeInTheDocument();
+    // The trigger and the menu header both contain the same label, so we expect ≥1 match
+    expect(screen.getAllByText('ビジュアルモード').length).toBeGreaterThanOrEqual(1);
+    expect(screen.queryByText('ベータ')).not.toBeInTheDocument();
 
     const items = screen.getAllByRole('menuitemradio');
     expect(items).toHaveLength(3);
