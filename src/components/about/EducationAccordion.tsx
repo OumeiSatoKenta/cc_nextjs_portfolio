@@ -46,7 +46,11 @@ interface EducationItemProps {
 export function EducationItem({ edu }: EducationItemProps) {
   const [isOpen, setIsOpen] = useState(false);
   const contentId = useId();
-  const expandable = Boolean(edu.details || (edu.images && edu.images.length > 0));
+  const expandable = Boolean(
+    edu.details ||
+      (edu.images && edu.images.length > 0) ||
+      (edu.publications && edu.publications.length > 0)
+  );
 
   const headerContent = (
     <>
@@ -113,6 +117,37 @@ export function EducationItem({ edu }: EducationItemProps) {
                       </li>
                     ))}
                   </ul>
+                )}
+                {edu.publications && edu.publications.length > 0 && (
+                  <section
+                    className="flex flex-col gap-12 border-gray-100 border-t pt-16"
+                    aria-label="関連論文・学会発表"
+                  >
+                    <h4 className="text-card-title-light text-vercel-black">論文・学会発表</h4>
+                    <ul className="flex flex-col gap-12">
+                      {edu.publications.map((pub) => (
+                        <li
+                          key={`${pub.title}-${pub.date}`}
+                          className="flex flex-col gap-4 rounded-comfortable bg-gray-50 p-16"
+                        >
+                          <span className="inline-block self-start rounded-pill bg-badge-lang-bg px-10 py-3 font-medium text-badge-lang-text text-caption">
+                            論文
+                          </span>
+                          <p className="text-body-small text-vercel-black">{pub.title}</p>
+                          <p className="text-caption text-gray-500">{pub.venue}</p>
+                          <time
+                            dateTime={pub.date}
+                            className="font-geist-mono text-caption text-gray-500"
+                          >
+                            発表: {pub.date}
+                          </time>
+                          {pub.description && (
+                            <p className="text-body-small text-gray-600">{pub.description}</p>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  </section>
                 )}
               </div>
             </div>

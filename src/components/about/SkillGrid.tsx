@@ -65,7 +65,7 @@ export function SkillGrid({ skills }: SkillGridProps) {
   return (
     <div className="flex flex-col gap-32">
       <SkillGroup label="得意領域" skills={strong} />
-      <SkillGroup label="成長中" skills={growing} />
+      <SkillGroup label="注力領域" skills={growing} />
     </div>
   );
 }

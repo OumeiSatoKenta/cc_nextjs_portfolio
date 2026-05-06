@@ -1,3 +1,4 @@
+import { ActivityPreview } from '@/components/home/ActivityPreview';
 import { CareerSummary } from '@/components/home/CareerSummary';
 import { FeaturedProjects } from '@/components/home/FeaturedProjects';
 import { HeroSection } from '@/components/home/HeroSection';
@@ -6,6 +7,7 @@ import { SectionPreview } from '@/components/home/SectionPreview';
 import { SkillsPreview } from '@/components/home/SkillsPreview';
 import { StrengthCard } from '@/components/home/StrengthCard';
 import { AnimateOnScroll } from '@/components/ui/AnimateOnScroll';
+import { activities } from '@/data/activities';
 import { blogPosts } from '@/data/blog';
 import { careerOverview } from '@/data/career';
 import { siteMetadata } from '@/data/metadata';
@@ -73,6 +75,17 @@ export default function HomePage() {
           linkLabel="すべての記事を見る"
         >
           <LatestBlog posts={blogPosts} />
+        </SectionPreview>
+      </AnimateOnScroll>
+
+      <AnimateOnScroll>
+        <SectionPreview
+          title="Activity"
+          ariaLabel="活動プレビュー"
+          href="/activity/"
+          linkLabel="すべての活動を見る"
+        >
+          <ActivityPreview activities={activities} />
         </SectionPreview>
       </AnimateOnScroll>
     </>

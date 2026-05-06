@@ -1,4 +1,5 @@
 import { EducationAccordion } from '@/components/about/EducationAccordion';
+import { EducationHero } from '@/components/about/EducationHero';
 import { NextReadNav } from '@/components/about/NextReadNav';
 import { PersonalInfoSection } from '@/components/about/PersonalInfoSection';
 import { SkillGrid } from '@/components/about/SkillGrid';
@@ -6,7 +7,7 @@ import { StickyNav } from '@/components/about/StickyNav';
 import { Timeline } from '@/components/about/Timeline';
 import { AnimateOnScroll } from '@/components/ui/AnimateOnScroll';
 import { careers } from '@/data/career';
-import { educations } from '@/data/education';
+import { educationHero, educations } from '@/data/education';
 import { siteMetadata } from '@/data/metadata';
 import { skills } from '@/data/skills';
 
@@ -29,7 +30,7 @@ export default function AboutPage() {
     { id: 'intro', label: 'イントロ' },
     { id: 'career', label: 'キャリア' },
     { id: 'skills', label: 'スキル' },
-    ...(educations.length > 0 ? [{ id: 'education', label: '学歴' }] : []),
+    ...(educations.length > 0 ? [{ id: 'education', label: '学歴・学術研究' }] : []),
     ...(author.personalInfo ? [{ id: 'personal', label: 'パーソナル' }] : []),
   ];
 
@@ -87,11 +88,16 @@ export default function AboutPage() {
       </section>
 
       {educations.length > 0 && (
-        <section id="education" className="bg-gray-50" aria-label="学歴・資格">
+        <section id="education" className="bg-gray-50" aria-label="学歴・学術研究">
           <div className="mx-auto max-w-[1200px] px-16 py-40 md:px-32">
             <AnimateOnScroll>
               <h2 className="text-section-heading text-vercel-black">Education</h2>
             </AnimateOnScroll>
+            {educationHero.length > 0 && (
+              <AnimateOnScroll className="mt-32">
+                <EducationHero images={educationHero} />
+              </AnimateOnScroll>
+            )}
             <AnimateOnScroll className="mt-32">
               <EducationAccordion educations={educations} />
             </AnimateOnScroll>

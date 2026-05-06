@@ -104,4 +104,15 @@ describe('HomePage', () => {
     expect(link.getAttribute('href')).toMatch(/^\/blog\/?$/);
     expect(within(blogSection).getAllByRole('article')).toHaveLength(Math.min(3, blogPosts.length));
   });
+
+  it('renders the Activity preview section with link to /activity/', () => {
+    render(<HomePage />);
+    const activitySection = screen.getByRole('region', { name: '活動プレビュー' });
+    expect(
+      within(activitySection).getByRole('heading', { level: 2, name: 'Activity' })
+    ).toBeInTheDocument();
+    const link = within(activitySection).getByRole('link', { name: 'すべての活動を見る →' });
+    expect(link.getAttribute('href')).toMatch(/^\/activity\/?$/);
+    expect(within(activitySection).getAllByRole('listitem').length).toBeGreaterThanOrEqual(1);
+  });
 });

@@ -95,4 +95,36 @@ describe('TimelineItem', () => {
     expect(screen.getByText('運用')).toBeInTheDocument();
     expect(screen.queryByText(/^チーム/)).not.toBeInTheDocument();
   });
+
+  it('renders nested engagements when engagements prop is provided', () => {
+    render(
+      <TimelineItem
+        {...baseProps}
+        achievements={[]}
+        technologies={undefined}
+        engagements={[
+          {
+            client: 'Client X',
+            engagementType: 'ses',
+            role: 'SRE',
+            period: { start: '2024-01', end: '2024-12' },
+            description: 'desc',
+            achievements: [],
+          },
+          {
+            client: 'Client Y',
+            engagementType: 'in-house',
+            role: 'SRE',
+            period: { start: '2025-01' },
+            description: 'desc',
+            achievements: [],
+          },
+        ]}
+      />
+    );
+    expect(screen.getByRole('heading', { level: 4, name: 'Client X' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 4, name: 'Client Y' })).toBeInTheDocument();
+    expect(screen.getByText('SES')).toBeInTheDocument();
+    expect(screen.getByText('自社開発')).toBeInTheDocument();
+  });
 });
