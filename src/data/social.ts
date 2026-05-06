@@ -16,9 +16,4 @@ export const socialLinks: SocialLink[] = [
     url: 'https://www.linkedin.com/in/kenta-sato-4180aa252/',
     icon: 'linkedin',
   },
-  {
-    platform: 'Mail',
-    url: 'mailto:satoken.sk.722@gmail.com',
-    icon: 'mail',
-  },
 ];

@@ -8,9 +8,7 @@ vi.mock('lucide-react/dynamic', () => ({
 import ContactPage from '@/app/contact/page';
 import { socialLinks } from '@/data/social';
 
-const otherLinks = socialLinks.filter(
-  (link) => link.platform !== 'Mail' && link.platform !== 'LinkedIn'
-);
+const otherLinks = socialLinks.filter((link) => link.platform !== 'LinkedIn');
 
 describe('ContactPage', () => {
   it('renders h1 with "Contact"', () => {
@@ -23,7 +21,7 @@ describe('ContactPage', () => {
     expect(screen.getByText('各種SNS・プラットフォーム')).toBeInTheDocument();
   });
 
-  it('renders other social link platform names (excluding Mail and LinkedIn)', () => {
+  it('renders other social link platform names (excluding LinkedIn)', () => {
     render(<ContactPage />);
     for (const link of otherLinks) {
       const displayName = link.label ?? link.platform;
@@ -31,11 +29,11 @@ describe('ContactPage', () => {
     }
   });
 
-  it('renders other social link cards plus CTA links', () => {
+  it('renders other social link cards plus the LinkedIn CTA', () => {
     render(<ContactPage />);
     const links = screen.getAllByRole('link');
-    // otherLinks cards + CTA mail button + CTA LinkedIn button
-    expect(links).toHaveLength(otherLinks.length + 2);
+    // otherLinks cards + 1 LinkedIn CTA button
+    expect(links).toHaveLength(otherLinks.length + 1);
   });
 
   it('renders social link cards with target="_blank"', () => {
@@ -58,14 +56,12 @@ describe('ContactPage', () => {
     }
   });
 
-  it('renders mailto link without rel attribute', () => {
+  it('does not render any mailto links (email contact has been omitted)', () => {
     render(<ContactPage />);
     const links = screen.getAllByRole('link');
     for (const link of links) {
       const href = link.getAttribute('href') ?? '';
-      if (href.startsWith('mailto:')) {
-        expect(link).not.toHaveAttribute('rel');
-      }
+      expect(href.startsWith('mailto:')).toBe(false);
     }
   });
 
@@ -76,24 +72,16 @@ describe('ContactPage', () => {
     ).toBeInTheDocument();
   });
 
-  it('renders CTA mail button with mailto href', () => {
-    render(<ContactPage />);
-    const mailButton = screen.getByRole('link', { name: 'メールを送る' });
-    expect(mailButton).toBeInTheDocument();
-    expect(mailButton.getAttribute('href')).toMatch(/^mailto:/);
-  });
-
-  it('renders CTA LinkedIn link with security attributes', () => {
+  it('renders the LinkedIn CTA as the sole contact action with security attributes', () => {
     render(<ContactPage />);
     const ctaSection = screen.getByLabelText('お問い合わせ');
-    const linkedinButton = ctaSection.querySelector('a[target="_blank"]');
-    expect(linkedinButton).toBeInTheDocument();
-    expect(linkedinButton).toHaveAttribute('rel', 'noopener noreferrer');
-    expect(linkedinButton?.getAttribute('href')).toMatch(/linkedin\.com/);
-  });
+    const ctaLinks = Array.from(ctaSection.querySelectorAll('a'));
+    expect(ctaLinks).toHaveLength(1);
 
-  it('renders CTA supplementary text', () => {
-    render(<ContactPage />);
-    expect(screen.getByText('返信は通常 1〜2 営業日以内にお送りします')).toBeInTheDocument();
+    const linkedinButton = ctaLinks[0];
+    expect(linkedinButton).toHaveAttribute('target', '_blank');
+    expect(linkedinButton).toHaveAttribute('rel', 'noopener noreferrer');
+    expect(linkedinButton.getAttribute('href')).toMatch(/linkedin\.com/);
+    expect(linkedinButton.textContent).toMatch(/LinkedIn/);
   });
 });
