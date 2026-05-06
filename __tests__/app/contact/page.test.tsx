@@ -11,9 +11,9 @@ import { socialLinks } from '@/data/social';
 const otherLinks = socialLinks.filter((link) => link.platform !== 'LinkedIn');
 
 describe('ContactPage', () => {
-  it('renders h1 with "Contact"', () => {
+  it('renders h1 with "お問い合わせ"', () => {
     render(<ContactPage />);
-    expect(screen.getByRole('heading', { level: 1, name: 'Contact' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1, name: 'お問い合わせ' })).toBeInTheDocument();
   });
 
   it('renders subtitle', () => {

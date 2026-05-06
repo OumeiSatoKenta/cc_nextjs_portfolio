@@ -3,9 +3,9 @@ import BlogPage from '@/app/blog/page';
 import { blogPosts } from '@/data/blog';
 
 describe('BlogPage', () => {
-  it('renders h1 with "Blog"', () => {
+  it('renders h1 with "ブログ"', () => {
     render(<BlogPage />);
-    expect(screen.getByRole('heading', { level: 1, name: 'Blog' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1, name: 'ブログ' })).toBeInTheDocument();
   });
 
   it('renders subtitle', () => {

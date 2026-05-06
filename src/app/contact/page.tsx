@@ -4,7 +4,7 @@ import { AnimateOnScroll } from '@/components/ui/AnimateOnScroll';
 import { socialLinks } from '@/data/social';
 
 export const metadata: Metadata = {
-  title: 'Contact',
+  title: 'お問い合わせ',
   description: '各種SNS・プラットフォーム',
 };
 
@@ -16,7 +16,7 @@ export default function ContactPage() {
     <>
       <section className="mx-auto max-w-[1200px] px-16 py-40 md:px-32" aria-label="コンタクト">
         <AnimateOnScroll>
-          <h1 className="text-display-hero text-vercel-black">Contact</h1>
+          <h1 className="text-display-hero text-vercel-black">お問い合わせ</h1>
           <p className="mt-16 text-body-large text-gray-600">各種SNS・プラットフォーム</p>
         </AnimateOnScroll>
       </section>

@@ -4,7 +4,7 @@ import { AnimateOnScroll } from '@/components/ui/AnimateOnScroll';
 import { blogPosts } from '@/data/blog';
 
 export const metadata: Metadata = {
-  title: 'Blog',
+  title: 'ブログ',
   description: '技術記事・執筆活動',
 };
 
@@ -13,7 +13,7 @@ export default function BlogPage() {
     <>
       <section className="mx-auto max-w-[1200px] px-16 py-40 md:px-32" aria-label="ブログ">
         <AnimateOnScroll>
-          <h1 className="text-display-hero text-vercel-black">Blog</h1>
+          <h1 className="text-display-hero text-vercel-black">ブログ</h1>
           <p className="mt-16 text-body-large text-gray-600">技術記事・執筆活動</p>
         </AnimateOnScroll>
       </section>

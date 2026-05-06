@@ -5,14 +5,14 @@ import { educations } from '@/data/education';
 import { siteMetadata } from '@/data/metadata';
 
 describe('AboutPage', () => {
-  it('renders h1 with "About"', () => {
+  it('renders h1 with "経歴・スキル"', () => {
     render(<AboutPage />);
-    expect(screen.getByRole('heading', { level: 1, name: 'About' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1, name: '経歴・スキル' })).toBeInTheDocument();
   });
 
-  it('renders Introduction section heading', () => {
+  it('renders 自己紹介 section heading', () => {
     render(<AboutPage />);
-    expect(screen.getByRole('heading', { level: 2, name: 'Introduction' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 2, name: '自己紹介' })).toBeInTheDocument();
   });
 
   it('renders the introduction paragraphs from siteMetadata', () => {
@@ -23,19 +23,19 @@ describe('AboutPage', () => {
     }
   });
 
-  it('renders Career section heading', () => {
+  it('renders 経歴 section heading', () => {
     render(<AboutPage />);
-    expect(screen.getByRole('heading', { level: 2, name: 'Career' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 2, name: '経歴' })).toBeInTheDocument();
   });
 
-  it('renders Skills section heading', () => {
+  it('renders スキル section heading', () => {
     render(<AboutPage />);
-    expect(screen.getByRole('heading', { level: 2, name: 'Skills' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 2, name: 'スキル' })).toBeInTheDocument();
   });
 
-  it('renders Education section heading', () => {
+  it('renders 学歴・学術研究 section heading', () => {
     render(<AboutPage />);
-    expect(screen.getByRole('heading', { level: 2, name: 'Education' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 2, name: '学歴・学術研究' })).toBeInTheDocument();
   });
 
   it('renders all career company names from data', () => {
@@ -83,17 +83,17 @@ describe('AboutPage', () => {
     });
   });
 
-  it('renders Personal section when personalInfo is provided', () => {
+  it('renders パーソナル section when personalInfo is provided', () => {
     render(<AboutPage />);
     if (siteMetadata.author.personalInfo) {
-      expect(screen.getByRole('heading', { level: 2, name: 'Personal' })).toBeInTheDocument();
+      expect(screen.getByRole('heading', { level: 2, name: 'パーソナル' })).toBeInTheDocument();
       expect(screen.getByText(siteMetadata.author.personalInfo.type)).toBeInTheDocument();
     }
   });
 
-  it('renders the Next read navigation section with 3 cards', () => {
+  it('renders the 次に読む navigation section with 3 cards', () => {
     render(<AboutPage />);
-    expect(screen.getByRole('heading', { level: 2, name: 'Next read' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 2, name: '次に読む' })).toBeInTheDocument();
     expect(
       screen.getByRole('heading', { level: 3, name: 'サイドプロジェクト' })
     ).toBeInTheDocument();
