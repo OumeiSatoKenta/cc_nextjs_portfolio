@@ -3,9 +3,11 @@ import ProjectsPage from '@/app/projects/page';
 import { projects } from '@/data/projects';
 
 describe('ProjectsPage', () => {
-  it('renders h1 with "Side Projects"', () => {
+  it('renders h1 with "サイドプロジェクト"', () => {
     render(<ProjectsPage />);
-    expect(screen.getByRole('heading', { level: 1, name: 'Side Projects' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { level: 1, name: 'サイドプロジェクト' })
+    ).toBeInTheDocument();
   });
 
   it('renders subtitle', () => {

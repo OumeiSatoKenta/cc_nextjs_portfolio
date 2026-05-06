@@ -1,13 +1,19 @@
+import type { Metadata } from 'next';
 import { ProjectCard } from '@/components/projects/ProjectCard';
 import { AnimateOnScroll } from '@/components/ui/AnimateOnScroll';
 import { projects } from '@/data/projects';
+
+export const metadata: Metadata = {
+  title: 'サイドプロジェクト',
+  description: '個人開発・技術書・コミュニティ活動',
+};
 
 export default function ProjectsPage() {
   return (
     <>
       <section className="mx-auto max-w-[1200px] px-16 py-40 md:px-32" aria-label="プロジェクト">
         <AnimateOnScroll>
-          <h1 className="text-display-hero text-vercel-black">Side Projects</h1>
+          <h1 className="text-display-hero text-vercel-black">サイドプロジェクト</h1>
           <p className="mt-16 text-body-large text-gray-600">個人開発・技術書・コミュニティ活動</p>
         </AnimateOnScroll>
       </section>

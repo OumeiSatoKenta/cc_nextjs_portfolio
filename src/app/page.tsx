@@ -3,6 +3,7 @@ import { CareerSummary } from '@/components/home/CareerSummary';
 import { FeaturedProjects } from '@/components/home/FeaturedProjects';
 import { HeroSection } from '@/components/home/HeroSection';
 import { LatestBlog } from '@/components/home/LatestBlog';
+import { PersonalInfoPreview } from '@/components/home/PersonalInfoPreview';
 import { SectionPreview } from '@/components/home/SectionPreview';
 import { SkillsPreview } from '@/components/home/SkillsPreview';
 import { StrengthCard } from '@/components/home/StrengthCard';
@@ -24,7 +25,7 @@ export default function HomePage() {
       </AnimateOnScroll>
 
       <AnimateOnScroll>
-        <SectionPreview title="Career" ariaLabel="経歴" href="/about/" linkLabel="経歴を詳しく見る">
+        <SectionPreview title="経歴" ariaLabel="経歴" href="/about/" linkLabel="経歴を詳しく見る">
           <CareerSummary careers={careerOverview} />
         </SectionPreview>
       </AnimateOnScroll>
@@ -47,7 +48,7 @@ export default function HomePage() {
 
       <AnimateOnScroll>
         <SectionPreview
-          title="Skills"
+          title="スキル"
           ariaLabel="スキルプレビュー"
           href="/about/"
           linkLabel="スキルを詳しく見る"
@@ -58,8 +59,8 @@ export default function HomePage() {
 
       <AnimateOnScroll>
         <SectionPreview
-          title="Featured Projects"
-          ariaLabel="Featured プロジェクト"
+          title="注目プロジェクト"
+          ariaLabel="注目プロジェクト"
           href="/projects/"
           linkLabel="すべてのプロジェクトを見る"
         >
@@ -69,7 +70,7 @@ export default function HomePage() {
 
       <AnimateOnScroll>
         <SectionPreview
-          title="Latest Posts"
+          title="最新の記事"
           ariaLabel="最新ブログ"
           href="/blog/"
           linkLabel="すべての記事を見る"
@@ -80,7 +81,7 @@ export default function HomePage() {
 
       <AnimateOnScroll>
         <SectionPreview
-          title="Activity"
+          title="活動履歴"
           ariaLabel="活動プレビュー"
           href="/activity/"
           linkLabel="すべての活動を見る"
@@ -88,6 +89,19 @@ export default function HomePage() {
           <ActivityPreview activities={activities} />
         </SectionPreview>
       </AnimateOnScroll>
+
+      {author.personalInfo && (
+        <AnimateOnScroll>
+          <SectionPreview
+            title="パーソナル"
+            ariaLabel="パーソナル情報"
+            href="/about/#personal"
+            linkLabel="詳細を見る"
+          >
+            <PersonalInfoPreview info={author.personalInfo} />
+          </SectionPreview>
+        </AnimateOnScroll>
+      )}
     </>
   );
 }
